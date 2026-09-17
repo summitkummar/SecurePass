@@ -6,6 +6,7 @@
     <title>SecurePass - Ultra Secure Password Generator</title>
     <meta name="description" content="SecurePass - Professional online password generator. Create strong, random, and secure passwords instantly. 100% safe, no data stored.">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
@@ -17,7 +18,7 @@
             align-items: center; 
             min-height: 100vh; 
             padding: 20px;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
         .bg-blob {
@@ -48,7 +49,7 @@
             background: rgba(255, 255, 255, 0.03); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            padding: 40px 30px; 
+            padding: 40px 25px; 
             border-radius: 24px; 
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
             width: 100%; 
@@ -133,9 +134,53 @@
         .generate-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 20px -10px #38bdf8; }
         .generate-btn:active:not(:disabled) { transform: translateY(0); }
         .generate-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; transform: none; }
+
+        /* Share Section */
+        .share-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .share-title { text-align: center; font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px; font-weight: 600; letter-spacing: 0.5px; }
+        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .share-btn { 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-size: 1.1rem; 
+            text-decoration: none; 
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.4); }
+        .share-btn.whatsapp { background: #25D366; }
+        .share-btn.facebook { background: #1877F2; }
+        .share-btn.twitter { background: #000000; }
+        .share-btn.telegram { background: #0088cc; }
+        .share-btn.linkedin { background: #0A66C2; }
+        .share-btn.email { background: #EA4335; }
+        .share-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .share-btn.copy { background: #475569; }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
         
         .footer { text-align: center; margin-top: 25px; font-size: 0.75rem; color: #64748b; font-weight: 500; }
-        .footer a { color: #38bdf8; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -201,8 +246,26 @@
         </div>
 
         <button class="generate-btn" id="gen-btn" onclick="generatePassword()">⚡ Generate Password</button>
+
+        <!-- Share Section -->
+        <div class="share-section">
+            <div class="share-title">📢 Share SecurePass with friends</div>
+            <div class="share-grid">
+                <a class="share-btn whatsapp" onclick="shareTo('whatsapp')" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a class="share-btn facebook" onclick="shareTo('facebook')" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a class="share-btn twitter" onclick="shareTo('twitter')" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                <a class="share-btn telegram" onclick="shareTo('telegram')" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                <a class="share-btn linkedin" onclick="shareTo('linkedin')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a class="share-btn email" onclick="shareTo('email')" title="Email"><i class="fas fa-envelope"></i></a>
+                <a class="share-btn instagram" onclick="shareTo('instagram')" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a class="share-btn copy" onclick="shareTo('copy')" title="Copy Link"><i class="fas fa-link"></i></a>
+            </div>
+        </div>
+
         <div class="footer">Protected by SecurePass. No data is stored.</div>
     </div>
+
+    <div class="toast" id="toast">Link Copied!</div>
 
     <script>
         let isGenerating = false;
@@ -216,7 +279,6 @@
             updateLength();
         }
 
-        // पासवर्ड बनाने वाला मुख्य फंक्शन (अब इसमें टाइमर और एनिमेशन है)
         function generatePassword() {
             if (isGenerating) return;
             isGenerating = true;
@@ -233,7 +295,6 @@
             strengthBar.style.width = "0%";
             strengthBar.style.background = "transparent";
 
-            // असली पासवर्ड तैयार करें (बैकग्राउंड में)
             const length = document.getElementById('length').value;
             const useUpper = document.getElementById('uppercase').checked;
             const useLower = document.getElementById('lowercase').checked;
@@ -259,11 +320,9 @@
                 finalPassword += charset.charAt(Math.floor(Math.random() * charset.length));
             }
 
-            // रैंडम समय (3 से 7 सेकंड के बीच)
-            const totalTime = Math.floor(Math.random() * 4000) + 3000; // 3000ms to 7000ms
+            const totalTime = Math.floor(Math.random() * 4000) + 3000;
             let seconds = 0;
 
-            // 1. स्क्रैम्बलिंग एनिमेशन शुरू करें (हर 50ms में टेक्स्ट बदलेगा)
             const scrambleInterval = setInterval(() => {
                 let scrambleStr = "";
                 for (let i = 0; i < length; i++) {
@@ -272,24 +331,18 @@
                 pwdField.value = scrambleStr;
             }, 50);
 
-            // 2. टाइमर शुरू करें (हर 1 सेकंड में अपडेट होगा)
             const timerInterval = setInterval(() => {
                 seconds++;
                 strengthText.innerText = `Generating... ${seconds}s`;
             }, 1000);
 
-            // 3. तय समय (3-7 सेकंड) के बाद एनिमेशन रोककर असली पासवर्ड दिखाएँ
             setTimeout(() => {
                 clearInterval(scrambleInterval);
                 clearInterval(timerInterval);
-                
                 pwdField.value = finalPassword;
                 calculateStrength(finalPassword);
-                
-                // टाइमर की जगह अब स्ट्रेंथ दिखाएँ
                 strengthText.innerText = `Generated in ${seconds}s`;
-                strengthText.style.color = "#10b981"; // Green
-                
+                strengthText.style.color = "#10b981";
                 btn.disabled = false;
                 btn.innerText = "⚡ Generate Password";
                 isGenerating = false;
@@ -335,6 +388,63 @@
                 }, 2000);
             });
         }
+
+        // ---- SHARE FUNCTION ----
+        function shareTo(platform) {
+            const pageUrl = window.location.href.split('?')[0];
+            const shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
+            const shareTitle = "SecurePass - Password Generator";
+
+            let url = "";
+            switch(platform) {
+                case 'whatsapp':
+                    url = `https://wa.me/?text=${encodeURIComponent(shareText + " " + pageUrl)}`;
+                    window.open(url, '_blank');
+                    break;
+                case 'facebook':
+                    url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+                    window.open(url, '_blank');
+                    break;
+                case 'twitter':
+                    url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
+                    window.open(url, '_blank');
+                    break;
+                case 'telegram':
+                    url = `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(shareText)}`;
+                    window.open(url, '_blank');
+                    break;
+                case 'linkedin':
+                    url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
+                    window.open(url, '_blank');
+                    break;
+                case 'email':
+                    url = `mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareText + "\n\n" + pageUrl)}`;
+                    window.location.href = url;
+                    break;
+                case 'instagram':
+                    // Instagram doesn't support direct web share. Use native share if available.
+                    if (navigator.share) {
+                        navigator.share({ title: shareTitle, text: shareText, url: pageUrl }).catch(() => {});
+                    } else {
+                        navigator.clipboard.writeText(pageUrl).then(() => {
+                            showToast("Link copied! Paste it on Instagram 📷");
+                        });
+                    }
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        showToast("✅ Link Copied!");
+                    });
+                    break;
+            }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
     </script>
 </body>
-                             </html>
+</html>
