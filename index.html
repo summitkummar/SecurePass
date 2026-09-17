@@ -3,119 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecurePass - Password Generator</title>
-    <meta name="description" content="SecurePass - Free online password generator. Create strong, random, and secure passwords instantly. No data stored, 100% safe.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>SecurePass - Ultra Secure Password Generator</title>
+    <meta name="description" content="SecurePass - Professional online password generator. Create strong, random, and secure passwords instantly. 100% safe, no data stored.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #0f172a, #1e293b); 
-            color: #f8fafc; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: #050505; 
+            color: #ffffff; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
             padding: 20px;
+            overflow: hidden;
+            position: relative;
         }
+        /* Animated Background */
+        .bg-blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(180deg, #38bdf8, #818cf8);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 10s infinite ease-in-out alternate;
+            z-index: 0;
+        }
+        .bg-blob:nth-child(2) {
+            background: linear-gradient(180deg, #f472b6, #fb923c);
+            width: 300px;
+            height: 300px;
+            bottom: 10%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
         .app-container { 
-            background: #1e293b; 
-            padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px 30px; 
+            border-radius: 24px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
             width: 100%; 
-            max-width: 450px; 
-            border: 1px solid #334155;
+            max-width: 480px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
-        h1 { font-size: 1.5rem; margin-bottom: 20px; text-align: center; color: #38bdf8; font-weight: 700; letter-spacing: -0.5px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+        .header p { font-size: 0.9rem; color: #94a3b8; font-weight: 500; }
+        
         .result-box { 
             display: flex; 
-            background: #0f172a; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            border: 1px solid #334155;
+            background: rgba(0, 0, 0, 0.3); 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            border: 1px solid rgba(255, 255, 255, 0.08);
             overflow: hidden;
+            transition: border-color 0.3s;
         }
+        .result-box:focus-within { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+        
         #password { 
             flex: 1; 
             background: transparent; 
             border: none; 
-            padding: 15px; 
-            color: #f8fafc; 
-            font-size: 1.1rem; 
+            padding: 18px; 
+            color: #ffffff; 
+            font-size: 1.2rem; 
             outline: none;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
         }
         .copy-btn { 
-            background: #38bdf8; 
-            color: #0f172a; 
+            background: transparent; 
+            color: #38bdf8; 
             border: none; 
             padding: 0 20px; 
             cursor: pointer; 
-            font-weight: 600; 
-            transition: background 0.2s;
+            font-weight: 700; 
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .copy-btn:hover { background: #0ea5e9; }
-        .options { margin-bottom: 20px; }
-        .option-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.95rem; color: #94a3b8; }
-        input[type="range"] { width: 50%; accent-color: #38bdf8; }
-        input[type="checkbox"] { accent-color: #38bdf8; width: 18px; height: 18px; }
+        .copy-btn:hover { background: rgba(56, 189, 248, 0.1); color: #7dd3fc; }
+        
+        /* Strength Meter */
+        .strength-container { margin-bottom: 25px; }
+        .strength-bar { height: 6px; border-radius: 3px; background: #333; width: 0%; transition: all 0.4s ease; }
+        .strength-text { font-size: 0.75rem; color: #94a3b8; text-align: right; margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .options { margin-bottom: 25px; }
+        .option-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.95rem; color: #cbd5e1; font-weight: 500; }
+        
+        /* Range Slider */
+        input[type="range"] { width: 55%; accent-color: #38bdf8; cursor: pointer; }
+        
+        /* Custom Toggles */
+        .toggle-switch { position: relative; width: 44px; height: 24px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #38bdf8; }
+        input:checked + .slider:before { transform: translateX(20px); }
+        
+        .presets { display: flex; gap: 10px; margin-bottom: 20px; }
+        .presets button { flex: 1; padding: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; border-radius: 6px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .presets button:hover { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
+        
         .generate-btn { 
             width: 100%; 
-            background: #38bdf8; 
+            background: linear-gradient(135deg, #38bdf8, #818cf8); 
             color: #0f172a; 
             border: none; 
-            padding: 15px; 
-            border-radius: 8px; 
+            padding: 16px; 
+            border-radius: 12px; 
             font-size: 1.1rem; 
-            font-weight: 700; 
+            font-weight: 800; 
             cursor: pointer; 
-            transition: background 0.2s;
-            font-family: 'Inter', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: 0.5px;
         }
-        .generate-btn:hover { background: #0ea5e9; }
-        .footer { text-align: center; margin-top: 15px; font-size: 0.8rem; color: #64748b; }
+        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px #38bdf8; }
+        .generate-btn:active { transform: translateY(0); }
+        
+        .footer { text-align: center; margin-top: 25px; font-size: 0.75rem; color: #64748b; font-weight: 500; }
+        .footer a { color: #38bdf8; text-decoration: none; }
     </style>
 </head>
 <body>
+    <div class="bg-blob"></div>
+    <div class="bg-blob"></div>
+    
     <div class="app-container">
-        <h1>🔐 SecurePass Generator</h1>
+        <div class="header">
+            <h1>SecurePass</h1>
+            <p>Ultra Secure Password Generator</p>
+        </div>
+
         <div class="result-box">
-            <input type="text" id="password" readonly value="आपका पासवर्ड यहाँ आएगा...">
-            <button class="copy-btn" onclick="copyPassword()">Copy</button>
+            <input type="text" id="password" readonly value="Click Generate...">
+            <button class="copy-btn" onclick="copyPassword()">COPY</button>
+        </div>
+        
+        <div class="strength-container">
+            <div class="strength-bar" id="strength-bar"></div>
+            <div class="strength-text" id="strength-text">Enter Password</div>
         </div>
         
         <div class="options">
             <div class="option-row">
-                <label>पासवर्ड की लंबाई</label>
+                <label>Password Length: <span id="length-val" style="color:#38bdf8;">16</span></label>
                 <input type="range" id="length" min="8" max="32" value="16" oninput="updateLength()">
-                <span id="length-val">16</span>
             </div>
             <div class="option-row">
-                <label>बड़े अक्षर (A-Z)</label>
-                <input type="checkbox" id="uppercase" checked>
+                <label>Uppercase Letters (A-Z)</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="uppercase" checked>
+                    <span class="slider"></span>
+                </div>
             </div>
             <div class="option-row">
-                <label>छोटे अक्षर (a-z)</label>
-                <input type="checkbox" id="lowercase" checked>
+                <label>Lowercase Letters (a-z)</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="lowercase" checked>
+                    <span class="slider"></span>
+                </div>
             </div>
             <div class="option-row">
-                <label>नंबर (0-9)</label>
-                <input type="checkbox" id="numbers" checked>
+                <label>Numbers (0-9)</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="numbers" checked>
+                    <span class="slider"></span>
+                </div>
             </div>
             <div class="option-row">
-                <label>सिंबल (!@#$)</label>
-                <input type="checkbox" id="symbols" checked>
+                <label>Symbols (!@#$)</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="symbols" checked>
+                    <span class="slider"></span>
+                </div>
             </div>
         </div>
+        
+        <div class="presets">
+            <button onclick="setLength(8)">8</button>
+            <button onclick="setLength(16)">16</button>
+            <button onclick="setLength(24)">24</button>
+            <button onclick="setLength(32)">32</button>
+        </div>
 
-        <button class="generate-btn" onclick="generatePassword()">नया पासवर्ड बनाएँ</button>
-        <div class="footer">Powered by SecurePass</div>
+        <button class="generate-btn" onclick="generatePassword()">⚡ Generate Password</button>
+        <div class="footer">Protected by SecurePass. No data is stored.</div>
     </div>
 
     <script>
         function updateLength() {
             document.getElementById('length-val').innerText = document.getElementById('length').value;
+        }
+        
+        function setLength(val) {
+            document.getElementById('length').value = val;
+            updateLength();
         }
 
         function generatePassword() {
@@ -132,7 +231,7 @@
             if (useSymbols) charset += "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
             if (charset === "") {
-                alert("कृपया कम से कम एक विकल्प चुनें!");
+                alert("Please select at least one option!");
                 return;
             }
 
@@ -141,12 +240,33 @@
                 password += charset.charAt(Math.floor(Math.random() * charset.length));
             }
             document.getElementById("password").value = password;
+            calculateStrength(password);
+        }
+
+        function calculateStrength(pwd) {
+            let strength = 0;
+            if (pwd.length >= 8) strength += 1;
+            if (pwd.length >= 12) strength += 1;
+            if (/[A-Z]/.test(pwd)) strength += 1;
+            if (/[0-9]/.test(pwd)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(pwd)) strength += 1;
+
+            const bar = document.getElementById('strength-bar');
+            const text = document.getElementById('strength-text');
+
+            if (strength <= 2) {
+                bar.style.width = '33%'; bar.style.background = '#ef4444'; text.innerText = 'WEAK'; text.style.color = '#ef4444';
+            } else if (strength <= 4) {
+                bar.style.width = '66%'; bar.style.background = '#f59e0b'; text.innerText = 'MODERATE'; text.style.color = '#f59e0b';
+            } else {
+                bar.style.width = '100%'; bar.style.background = '#10b981'; text.innerText = 'STRONG'; text.style.color = '#10b981';
+            }
         }
 
         function copyPassword() {
             const passwordField = document.getElementById("password");
-            if (passwordField.value === "आपका पासवर्ड यहाँ आएगा..." || passwordField.value === "") {
-                alert("पहले पासवर्ड बनाएँ!");
+            if (passwordField.value === "Click Generate..." || passwordField.value === "") {
+                alert("Please generate a password first!");
                 return;
             }
             passwordField.select();
@@ -154,8 +274,12 @@
             navigator.clipboard.writeText(passwordField.value).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.innerText;
-                btn.innerText = 'Copied!';
-                setTimeout(() => btn.innerText = originalText, 2000);
+                btn.innerText = 'COPIED!';
+                btn.style.color = '#10b981';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.color = '#38bdf8';
+                }, 2000);
             });
         }
     </script>
