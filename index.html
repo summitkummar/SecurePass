@@ -62,9 +62,7 @@ body{
 .splash-loading-text .dot:nth-child(2){animation-delay:.2s;}
 .splash-loading-text .dot:nth-child(3){animation-delay:.4s;}
 @keyframes dotBlink{0%,60%,100%{opacity:.2;}30%{opacity:1;}}
-.splash-made{position:absolute;bottom:20px;font-size:.72rem;color:#475569;font-weight:600;letter-spacing:.5px;animation:taglineAppear .5s ease 1.5s forwards;opacity:0;display:flex;align-items:center;gap:5px;}
-.splash-made .india-flag{display:inline-block;width:16px;height:12px;background:linear-gradient(#ff9933 33%,#ffffff 33%,#ffffff 66%,#138808 66%);border-radius:2px;position:relative;}
-.splash-made .india-flag::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;border:1px solid #000080;border-radius:50%;background:#fff;}
+.splash-made{position:absolute;bottom:20px;font-size:.75rem;color:#475569;font-weight:600;letter-spacing:.5px;animation:taglineAppear .5s ease 1.5s forwards;opacity:0;display:flex;align-items:center;gap:6px;}
 
 .main-app{opacity:0;transition:opacity .5s ease .2s;width:100%;max-width:480px;position:relative;z-index:1;}
 .main-app.visible{opacity:1;}
@@ -195,7 +193,6 @@ input:checked+.slider:before{transform:translateX(19px);}
 .lang-option{padding:10px 6px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-weight:600;cursor:pointer;font-family:inherit;font-size:.78rem;text-align:center;}
 .lang-option.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border-color:transparent;}
 
-/* ABOUT MODAL - Trust Building */
 .about-hero{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;}
 .about-logo{width:70px;height:70px;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(56,189,248,.5));}
 .about-app-name{font-size:1.3rem;font-weight:800;background:linear-gradient(to right,var(--primary),var(--primary2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -211,10 +208,9 @@ input:checked+.slider:before{transform:translateX(19px);}
 .about-badge-text span{font-size:.72rem;color:var(--text3);line-height:1.4;}
 .about-message{font-size:.78rem;color:var(--text2);line-height:1.7;padding:12px;background:var(--card);border-radius:10px;border-left:3px solid var(--primary);text-align:left;margin:14px 0;}
 .about-message b{color:var(--primary);}
-.about-footer{font-size:.7rem;color:var(--text4);margin-top:12px;line-height:1.6;}
+.about-footer{font-size:.72rem;color:var(--text4);margin-top:12px;line-height:1.8;}
 .about-footer b{color:var(--text2);}
-.about-flag{display:inline-block;width:14px;height:10px;background:linear-gradient(#ff9933 33%,#ffffff 33%,#ffffff 66%,#138808 66%);border-radius:2px;position:relative;vertical-align:middle;}
-.about-flag::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3px;height:3px;border:1px solid #000080;border-radius:50%;background:#fff;}
+.about-footer .flag{font-size:1rem;vertical-align:middle;margin-left:3px;}
 
 .toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(150px);background:var(--green);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:.82rem;box-shadow:0 10px 25px rgba(16,185,129,.4);transition:transform .35s ease;z-index:99999;max-width:88%;text-align:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .toast.show{transform:translateX(-50%) translateY(0);}
@@ -249,7 +245,7 @@ input:checked+.slider:before{transform:translateX(19px);}
   <div class="splash-tagline">Ultra Secure</div>
   <div class="splash-progress"><div class="splash-progress-bar"></div></div>
   <div class="splash-loading-text">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
-  <div class="splash-made">Made in India <span class="india-flag"></span></div>
+  <div class="splash-made">Made in India <span style="font-size:1rem;">🇮🇳</span></div>
 </div>
 
 <!-- MAIN APP -->
@@ -469,7 +465,7 @@ input:checked+.slider:before{transform:translateX(19px);}
     </div>
 
     <div class="about-footer">
-      <div>Made with <i class="fas fa-heart" style="color:#f472b6;"></i> in India <span class="about-flag"></span></div>
+      <div>Made with <i class="fas fa-heart" style="color:#f472b6;"></i> in India <span class="flag">🇮🇳</span></div>
       <div style="margin-top:6px;"><b>SecurePass v2.0</b> · All rights reserved</div>
     </div>
 
@@ -498,7 +494,6 @@ window.addEventListener('load',function(){
 });
 setTimeout(function(){var s=document.getElementById('splashScreen');if(s&&!s.classList.contains('hide')){s.classList.add('hide');document.getElementById('mainApp').classList.add('visible');setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},700);}},4000);
 
-// ========== TRANSLATIONS ==========
 var TRANSLATIONS = {
   en:{_name:"English",title:"SecurePass",subtitle:"Ultra Secure Password Generator",badgeOffline:"100% Offline",badgeNoStore:"No Data Stored",badgeFree:"Free Forever",tabPass:"Password",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Your Secure Password",crackTime:"Crack Time",entropyLbl:"Entropy",ready:"Ready to generate",length:"Password Length:",upper:"Uppercase (A-Z)",lower:"Lowercase (a-z)",nums:"Numbers (0-9)",syms:"Symbols (!@#$)",excludeSim:"Exclude similar (0O1lI)",autoClear:"Auto-clear clipboard (30s)",words:"Words:",capFirst:"Capitalize words",addNum:"Add number",digits:"Digits:",generate:"Generate Password",qr:"QR",bulk:"Bulk (10)",history:"Session History",noHist:"No passwords yet. Generate one!",tips:"Security Tips",faq:"FAQ",share:"Share SecurePass",liveUsers:"Live Users",usersTrust:"users trust SecurePass",passwordsMade:"passwords generated",qrTitle:"Scan QR Code",qrHint:"Scan with another device",close:"Close",aboutTitle:"About SecurePass",chooseLang:"Choose Language",tip1:"✅ Use 16+ character passwords for important accounts",tip2:"✅ Never reuse passwords across sites",tip3:"✅ Enable 2-factor authentication wherever possible",tip4:"✅ Change passwords every 3-6 months",tip5:"✅ Use a password manager for storage",tip6:"✅ Never share passwords over chat/email",q1:"Q: Is my password saved?",a1:"A: Absolutely not. Everything is generated in your browser. Nothing is sent anywhere.",q2:"Q: What is crack time?",a2:"A: It shows how long a supercomputer would take to crack this password.",q3:"Q: Is this free?",a3:"A: Yes, 100% free forever. No signup, no ads.",
     aboutB1T:"100% Privacy Protected",aboutB1S:"Passwords are never sent to any server. Everything happens on your device.",aboutB2T:"Works Offline",aboutB2S:"Generate and copy passwords even without internet.",aboutB3T:"Zero Data Storage",aboutB3S:"We do not store any password, log, or personal data.",aboutB4T:"Free Forever",aboutB4S:"No subscription, no ads, no limits. Ever.",aboutMsgT:"Our Promise:",aboutMsgS:"Your security is our responsibility. This tool was built so every person — student, professional, or elder — can easily create strong passwords, without fear or doubt. We deeply respect your privacy."},
