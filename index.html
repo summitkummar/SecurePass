@@ -138,25 +138,30 @@
         /* Share Section */
         .share-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
         .share-title { text-align: center; font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px; font-weight: 600; letter-spacing: 0.5px; }
-        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        
         .share-btn { 
-            width: 45px; 
-            height: 45px; 
+            width: 46px; 
+            height: 46px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             color: white; 
-            font-size: 1.1rem; 
-            text-decoration: none; 
+            font-size: 1.15rem; 
             border: none;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
-        .share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.4); }
+        .share-btn:active { transform: scale(0.95); }
+        .share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.4); filter: brightness(1.1); }
+        
         .share-btn.whatsapp { background: #25D366; }
         .share-btn.facebook { background: #1877F2; }
-        .share-btn.twitter { background: #000000; }
+        .share-btn.twitter { background: #000000; border: 1px solid rgba(255,255,255,0.2); }
         .share-btn.telegram { background: #0088cc; }
         .share-btn.linkedin { background: #0A66C2; }
         .share-btn.email { background: #EA4335; }
@@ -170,13 +175,15 @@
             transform: translateX(-50%) translateY(100px);
             background: #10b981;
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.9rem;
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
-            transition: transform 0.3s ease;
+            transition: transform 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             z-index: 999;
+            max-width: 90%;
+            text-align: center;
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
         
@@ -247,25 +254,24 @@
 
         <button class="generate-btn" id="gen-btn" onclick="generatePassword()">⚡ Generate Password</button>
 
-        <!-- Share Section -->
         <div class="share-section">
-            <div class="share-title">📢 Share SecurePass with friends</div>
+            <div class="share-title">📢 Share SecurePass</div>
             <div class="share-grid">
-                <a class="share-btn whatsapp" onclick="shareTo('whatsapp')" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a class="share-btn facebook" onclick="shareTo('facebook')" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a class="share-btn twitter" onclick="shareTo('twitter')" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-                <a class="share-btn telegram" onclick="shareTo('telegram')" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                <a class="share-btn linkedin" onclick="shareTo('linkedin')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a class="share-btn email" onclick="shareTo('email')" title="Email"><i class="fas fa-envelope"></i></a>
-                <a class="share-btn instagram" onclick="shareTo('instagram')" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a class="share-btn copy" onclick="shareTo('copy')" title="Copy Link"><i class="fas fa-link"></i></a>
+                <button class="share-btn whatsapp" onclick="shareTo('whatsapp')" title="WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                <button class="share-btn facebook" onclick="shareTo('facebook')" title="Facebook"><i class="fab fa-facebook-f"></i></button>
+                <button class="share-btn twitter" onclick="shareTo('twitter')" title="X (Twitter)"><i class="fab fa-x-twitter"></i></button>
+                <button class="share-btn telegram" onclick="shareTo('telegram')" title="Telegram"><i class="fab fa-telegram-plane"></i></button>
+                <button class="share-btn linkedin" onclick="shareTo('linkedin')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></button>
+                <button class="share-btn email" onclick="shareTo('email')" title="Email"><i class="fas fa-envelope"></i></button>
+                <button class="share-btn instagram" onclick="shareTo('instagram')" title="Instagram"><i class="fab fa-instagram"></i></button>
+                <button class="share-btn copy" onclick="shareTo('copy')" title="Copy Link"><i class="fas fa-link"></i></button>
             </div>
         </div>
 
         <div class="footer">Protected by SecurePass. No data is stored.</div>
     </div>
 
-    <div class="toast" id="toast">Link Copied!</div>
+    <div class="toast" id="toast">✅ Link Copied!</div>
 
     <script>
         let isGenerating = false;
@@ -372,7 +378,7 @@
         function copyPassword() {
             const passwordField = document.getElementById("password");
             if (passwordField.value === "Click Generate..." || passwordField.value === "") {
-                alert("Please generate a password first!");
+                showToast("⚠️ Please generate a password first!");
                 return;
             }
             passwordField.select();
@@ -389,50 +395,71 @@
             });
         }
 
-        // ---- SHARE FUNCTION ----
+        // ---- PROFESSIONAL SHARE FUNCTIONS ----
         function shareTo(platform) {
-            const pageUrl = window.location.href.split('?')[0];
+            const pageUrl = window.location.href.split('?')[0].split('#')[0];
             const shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
-            const shareTitle = "SecurePass - Password Generator";
+            const shareTitle = "SecurePass - Ultra Secure Password Generator";
 
-            let url = "";
+            let shareUrl = "";
+
             switch(platform) {
                 case 'whatsapp':
-                    url = `https://wa.me/?text=${encodeURIComponent(shareText + " " + pageUrl)}`;
-                    window.open(url, '_blank');
+                    shareUrl = "https://wa.me/?text=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+                    window.open(shareUrl, '_blank');
                     break;
+
                 case 'facebook':
-                    url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
-                    window.open(url, '_blank');
+                    shareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl) + "&quote=" + encodeURIComponent(shareText);
+                    window.open(shareUrl, '_blank');
                     break;
+
                 case 'twitter':
-                    url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
-                    window.open(url, '_blank');
+                    shareUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(pageUrl);
+                    window.open(shareUrl, '_blank');
                     break;
+
                 case 'telegram':
-                    url = `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(shareText)}`;
-                    window.open(url, '_blank');
+                    shareUrl = "https://t.me/share/url?url=" + encodeURIComponent(pageUrl) + "&text=" + encodeURIComponent(shareText);
+                    window.open(shareUrl, '_blank');
                     break;
+
                 case 'linkedin':
-                    url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
-                    window.open(url, '_blank');
+                    shareUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(pageUrl);
+                    window.open(shareUrl, '_blank');
                     break;
+
                 case 'email':
-                    url = `mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareText + "\n\n" + pageUrl)}`;
-                    window.location.href = url;
+                    shareUrl = "mailto:?subject=" + encodeURIComponent(shareTitle) + "&body=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+                    window.location.href = shareUrl;
                     break;
+
                 case 'instagram':
-                    // Instagram doesn't support direct web share. Use native share if available.
-                    if (navigator.share) {
-                        navigator.share({ title: shareTitle, text: shareText, url: pageUrl }).catch(() => {});
-                    } else {
-                        navigator.clipboard.writeText(pageUrl).then(() => {
-                            showToast("Link copied! Paste it on Instagram 📷");
-                        });
-                    }
+                    // Instagram doesn't support web sharing. Copy link and notify.
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        showToast("📷 Link copied! Open Instagram & paste in your story/bio");
+                    }).catch(() => {
+                        // Fallback
+                        const temp = document.createElement('textarea');
+                        temp.value = pageUrl;
+                        document.body.appendChild(temp);
+                        temp.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(temp);
+                        showToast("📷 Link copied! Open Instagram & paste");
+                    });
                     break;
+
                 case 'copy':
                     navigator.clipboard.writeText(pageUrl).then(() => {
+                        showToast("✅ Link Copied!");
+                    }).catch(() => {
+                        const temp = document.createElement('textarea');
+                        temp.value = pageUrl;
+                        document.body.appendChild(temp);
+                        temp.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(temp);
                         showToast("✅ Link Copied!");
                     });
                     break;
@@ -443,7 +470,7 @@
             const t = document.getElementById('toast');
             t.innerText = msg;
             t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2500);
+            setTimeout(() => t.classList.remove('show'), 2800);
         }
     </script>
 </body>
