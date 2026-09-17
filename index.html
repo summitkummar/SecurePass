@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SecurePass - Password Generator</title>
-    <meta name="description" content="SecurePass - Professional online password generator.">
+    <meta name="description" content="SecurePass - Professional online password generator. Create strong, random, and secure passwords instantly.">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SecurePass">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -57,8 +64,6 @@
         .share-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
         .share-title { text-align: center; font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px; font-weight: 600; letter-spacing: 0.3px; }
         .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        
-        /* Share buttons - real anchor/button, no transitions, no filters */
         .share-btn { 
             width: 44px; height: 44px; 
             border-radius: 50%; 
@@ -78,7 +83,6 @@
             user-select: none;
         }
         .share-btn:focus { outline: none; }
-        
         .share-btn.whatsapp { background: #25D366; }
         .share-btn.facebook { background: #1877F2; }
         .share-btn.twitter { background: #000; border: 1px solid rgba(255,255,255,0.2); }
@@ -87,7 +91,6 @@
         .share-btn.email { background: #EA4335; }
         .share-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .share-btn.copy { background: #475569; }
-        
         .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(150px); background: #10b981; color: white; padding: 13px 24px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); transition: transform 0.35s ease; z-index: 9999; max-width: 88%; text-align: center; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .toast.show { transform: translateX(-50%) translateY(0); }
         .footer { text-align: center; margin-top: 22px; font-size: 0.72rem; color: #64748b; font-weight: 500; }
@@ -191,10 +194,9 @@
         var shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
         var shareTitle = "SecurePass - Ultra Secure Password Generator";
 
-        // ============ SET ALL SHARE URLS ON PAGE LOAD (Native anchor click - no blink) ============
-        document.getElementById('lnk-wa').href = "https://wa.me/?text=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
-        document.getElementById('lnk-fb').href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl);
-        document.getElementById('lnk-tw').href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(pageUrl);
+        document.getElementById('lnk-wa').href = "https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+        document.getElementById('lnk-fb').href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl) + "&display=popup";
+        document.getElementById('lnk-tw').href = "https://x.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(pageUrl);
         document.getElementById('lnk-tg').href = "https://t.me/share/url?url=" + encodeURIComponent(pageUrl) + "&text=" + encodeURIComponent(shareText);
         document.getElementById('lnk-li').href = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(pageUrl);
         document.getElementById('lnk-em').href = "mailto:?subject=" + encodeURIComponent(shareTitle) + "&body=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
@@ -231,7 +233,6 @@
             document.body.removeChild(ta);
         }
 
-        // Instagram - copy link + open app
         document.getElementById('btn-ig').addEventListener('click', function() {
             copyText(shareText + "\n\n" + pageUrl, function() {
                 showToast("📷 Link Copied! Open Instagram to Post");
@@ -241,7 +242,6 @@
             });
         });
 
-        // Copy link
         document.getElementById('btn-cp').addEventListener('click', function() {
             copyText(pageUrl, function() {
                 showToast("✅ Link Copied!");
@@ -377,6 +377,13 @@
             } else {
                 strengthBar.style.width = '100%'; strengthBar.style.background = '#10b981'; strengthText.innerText = 'STRONG';
             }
+        }
+
+        // ============ PWA SERVICE WORKER ============
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').catch(function(){});
+            });
         }
     </script>
 </body>
