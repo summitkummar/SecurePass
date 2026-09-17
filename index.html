@@ -25,7 +25,6 @@
             overflow-x: hidden;
         }
         
-        /* Fixed background blobs - no scroll shift */
         .bg-blob {
             position: fixed;
             width: 350px; height: 350px;
@@ -57,51 +56,76 @@
             position: relative;
             z-index: 1;
         }
-        .header { text-align: center; margin-bottom: 28px; }
+        .header { text-align: center; margin-bottom: 26px; }
         .header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
         .header p { font-size: 0.85rem; color: #94a3b8; font-weight: 500; }
         
-        /* ============ PROFESSIONAL PASSWORD BOX ============ */
+        /* ============ PREMIUM PASSWORD DISPLAY ============ */
         .password-display {
             position: relative;
-            margin-bottom: 18px;
-            border-radius: 16px;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), rgba(129, 140, 248, 0.3), rgba(244, 114, 182, 0.3));
-            box-shadow: 0 10px 40px -15px rgba(56, 189, 248, 0.5);
-            transition: box-shadow 0.4s ease;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            padding: 1.5px;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #f472b6 100%);
+            box-shadow: 
+                0 0 0 1px rgba(56, 189, 248, 0.1),
+                0 20px 50px -20px rgba(56, 189, 248, 0.4),
+                0 10px 30px -15px rgba(129, 140, 248, 0.3);
+            transition: box-shadow 0.5s ease;
         }
         .password-display.active {
-            box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.8), 0 0 0 1px rgba(56, 189, 248, 0.3);
+            box-shadow: 
+                0 0 0 1px rgba(56, 189, 248, 0.4),
+                0 20px 60px -15px rgba(56, 189, 248, 0.7),
+                0 10px 40px -10px rgba(129, 140, 248, 0.6);
         }
         .password-inner {
-            background: #0a0a0f;
-            border-radius: 14px;
-            padding: 8px 8px 8px 20px;
+            background: linear-gradient(180deg, #0c0c14 0%, #06060a 100%);
+            border-radius: 19px;
+            padding: 14px 14px 14px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .password-inner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+        }
+        .password-label {
+            font-size: 0.65rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .password-label i {
+            color: #38bdf8;
+            font-size: 0.7rem;
+        }
+        .password-row {
             display: flex;
             align-items: center;
             gap: 10px;
-            position: relative;
-        }
-        .password-icon {
-            color: #38bdf8;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            opacity: 0.8;
         }
         #password { 
             flex: 1; 
             background: transparent; 
             border: none; 
-            padding: 14px 0; 
+            padding: 0; 
             color: #ffffff; 
-            font-size: 1.15rem; 
+            font-size: 1.3rem; 
             outline: none;
             font-family: 'Courier New', monospace;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             min-width: 0;
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+            text-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+            line-height: 1.4;
         }
         #password::selection { background: #38bdf8; color: #0a0a0f; }
         
@@ -109,24 +133,28 @@
             background: linear-gradient(135deg, #38bdf8, #818cf8);
             color: #0a0a0f;
             border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.05rem;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: inherit;
-            transition: transform 0.15s, opacity 0.15s;
+            box-shadow: 0 4px 15px -5px rgba(56, 189, 248, 0.6);
+            transition: transform 0.15s;
         }
-        .copy-icon-btn:active { transform: scale(0.92); }
-        .copy-icon-btn.copied { background: linear-gradient(135deg, #10b981, #059669); }
+        .copy-icon-btn:active { transform: scale(0.94); }
+        .copy-icon-btn.copied { 
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 15px -5px rgba(16, 185, 129, 0.6);
+        }
         
         /* Strength Bar */
-        .strength-container { margin-bottom: 25px; }
-        .strength-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.08); width: 0%; transition: width 0.4s, background 0.4s; }
+        .strength-container { margin-bottom: 24px; }
+        .strength-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.08); width: 0%; transition: width 0.5s, background 0.5s; }
         .strength-text { font-size: 0.7rem; color: #94a3b8; text-align: right; margin-top: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
         
         .options { margin-bottom: 22px; }
@@ -157,15 +185,17 @@
             cursor: pointer; 
             font-family: inherit;
             letter-spacing: 0.3px;
+            box-shadow: 0 8px 25px -10px rgba(56, 189, 248, 0.6);
             transition: transform 0.15s;
         }
-        .generate-btn:active { transform: scale(0.98); }
-        .generate-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; }
+        .generate-btn:active:not(:disabled) { transform: scale(0.98); }
+        .generate-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
 
         .share-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
         .share-title { text-align: center; font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px; font-weight: 600; letter-spacing: 0.3px; }
         .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         
+        /* Share buttons - NO :active transform to prevent blink */
         .share-btn { 
             width: 44px; height: 44px; 
             border-radius: 50%; 
@@ -178,9 +208,11 @@
             cursor: pointer;
             padding: 0;
             font-family: inherit;
-            transition: transform 0.15s, opacity 0.15s;
+            transition: filter 0.15s;
+            outline: none;
         }
-        .share-btn:active { transform: scale(0.9); }
+        .share-btn:focus { outline: none; }
+        .share-btn:active { filter: brightness(0.85); }
         
         .share-btn.whatsapp { background: #25D366; }
         .share-btn.facebook { background: #1877F2; }
@@ -191,7 +223,6 @@
         .share-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .share-btn.copy { background: #475569; }
         
-        /* Toast - fully fixed, no layout shift */
         .toast {
             position: fixed;
             bottom: 25px;
@@ -228,14 +259,19 @@
             <p>Ultra Secure Password Generator</p>
         </div>
 
-        <!-- ============ PROFESSIONAL PASSWORD BOX ============ -->
+        <!-- ============ PREMIUM PASSWORD BOX ============ -->
         <div class="password-display" id="pwdDisplay">
             <div class="password-inner">
-                <i class="fas fa-shield-halved password-icon"></i>
-                <input type="text" id="password" readonly value="Click Generate..." spellcheck="false" autocomplete="off">
-                <button class="copy-icon-btn" id="copyBtn" type="button" title="Copy Password">
-                    <i class="fas fa-copy" id="copyIcon"></i>
-                </button>
+                <div class="password-label">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>Your Secure Password</span>
+                </div>
+                <div class="password-row">
+                    <input type="text" id="password" readonly value="Click Generate..." spellcheck="false" autocomplete="off">
+                    <button class="copy-icon-btn" id="copyBtn" type="button" title="Copy Password">
+                        <i class="fas fa-copy" id="copyIcon"></i>
+                    </button>
+                </div>
             </div>
         </div>
         
@@ -349,7 +385,22 @@
             document.body.removeChild(ta);
         }
 
-        // ============ SHARE (Fixed - no screen shake) ============
+        // ============ OPEN SHARE - NO BLINK (Invisible anchor method) ============
+        function openShareUrl(url) {
+            // Create invisible anchor and click it - browser handles natively without focus issues
+            var a = document.createElement('a');
+            a.href = url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+            }, 100);
+        }
+
+        // ============ SHARE HANDLER ============
         document.getElementById('shareGrid').addEventListener('click', function(e) {
             var btn = e.target.closest('[data-share]');
             if (!btn) return;
@@ -362,26 +413,27 @@
             switch(platform) {
                 case 'whatsapp':
                     url = "https://wa.me/?text=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
-                    openShareWindow(url);
+                    openShareUrl(url);
                     break;
                 case 'facebook':
                     url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl);
-                    openShareWindow(url);
+                    openShareUrl(url);
                     break;
                 case 'twitter':
                     url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(pageUrl);
-                    openShareWindow(url);
+                    openShareUrl(url);
                     break;
                 case 'telegram':
                     url = "https://t.me/share/url?url=" + encodeURIComponent(pageUrl) + "&text=" + encodeURIComponent(shareText);
-                    openShareWindow(url);
+                    openShareUrl(url);
                     break;
                 case 'linkedin':
                     url = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(pageUrl);
-                    openShareWindow(url);
+                    openShareUrl(url);
                     break;
                 case 'email':
                     url = "mailto:?subject=" + encodeURIComponent(shareTitle) + "&body=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+                    // Email - use location.href to avoid new tab
                     window.location.href = url;
                     break;
                 case 'instagram':
@@ -399,15 +451,6 @@
                     break;
             }
         }, false);
-
-        // Open share without shaking screen
-        function openShareWindow(url) {
-            var w = window.open(url, '_blank', 'noopener,noreferrer');
-            if (!w) {
-                // Fallback: use location if popup blocked
-                window.location.href = url;
-            }
-        }
 
         // ============ COPY PASSWORD ============
         var pwdDisplay = document.getElementById('pwdDisplay');
@@ -521,7 +564,6 @@
                 genBtn.disabled = false;
                 genBtn.innerText = "⚡ Generate Password";
                 isGenerating = false;
-                // brief pulse effect
                 setTimeout(function() {
                     pwdDisplay.classList.remove('active');
                 }, 1500);
