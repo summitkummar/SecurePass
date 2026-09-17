@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePass - Password Generator</title>
+    <meta name="description" content="SecurePass - Free online password generator. Create strong, random, and secure passwords instantly. No data stored, 100% safe.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0f172a, #1e293b); 
+            color: #f8fafc; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 20px;
+        }
+        .app-container { 
+            background: #1e293b; 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            width: 100%; 
+            max-width: 450px; 
+            border: 1px solid #334155;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; text-align: center; color: #38bdf8; font-weight: 700; letter-spacing: -0.5px; }
+        .result-box { 
+            display: flex; 
+            background: #0f172a; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+        #password { 
+            flex: 1; 
+            background: transparent; 
+            border: none; 
+            padding: 15px; 
+            color: #f8fafc; 
+            font-size: 1.1rem; 
+            outline: none;
+            font-family: monospace;
+        }
+        .copy-btn { 
+            background: #38bdf8; 
+            color: #0f172a; 
+            border: none; 
+            padding: 0 20px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: background 0.2s;
+        }
+        .copy-btn:hover { background: #0ea5e9; }
+        .options { margin-bottom: 20px; }
+        .option-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.95rem; color: #94a3b8; }
+        input[type="range"] { width: 50%; accent-color: #38bdf8; }
+        input[type="checkbox"] { accent-color: #38bdf8; width: 18px; height: 18px; }
+        .generate-btn { 
+            width: 100%; 
+            background: #38bdf8; 
+            color: #0f172a; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 8px; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .generate-btn:hover { background: #0ea5e9; }
+        .footer { text-align: center; margin-top: 15px; font-size: 0.8rem; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1>🔐 SecurePass Generator</h1>
+        <div class="result-box">
+            <input type="text" id="password" readonly value="आपका पासवर्ड यहाँ आएगा...">
+            <button class="copy-btn" onclick="copyPassword()">Copy</button>
+        </div>
+        
+        <div class="options">
+            <div class="option-row">
+                <label>पासवर्ड की लंबाई</label>
+                <input type="range" id="length" min="8" max="32" value="16" oninput="updateLength()">
+                <span id="length-val">16</span>
+            </div>
+            <div class="option-row">
+                <label>बड़े अक्षर (A-Z)</label>
+                <input type="checkbox" id="uppercase" checked>
+            </div>
+            <div class="option-row">
+                <label>छोटे अक्षर (a-z)</label>
+                <input type="checkbox" id="lowercase" checked>
+            </div>
+            <div class="option-row">
+                <label>नंबर (0-9)</label>
+                <input type="checkbox" id="numbers" checked>
+            </div>
+            <div class="option-row">
+                <label>सिंबल (!@#$)</label>
+                <input type="checkbox" id="symbols" checked>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generatePassword()">नया पासवर्ड बनाएँ</button>
+        <div class="footer">Powered by SecurePass</div>
+    </div>
+
+    <script>
+        function updateLength() {
+            document.getElementById('length-val').innerText = document.getElementById('length').value;
+        }
+
+        function generatePassword() {
+            const length = document.getElementById('length').value;
+            const useUpper = document.getElementById('uppercase').checked;
+            const useLower = document.getElementById('lowercase').checked;
+            const useNumbers = document.getElementById('numbers').checked;
+            const useSymbols = document.getElementById('symbols').checked;
+
+            let charset = "";
+            if (useUpper) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            if (useLower) charset += "abcdefghijklmnopqrstuvwxyz";
+            if (useNumbers) charset += "0123456789";
+            if (useSymbols) charset += "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+
+            if (charset === "") {
+                alert("कृपया कम से कम एक विकल्प चुनें!");
+                return;
+            }
+
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                password += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            document.getElementById("password").value = password;
+        }
+
+        function copyPassword() {
+            const passwordField = document.getElementById("password");
+            if (passwordField.value === "आपका पासवर्ड यहाँ आएगा..." || passwordField.value === "") {
+                alert("पहले पासवर्ड बनाएँ!");
+                return;
+            }
+            passwordField.select();
+            passwordField.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(passwordField.value).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                setTimeout(() => btn.innerText = originalText, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
