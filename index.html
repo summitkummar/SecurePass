@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        html, body { overflow-x: hidden; width: 100%; }
+        html { overflow-x: hidden; }
+        html, body { width: 100%; max-width: 100vw; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background: #050505; 
@@ -20,22 +21,26 @@
             min-height: 100vh; 
             padding: 20px;
             position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
+        
+        /* Fixed background blobs - no scroll shift */
         .bg-blob {
             position: fixed;
-            width: 400px; height: 400px;
+            width: 350px; height: 350px;
             background: linear-gradient(180deg, #38bdf8, #818cf8);
             border-radius: 50%;
             filter: blur(80px);
-            opacity: 0.3;
+            opacity: 0.25;
             z-index: 0;
             pointer-events: none;
-            top: -100px; left: -100px;
+            top: -80px; left: -80px;
         }
         .bg-blob:nth-child(2) {
             background: linear-gradient(180deg, #f472b6, #fb923c);
-            width: 300px; height: 300px;
-            bottom: -100px; right: -100px;
+            width: 280px; height: 280px;
+            bottom: -80px; right: -80px;
             top: auto; left: auto;
         }
         
@@ -43,7 +48,7 @@
             background: rgba(255, 255, 255, 0.03); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            padding: 40px 25px; 
+            padding: 35px 22px; 
             border-radius: 24px; 
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
             width: 100%; 
@@ -52,47 +57,80 @@
             position: relative;
             z-index: 1;
         }
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
-        .header p { font-size: 0.9rem; color: #94a3b8; font-weight: 500; }
+        .header { text-align: center; margin-bottom: 28px; }
+        .header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+        .header p { font-size: 0.85rem; color: #94a3b8; font-weight: 500; }
         
-        .result-box { 
-            display: flex; 
-            background: rgba(0, 0, 0, 0.3); 
-            border-radius: 12px; 
-            margin-bottom: 15px; 
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            overflow: hidden;
+        /* ============ PROFESSIONAL PASSWORD BOX ============ */
+        .password-display {
+            position: relative;
+            margin-bottom: 18px;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), rgba(129, 140, 248, 0.3), rgba(244, 114, 182, 0.3));
+            box-shadow: 0 10px 40px -15px rgba(56, 189, 248, 0.5);
+            transition: box-shadow 0.4s ease;
+        }
+        .password-display.active {
+            box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.8), 0 0 0 1px rgba(56, 189, 248, 0.3);
+        }
+        .password-inner {
+            background: #0a0a0f;
+            border-radius: 14px;
+            padding: 8px 8px 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        .password-icon {
+            color: #38bdf8;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            opacity: 0.8;
         }
         #password { 
             flex: 1; 
             background: transparent; 
             border: none; 
-            padding: 18px; 
-            color: #fff; 
-            font-size: 1.2rem; 
+            padding: 14px 0; 
+            color: #ffffff; 
+            font-size: 1.15rem; 
             outline: none;
             font-family: 'Courier New', monospace;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             min-width: 0;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
-        .copy-btn { 
-            background: transparent; 
-            color: #38bdf8; 
-            border: none; 
-            padding: 0 20px; 
-            cursor: pointer; 
-            font-weight: 700; 
-            font-size: 0.9rem;
-            border-left: 1px solid rgba(255, 255, 255, 0.08);
+        #password::selection { background: #38bdf8; color: #0a0a0f; }
+        
+        .copy-icon-btn {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: #0a0a0f;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: inherit;
+            transition: transform 0.15s, opacity 0.15s;
         }
+        .copy-icon-btn:active { transform: scale(0.92); }
+        .copy-icon-btn.copied { background: linear-gradient(135deg, #10b981, #059669); }
         
+        /* Strength Bar */
         .strength-container { margin-bottom: 25px; }
-        .strength-bar { height: 6px; border-radius: 3px; background: #333; width: 0%; transition: width 0.4s, background 0.4s; }
-        .strength-text { font-size: 0.75rem; color: #94a3b8; text-align: right; margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .strength-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.08); width: 0%; transition: width 0.4s, background 0.4s; }
+        .strength-text { font-size: 0.7rem; color: #94a3b8; text-align: right; margin-top: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
         
-        .options { margin-bottom: 25px; }
-        .option-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.95rem; color: #cbd5e1; font-weight: 500; }
+        .options { margin-bottom: 22px; }
+        .option-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 0.92rem; color: #cbd5e1; font-weight: 500; }
         
         input[type="range"] { width: 55%; accent-color: #38bdf8; }
         
@@ -103,41 +141,46 @@
         input:checked + .slider { background-color: #38bdf8; }
         input:checked + .slider:before { transform: translateX(20px); }
         
-        .presets { display: flex; gap: 10px; margin-bottom: 20px; }
-        .presets button { flex: 1; padding: 10px 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; font-family: inherit; }
+        .presets { display: flex; gap: 8px; margin-bottom: 18px; }
+        .presets button { flex: 1; padding: 10px 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #94a3b8; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: 700; font-family: inherit; transition: all 0.2s; }
+        .presets button.active { background: linear-gradient(135deg, #38bdf8, #818cf8); color: #0a0a0f; border-color: transparent; }
         
         .generate-btn { 
             width: 100%; 
             background: linear-gradient(135deg, #38bdf8, #818cf8); 
-            color: #0f172a; 
+            color: #0a0a0f; 
             border: none; 
             padding: 16px; 
-            border-radius: 12px; 
-            font-size: 1.1rem; 
+            border-radius: 14px; 
+            font-size: 1.05rem; 
             font-weight: 800; 
             cursor: pointer; 
             font-family: inherit;
+            letter-spacing: 0.3px;
+            transition: transform 0.15s;
         }
+        .generate-btn:active { transform: scale(0.98); }
         .generate-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; }
 
         .share-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .share-title { text-align: center; font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px; font-weight: 600; }
-        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .share-title { text-align: center; font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px; font-weight: 600; letter-spacing: 0.3px; }
+        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         
         .share-btn { 
-            width: 46px; height: 46px; 
+            width: 44px; height: 44px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             color: white; 
-            font-size: 1.15rem; 
+            font-size: 1.05rem; 
             border: none;
             cursor: pointer;
             padding: 0;
             font-family: inherit;
+            transition: transform 0.15s, opacity 0.15s;
         }
-        .share-btn:active { opacity: 0.7; }
+        .share-btn:active { transform: scale(0.9); }
         
         .share-btn.whatsapp { background: #25D366; }
         .share-btn.facebook { background: #1877F2; }
@@ -148,27 +191,31 @@
         .share-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .share-btn.copy { background: #475569; }
         
+        /* Toast - fully fixed, no layout shift */
         .toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%) translateY(150px);
             background: #10b981;
             color: white;
-            padding: 14px 28px;
+            padding: 13px 24px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
             transition: transform 0.35s ease;
             z-index: 9999;
-            max-width: 90%;
+            max-width: 88%;
             text-align: center;
             pointer-events: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
         
-        .footer { text-align: center; margin-top: 25px; font-size: 0.75rem; color: #64748b; font-weight: 500; }
+        .footer { text-align: center; margin-top: 22px; font-size: 0.72rem; color: #64748b; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -181,9 +228,15 @@
             <p>Ultra Secure Password Generator</p>
         </div>
 
-        <div class="result-box">
-            <input type="text" id="password" readonly value="Click Generate...">
-            <button class="copy-btn" id="copyBtn" type="button">COPY</button>
+        <!-- ============ PROFESSIONAL PASSWORD BOX ============ -->
+        <div class="password-display" id="pwdDisplay">
+            <div class="password-inner">
+                <i class="fas fa-shield-halved password-icon"></i>
+                <input type="text" id="password" readonly value="Click Generate..." spellcheck="false" autocomplete="off">
+                <button class="copy-icon-btn" id="copyBtn" type="button" title="Copy Password">
+                    <i class="fas fa-copy" id="copyIcon"></i>
+                </button>
+            </div>
         </div>
         
         <div class="strength-container">
@@ -193,7 +246,7 @@
         
         <div class="options">
             <div class="option-row">
-                <label>Password Length: <span id="length-val" style="color:#38bdf8;">16</span></label>
+                <label>Password Length: <span id="length-val" style="color:#38bdf8; font-weight:700;">16</span></label>
                 <input type="range" id="length" min="8" max="32" value="16">
             </div>
             <div class="option-row">
@@ -228,7 +281,7 @@
         
         <div class="presets">
             <button type="button" data-len="8">8</button>
-            <button type="button" data-len="16">16</button>
+            <button type="button" data-len="16" class="active">16</button>
             <button type="button" data-len="24">24</button>
             <button type="button" data-len="32">32</button>
         </div>
@@ -237,15 +290,15 @@
 
         <div class="share-section">
             <div class="share-title">📢 Share SecurePass</div>
-            <div class="share-grid">
-                <button class="share-btn whatsapp" data-share="whatsapp" type="button" title="WhatsApp"><i class="fab fa-whatsapp"></i></button>
-                <button class="share-btn facebook" data-share="facebook" type="button" title="Facebook"><i class="fab fa-facebook-f"></i></button>
-                <button class="share-btn twitter" data-share="twitter" type="button" title="X"><i class="fab fa-x-twitter"></i></button>
-                <button class="share-btn telegram" data-share="telegram" type="button" title="Telegram"><i class="fab fa-telegram-plane"></i></button>
-                <button class="share-btn linkedin" data-share="linkedin" type="button" title="LinkedIn"><i class="fab fa-linkedin-in"></i></button>
-                <button class="share-btn email" data-share="email" type="button" title="Email"><i class="fas fa-envelope"></i></button>
-                <button class="share-btn instagram" data-share="instagram" type="button" title="Instagram"><i class="fab fa-instagram"></i></button>
-                <button class="share-btn copy" data-share="copy" type="button" title="Copy Link"><i class="fas fa-link"></i></button>
+            <div class="share-grid" id="shareGrid">
+                <button class="share-btn whatsapp" data-share="whatsapp" type="button"><i class="fab fa-whatsapp"></i></button>
+                <button class="share-btn facebook" data-share="facebook" type="button"><i class="fab fa-facebook-f"></i></button>
+                <button class="share-btn twitter" data-share="twitter" type="button"><i class="fab fa-x-twitter"></i></button>
+                <button class="share-btn telegram" data-share="telegram" type="button"><i class="fab fa-telegram-plane"></i></button>
+                <button class="share-btn linkedin" data-share="linkedin" type="button"><i class="fab fa-linkedin-in"></i></button>
+                <button class="share-btn email" data-share="email" type="button"><i class="fas fa-envelope"></i></button>
+                <button class="share-btn instagram" data-share="instagram" type="button"><i class="fab fa-instagram"></i></button>
+                <button class="share-btn copy" data-share="copy" type="button"><i class="fas fa-link"></i></button>
             </div>
         </div>
 
@@ -255,7 +308,6 @@
     <div class="toast" id="toast">✅ Link Copied!</div>
 
     <script>
-        // ============ CONFIG ============
         var pageUrl = window.location.href.split('?')[0].split('#')[0];
         var shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
         var shareTitle = "SecurePass - Ultra Secure Password Generator";
@@ -271,29 +323,34 @@
             }, 2800);
         }
 
-        // ============ COPY FUNCTION ============
+        // ============ COPY ============
         function copyText(text, callback) {
+            var done = false;
+            function finish() { if (!done) { done = true; if (callback) callback(); } }
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(callback).catch(function() {
-                    fallbackCopy(text); callback();
+                navigator.clipboard.writeText(text).then(finish).catch(function() {
+                    fallbackCopy(text); finish();
                 });
             } else {
-                fallbackCopy(text); callback();
+                fallbackCopy(text); finish();
             }
         }
         function fallbackCopy(text) {
             var ta = document.createElement('textarea');
             ta.value = text;
             ta.style.position = 'fixed';
-            ta.style.left = '-9999px';
+            ta.style.top = '0';
+            ta.style.left = '0';
+            ta.style.opacity = '0';
             document.body.appendChild(ta);
+            ta.focus();
             ta.select();
             try { document.execCommand('copy'); } catch(e) {}
             document.body.removeChild(ta);
         }
 
-        // ============ SHARE HANDLER (SINGLE CLICK) ============
-        document.querySelector('.share-grid').addEventListener('click', function(e) {
+        // ============ SHARE (Fixed - no screen shake) ============
+        document.getElementById('shareGrid').addEventListener('click', function(e) {
             var btn = e.target.closest('[data-share]');
             if (!btn) return;
             e.preventDefault();
@@ -301,50 +358,59 @@
             
             var platform = btn.getAttribute('data-share');
             var url = '';
-            var openDirect = true;
 
             switch(platform) {
                 case 'whatsapp':
                     url = "https://wa.me/?text=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+                    openShareWindow(url);
                     break;
                 case 'facebook':
                     url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl);
+                    openShareWindow(url);
                     break;
                 case 'twitter':
                     url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(pageUrl);
+                    openShareWindow(url);
                     break;
                 case 'telegram':
                     url = "https://t.me/share/url?url=" + encodeURIComponent(pageUrl) + "&text=" + encodeURIComponent(shareText);
+                    openShareWindow(url);
                     break;
                 case 'linkedin':
                     url = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(pageUrl);
+                    openShareWindow(url);
                     break;
                 case 'email':
                     url = "mailto:?subject=" + encodeURIComponent(shareTitle) + "&body=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+                    window.location.href = url;
                     break;
                 case 'instagram':
-                    openDirect = false;
                     copyText(shareText + "\n\n" + pageUrl, function() {
                         showToast("📷 Link Copied! Open Instagram to Post");
                         setTimeout(function() {
                             try { window.location.href = "instagram://app"; } catch(err) {}
-                        }, 800);
+                        }, 700);
                     });
                     break;
                 case 'copy':
-                    openDirect = false;
                     copyText(pageUrl, function() {
                         showToast("✅ Link Copied!");
                     });
                     break;
             }
-
-            if (openDirect && url) {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }
         }, false);
 
+        // Open share without shaking screen
+        function openShareWindow(url) {
+            var w = window.open(url, '_blank', 'noopener,noreferrer');
+            if (!w) {
+                // Fallback: use location if popup blocked
+                window.location.href = url;
+            }
+        }
+
         // ============ COPY PASSWORD ============
+        var pwdDisplay = document.getElementById('pwdDisplay');
         document.getElementById('copyBtn').addEventListener('click', function() {
             var pwd = document.getElementById('password').value;
             if (pwd === "Click Generate..." || pwd === "") {
@@ -352,13 +418,14 @@
                 return;
             }
             var btn = this;
+            var icon = document.getElementById('copyIcon');
             copyText(pwd, function() {
-                var orig = btn.innerText;
-                btn.innerText = 'COPIED!';
-                btn.style.color = '#10b981';
+                btn.classList.add('copied');
+                icon.className = 'fas fa-check';
+                showToast("✅ Password Copied!");
                 setTimeout(function() {
-                    btn.innerText = orig;
-                    btn.style.color = '#38bdf8';
+                    btn.classList.remove('copied');
+                    icon.className = 'fas fa-copy';
                 }, 2000);
             });
         });
@@ -374,6 +441,10 @@
         var presetBtns = document.querySelectorAll('.presets button');
         for (var i = 0; i < presetBtns.length; i++) {
             presetBtns[i].addEventListener('click', function() {
+                for (var j = 0; j < presetBtns.length; j++) {
+                    presetBtns[j].classList.remove('active');
+                }
+                this.classList.add('active');
                 var len = this.getAttribute('data-len');
                 slider.value = len;
                 sliderVal.innerText = len;
@@ -396,6 +467,7 @@
             strengthText.innerText = "Scrambling...";
             strengthText.style.color = "#f59e0b";
             strengthBar.style.width = "0%";
+            pwdDisplay.classList.add('active');
 
             var length = parseInt(slider.value);
             var useUpper = document.getElementById('uppercase').checked;
@@ -414,6 +486,7 @@
                 isGenerating = false;
                 genBtn.disabled = false;
                 genBtn.innerText = "⚡ Generate Password";
+                pwdDisplay.classList.remove('active');
                 return;
             }
 
@@ -448,6 +521,10 @@
                 genBtn.disabled = false;
                 genBtn.innerText = "⚡ Generate Password";
                 isGenerating = false;
+                // brief pulse effect
+                setTimeout(function() {
+                    pwdDisplay.classList.remove('active');
+                }, 1500);
             }, totalTime);
         });
 
