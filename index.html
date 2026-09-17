@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { -webkit-text-size-adjust: 100%; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background: #050505; 
@@ -31,6 +32,7 @@
             opacity: 0.3;
             animation: float 10s infinite ease-in-out alternate;
             z-index: 0;
+            pointer-events: none;
         }
         .bg-blob:nth-child(2) {
             background: linear-gradient(180deg, #f472b6, #fb923c);
@@ -69,10 +71,7 @@
             margin-bottom: 15px; 
             border: 1px solid rgba(255, 255, 255, 0.08);
             overflow: hidden;
-            transition: border-color 0.3s;
         }
-        .result-box:focus-within { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
-        
         #password { 
             flex: 1; 
             background: transparent; 
@@ -83,6 +82,7 @@
             outline: none;
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
+            min-width: 0;
         }
         .copy-btn { 
             background: transparent; 
@@ -92,30 +92,30 @@
             cursor: pointer; 
             font-weight: 700; 
             font-size: 0.9rem;
-            transition: all 0.2s;
             border-left: 1px solid rgba(255, 255, 255, 0.08);
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
         }
-        .copy-btn:hover { background: rgba(56, 189, 248, 0.1); color: #7dd3fc; }
         
         .strength-container { margin-bottom: 25px; }
         .strength-bar { height: 6px; border-radius: 3px; background: #333; width: 0%; transition: all 0.4s ease; }
-        .strength-text { font-size: 0.75rem; color: #94a3b8; text-align: right; margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .strength-text { font-size: 0.75rem; color: #94a3b8; text-align: right; margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         
         .options { margin-bottom: 25px; }
         .option-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.95rem; color: #cbd5e1; font-weight: 500; }
         
-        input[type="range"] { width: 55%; accent-color: #38bdf8; cursor: pointer; }
+        input[type="range"] { width: 55%; accent-color: #38bdf8; cursor: pointer; touch-action: manipulation; }
         
         .toggle-switch { position: relative; width: 44px; height: 24px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .4s; border-radius: 34px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .3s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
         input:checked + .slider { background-color: #38bdf8; }
         input:checked + .slider:before { transform: translateX(20px); }
         
         .presets { display: flex; gap: 10px; margin-bottom: 20px; }
-        .presets button { flex: 1; padding: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; border-radius: 6px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
-        .presets button:hover { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
+        .presets button { flex: 1; padding: 10px 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; touch-action: manipulation; }
         
         .generate-btn { 
             width: 100%; 
@@ -127,13 +127,13 @@
             font-size: 1.1rem; 
             font-weight: 800; 
             cursor: pointer; 
-            transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
             font-family: 'Plus Jakarta Sans', sans-serif;
             letter-spacing: 0.5px;
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
         }
-        .generate-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 20px -10px #38bdf8; }
-        .generate-btn:active:not(:disabled) { transform: translateY(0); }
-        .generate-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; transform: none; }
+        .generate-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; }
 
         /* Share Section */
         .share-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -149,15 +149,16 @@
             justify-content: center; 
             color: white; 
             font-size: 1.15rem; 
+            text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
             padding: 0;
-            -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
+            transition: opacity 0.15s;
         }
-        .share-btn:active { transform: scale(0.95); }
-        .share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.4); filter: brightness(1.1); }
+        .share-btn:active { opacity: 0.7; }
         
         .share-btn.whatsapp { background: #25D366; }
         .share-btn.facebook { background: #1877F2; }
@@ -180,7 +181,7 @@
             font-weight: 700;
             font-size: 0.9rem;
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
-            transition: transform 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: transform 0.35s ease;
             z-index: 999;
             max-width: 90%;
             text-align: center;
@@ -202,7 +203,7 @@
 
         <div class="result-box">
             <input type="text" id="password" readonly value="Click Generate...">
-            <button class="copy-btn" onclick="copyPassword()">COPY</button>
+            <button class="copy-btn" id="copyBtn">COPY</button>
         </div>
         
         <div class="strength-container">
@@ -213,7 +214,7 @@
         <div class="options">
             <div class="option-row">
                 <label>Password Length: <span id="length-val" style="color:#38bdf8;">16</span></label>
-                <input type="range" id="length" min="8" max="32" value="16" oninput="updateLength()">
+                <input type="range" id="length" min="8" max="32" value="16">
             </div>
             <div class="option-row">
                 <label>Uppercase Letters (A-Z)</label>
@@ -246,25 +247,25 @@
         </div>
         
         <div class="presets">
-            <button onclick="setLength(8)">8</button>
-            <button onclick="setLength(16)">16</button>
-            <button onclick="setLength(24)">24</button>
-            <button onclick="setLength(32)">32</button>
+            <button data-len="8">8</button>
+            <button data-len="16">16</button>
+            <button data-len="24">24</button>
+            <button data-len="32">32</button>
         </div>
 
-        <button class="generate-btn" id="gen-btn" onclick="generatePassword()">⚡ Generate Password</button>
+        <button class="generate-btn" id="gen-btn">⚡ Generate Password</button>
 
         <div class="share-section">
             <div class="share-title">📢 Share SecurePass</div>
             <div class="share-grid">
-                <button class="share-btn whatsapp" onclick="shareTo('whatsapp')" title="WhatsApp"><i class="fab fa-whatsapp"></i></button>
-                <button class="share-btn facebook" onclick="shareTo('facebook')" title="Facebook"><i class="fab fa-facebook-f"></i></button>
-                <button class="share-btn twitter" onclick="shareTo('twitter')" title="X (Twitter)"><i class="fab fa-x-twitter"></i></button>
-                <button class="share-btn telegram" onclick="shareTo('telegram')" title="Telegram"><i class="fab fa-telegram-plane"></i></button>
-                <button class="share-btn linkedin" onclick="shareTo('linkedin')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></button>
-                <button class="share-btn email" onclick="shareTo('email')" title="Email"><i class="fas fa-envelope"></i></button>
-                <button class="share-btn instagram" onclick="shareTo('instagram')" title="Instagram"><i class="fab fa-instagram"></i></button>
-                <button class="share-btn copy" onclick="shareTo('copy')" title="Copy Link"><i class="fas fa-link"></i></button>
+                <a class="share-btn whatsapp" id="sh-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                <a class="share-btn facebook" id="sh-fb" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                <a class="share-btn twitter" id="sh-tw" target="_blank" rel="noopener"><i class="fab fa-x-twitter"></i></a>
+                <a class="share-btn telegram" id="sh-tg" target="_blank" rel="noopener"><i class="fab fa-telegram-plane"></i></a>
+                <a class="share-btn linkedin" id="sh-li" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                <a class="share-btn email" id="sh-em"><i class="fas fa-envelope"></i></a>
+                <button class="share-btn instagram" id="sh-ig"><i class="fab fa-instagram"></i></button>
+                <button class="share-btn copy" id="sh-cp"><i class="fas fa-link"></i></button>
             </div>
         </div>
 
@@ -274,34 +275,119 @@
     <div class="toast" id="toast">✅ Link Copied!</div>
 
     <script>
+        // ============ SHARE LINKS SETUP ============
+        const pageUrl = window.location.href.split('?')[0].split('#')[0];
+        const shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
+        const shareTitle = "SecurePass - Ultra Secure Password Generator";
+
+        document.getElementById('sh-wa').href = "https://wa.me/?text=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+        document.getElementById('sh-fb').href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl);
+        document.getElementById('sh-tw').href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(pageUrl);
+        document.getElementById('sh-tg').href = "https://t.me/share/url?url=" + encodeURIComponent(pageUrl) + "&text=" + encodeURIComponent(shareText);
+        document.getElementById('sh-li').href = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(pageUrl);
+        document.getElementById('sh-em').href = "mailto:?subject=" + encodeURIComponent(shareTitle) + "&body=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
+
+        // ============ TOAST ============
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+        }
+
+        // ============ INSTAGRAM (Copy + Open) ============
+        document.getElementById('sh-ig').addEventListener('click', function() {
+            const textToCopy = shareText + "\n\n" + pageUrl;
+            copyTextToClipboard(textToCopy).then(() => {
+                showToast("📷 Link Copied! Open Instagram to Post");
+                // Try to open Instagram app after short delay
+                setTimeout(() => {
+                    window.location.href = "instagram://app";
+                }, 800);
+            });
+        });
+
+        // ============ COPY LINK ============
+        document.getElementById('sh-cp').addEventListener('click', function() {
+            copyTextToClipboard(pageUrl).then(() => {
+                showToast("✅ Link Copied!");
+            });
+        });
+
+        // ============ COPY PASSWORD ============
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const pwd = document.getElementById('password').value;
+            if (pwd === "Click Generate..." || pwd === "") {
+                showToast("⚠️ Please generate a password first!");
+                return;
+            }
+            copyTextToClipboard(pwd).then(() => {
+                const btn = this;
+                const originalText = btn.innerText;
+                btn.innerText = 'COPIED!';
+                btn.style.color = '#10b981';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.color = '#38bdf8';
+                }, 2000);
+            });
+        });
+
+        // ============ UNIVERSAL COPY FUNCTION ============
+        function copyTextToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(text);
+            } else {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                } catch(e) {}
+                document.body.removeChild(textarea);
+                return Promise.resolve();
+            }
+        }
+
+        // ============ LENGTH SLIDER ============
+        const lengthSlider = document.getElementById('length');
+        const lengthVal = document.getElementById('length-val');
+        lengthSlider.addEventListener('input', function() {
+            lengthVal.innerText = this.value;
+        });
+
+        document.querySelectorAll('.presets button').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const len = this.getAttribute('data-len');
+                lengthSlider.value = len;
+                lengthVal.innerText = len;
+            });
+        });
+
+        // ============ GENERATE PASSWORD ============
         let isGenerating = false;
+        const genBtn = document.getElementById('gen-btn');
+        const pwdField = document.getElementById('password');
+        const strengthText = document.getElementById('strength-text');
+        const strengthBar = document.getElementById('strength-bar');
 
-        function updateLength() {
-            document.getElementById('length-val').innerText = document.getElementById('length').value;
-        }
-        
-        function setLength(val) {
-            document.getElementById('length').value = val;
-            updateLength();
-        }
-
-        function generatePassword() {
+        genBtn.addEventListener('click', function() {
             if (isGenerating) return;
             isGenerating = true;
 
-            const btn = document.getElementById('gen-btn');
-            const pwdField = document.getElementById('password');
-            const strengthText = document.getElementById('strength-text');
-            const strengthBar = document.getElementById('strength-bar');
-            
-            btn.disabled = true;
-            btn.innerText = "Generating...";
+            genBtn.disabled = true;
+            genBtn.innerText = "Generating...";
             strengthText.innerText = "Scrambling...";
             strengthText.style.color = "#f59e0b";
             strengthBar.style.width = "0%";
             strengthBar.style.background = "transparent";
 
-            const length = document.getElementById('length').value;
+            const length = parseInt(lengthSlider.value);
             const useUpper = document.getElementById('uppercase').checked;
             const useLower = document.getElementById('lowercase').checked;
             const useNumbers = document.getElementById('numbers').checked;
@@ -316,8 +402,8 @@
             if (charset === "") {
                 alert("Please select at least one option!");
                 isGenerating = false;
-                btn.disabled = false;
-                btn.innerText = "⚡ Generate Password";
+                genBtn.disabled = false;
+                genBtn.innerText = "⚡ Generate Password";
                 return;
             }
 
@@ -329,7 +415,7 @@
             const totalTime = Math.floor(Math.random() * 4000) + 3000;
             let seconds = 0;
 
-            const scrambleInterval = setInterval(() => {
+            const scrambleInterval = setInterval(function() {
                 let scrambleStr = "";
                 for (let i = 0; i < length; i++) {
                     scrambleStr += charset.charAt(Math.floor(Math.random() * charset.length));
@@ -337,23 +423,23 @@
                 pwdField.value = scrambleStr;
             }, 50);
 
-            const timerInterval = setInterval(() => {
+            const timerInterval = setInterval(function() {
                 seconds++;
-                strengthText.innerText = `Generating... ${seconds}s`;
+                strengthText.innerText = "Generating... " + seconds + "s";
             }, 1000);
 
-            setTimeout(() => {
+            setTimeout(function() {
                 clearInterval(scrambleInterval);
                 clearInterval(timerInterval);
                 pwdField.value = finalPassword;
                 calculateStrength(finalPassword);
-                strengthText.innerText = `Generated in ${seconds}s`;
+                strengthText.innerText = "Generated in " + seconds + "s";
                 strengthText.style.color = "#10b981";
-                btn.disabled = false;
-                btn.innerText = "⚡ Generate Password";
+                genBtn.disabled = false;
+                genBtn.innerText = "⚡ Generate Password";
                 isGenerating = false;
             }, totalTime);
-        }
+        });
 
         function calculateStrength(pwd) {
             let strength = 0;
@@ -363,114 +449,13 @@
             if (/[0-9]/.test(pwd)) strength += 1;
             if (/[^A-Za-z0-9]/.test(pwd)) strength += 1;
 
-            const bar = document.getElementById('strength-bar');
-            const text = document.getElementById('strength-text');
-
             if (strength <= 2) {
-                bar.style.width = '33%'; bar.style.background = '#ef4444'; text.innerText = 'WEAK';
+                strengthBar.style.width = '33%'; strengthBar.style.background = '#ef4444'; strengthText.innerText = 'WEAK';
             } else if (strength <= 4) {
-                bar.style.width = '66%'; bar.style.background = '#f59e0b'; text.innerText = 'MODERATE';
+                strengthBar.style.width = '66%'; strengthBar.style.background = '#f59e0b'; strengthText.innerText = 'MODERATE';
             } else {
-                bar.style.width = '100%'; bar.style.background = '#10b981'; text.innerText = 'STRONG';
+                strengthBar.style.width = '100%'; strengthBar.style.background = '#10b981'; strengthText.innerText = 'STRONG';
             }
-        }
-
-        function copyPassword() {
-            const passwordField = document.getElementById("password");
-            if (passwordField.value === "Click Generate..." || passwordField.value === "") {
-                showToast("⚠️ Please generate a password first!");
-                return;
-            }
-            passwordField.select();
-            passwordField.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(passwordField.value).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                const originalText = btn.innerText;
-                btn.innerText = 'COPIED!';
-                btn.style.color = '#10b981';
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.color = '#38bdf8';
-                }, 2000);
-            });
-        }
-
-        // ---- PROFESSIONAL SHARE FUNCTIONS ----
-        function shareTo(platform) {
-            const pageUrl = window.location.href.split('?')[0].split('#')[0];
-            const shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
-            const shareTitle = "SecurePass - Ultra Secure Password Generator";
-
-            let shareUrl = "";
-
-            switch(platform) {
-                case 'whatsapp':
-                    shareUrl = "https://wa.me/?text=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
-                    window.open(shareUrl, '_blank');
-                    break;
-
-                case 'facebook':
-                    shareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl) + "&quote=" + encodeURIComponent(shareText);
-                    window.open(shareUrl, '_blank');
-                    break;
-
-                case 'twitter':
-                    shareUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(pageUrl);
-                    window.open(shareUrl, '_blank');
-                    break;
-
-                case 'telegram':
-                    shareUrl = "https://t.me/share/url?url=" + encodeURIComponent(pageUrl) + "&text=" + encodeURIComponent(shareText);
-                    window.open(shareUrl, '_blank');
-                    break;
-
-                case 'linkedin':
-                    shareUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(pageUrl);
-                    window.open(shareUrl, '_blank');
-                    break;
-
-                case 'email':
-                    shareUrl = "mailto:?subject=" + encodeURIComponent(shareTitle) + "&body=" + encodeURIComponent(shareText + "\n\n" + pageUrl);
-                    window.location.href = shareUrl;
-                    break;
-
-                case 'instagram':
-                    // Instagram doesn't support web sharing. Copy link and notify.
-                    navigator.clipboard.writeText(pageUrl).then(() => {
-                        showToast("📷 Link copied! Open Instagram & paste in your story/bio");
-                    }).catch(() => {
-                        // Fallback
-                        const temp = document.createElement('textarea');
-                        temp.value = pageUrl;
-                        document.body.appendChild(temp);
-                        temp.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(temp);
-                        showToast("📷 Link copied! Open Instagram & paste");
-                    });
-                    break;
-
-                case 'copy':
-                    navigator.clipboard.writeText(pageUrl).then(() => {
-                        showToast("✅ Link Copied!");
-                    }).catch(() => {
-                        const temp = document.createElement('textarea');
-                        temp.value = pageUrl;
-                        document.body.appendChild(temp);
-                        temp.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(temp);
-                        showToast("✅ Link Copied!");
-                    });
-                    break;
-            }
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.innerText = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2800);
         }
     </script>
 </body>
