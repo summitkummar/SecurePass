@@ -62,7 +62,9 @@ body{
 .splash-loading-text .dot:nth-child(2){animation-delay:.2s;}
 .splash-loading-text .dot:nth-child(3){animation-delay:.4s;}
 @keyframes dotBlink{0%,60%,100%{opacity:.2;}30%{opacity:1;}}
-.splash-made{position:absolute;bottom:20px;font-size:.7rem;color:#475569;font-weight:600;letter-spacing:.5px;animation:taglineAppear .5s ease 1.5s forwards;opacity:0;}
+.splash-made{position:absolute;bottom:20px;font-size:.72rem;color:#475569;font-weight:600;letter-spacing:.5px;animation:taglineAppear .5s ease 1.5s forwards;opacity:0;display:flex;align-items:center;gap:5px;}
+.splash-made .india-flag{display:inline-block;width:16px;height:12px;background:linear-gradient(#ff9933 33%,#ffffff 33%,#ffffff 66%,#138808 66%);border-radius:2px;position:relative;}
+.splash-made .india-flag::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;border:1px solid #000080;border-radius:50%;background:#fff;}
 
 .main-app{opacity:0;transition:opacity .5s ease .2s;width:100%;max-width:480px;position:relative;z-index:1;}
 .main-app.visible{opacity:1;}
@@ -78,6 +80,12 @@ body{
 .header{text-align:center;margin-bottom:20px;}
 .header h1{font-size:1.7rem;font-weight:800;letter-spacing:-1px;background:linear-gradient(to right,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
 .header p{font-size:.8rem;color:var(--text3);font-weight:500;}
+
+.trust-badges{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.trust-badge{font-size:.62rem;font-weight:700;padding:4px 9px;border-radius:20px;background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;gap:4px;letter-spacing:.3px;}
+.trust-badge i{font-size:.6rem;}
+.trust-badge.blue{background:rgba(56,189,248,.12);color:var(--primary);border-color:rgba(56,189,248,.25);}
+.trust-badge.purple{background:rgba(129,140,248,.12);color:var(--primary2);border-color:rgba(129,140,248,.25);}
 
 .tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);padding:5px;border-radius:12px;margin-bottom:16px;}
 .tab{flex:1;padding:10px 6px;background:transparent;border:none;color:var(--text3);font-weight:700;font-size:.78rem;cursor:pointer;border-radius:9px;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px;}
@@ -142,7 +150,7 @@ input:checked+.slider:before{transform:translateX(19px);}
 .section-title .chev{transition:transform .3s;font-size:.7rem;}
 .section-title.open .chev{transform:rotate(180deg);}
 .section-body{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:.82rem;color:var(--text2);line-height:1.6;}
-.section-body.open{max-height:1400px;}
+.section-body.open{max-height:2400px;}
 .section-body p{margin-bottom:10px;}
 .section-body ul{padding-left:18px;margin-bottom:10px;}
 .section-body li{margin-bottom:6px;}
@@ -177,16 +185,36 @@ input:checked+.slider:before{transform:translateX(19px);}
 
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
 .modal.open{display:flex;}
-.modal-content{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:22px;max-width:340px;width:100%;text-align:center;animation:modalIn .3s ease;max-height:85vh;overflow-y:auto;}
+.modal-content{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:22px;max-width:360px;width:100%;text-align:center;animation:modalIn .3s ease;max-height:85vh;overflow-y:auto;}
 @keyframes modalIn{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
-.modal-content h3{font-size:1.1rem;margin-bottom:14px;color:var(--text);}
+.modal-content h3{font-size:1.15rem;margin-bottom:14px;color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px;}
 .modal-content .qr-box{background:#fff;padding:12px;border-radius:12px;display:inline-block;margin-bottom:14px;}
 .modal-close{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:9px 20px;border-radius:10px;cursor:pointer;font-weight:700;font-family:inherit;font-size:.85rem;}
 
-/* Language Grid */
 .lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
 .lang-option{padding:10px 6px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-weight:600;cursor:pointer;font-family:inherit;font-size:.78rem;text-align:center;}
 .lang-option.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border-color:transparent;}
+
+/* ABOUT MODAL - Trust Building */
+.about-hero{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;}
+.about-logo{width:70px;height:70px;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(56,189,248,.5));}
+.about-app-name{font-size:1.3rem;font-weight:800;background:linear-gradient(to right,var(--primary),var(--primary2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.about-version{font-size:.7rem;color:var(--text4);font-weight:600;margin-top:2px;}
+.about-badges{display:flex;flex-direction:column;gap:8px;margin:16px 0;}
+.about-badge{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-align:left;}
+.about-badge-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.about-badge-icon.green{background:rgba(16,185,129,.15);color:var(--green);}
+.about-badge-icon.blue{background:rgba(56,189,248,.15);color:var(--primary);}
+.about-badge-icon.purple{background:rgba(129,140,248,.15);color:var(--primary2);}
+.about-badge-icon.pink{background:rgba(244,114,182,.15);color:var(--pink);}
+.about-badge-text strong{display:block;font-size:.82rem;color:var(--text);font-weight:700;margin-bottom:2px;}
+.about-badge-text span{font-size:.72rem;color:var(--text3);line-height:1.4;}
+.about-message{font-size:.78rem;color:var(--text2);line-height:1.7;padding:12px;background:var(--card);border-radius:10px;border-left:3px solid var(--primary);text-align:left;margin:14px 0;}
+.about-message b{color:var(--primary);}
+.about-footer{font-size:.7rem;color:var(--text4);margin-top:12px;line-height:1.6;}
+.about-footer b{color:var(--text2);}
+.about-flag{display:inline-block;width:14px;height:10px;background:linear-gradient(#ff9933 33%,#ffffff 33%,#ffffff 66%,#138808 66%);border-radius:2px;position:relative;vertical-align:middle;}
+.about-flag::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3px;height:3px;border:1px solid #000080;border-radius:50%;background:#fff;}
 
 .toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(150px);background:var(--green);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:.82rem;box-shadow:0 10px 25px rgba(16,185,129,.4);transition:transform .35s ease;z-index:99999;max-width:88%;text-align:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .toast.show{transform:translateX(-50%) translateY(0);}
@@ -221,7 +249,7 @@ input:checked+.slider:before{transform:translateX(19px);}
   <div class="splash-tagline">Ultra Secure</div>
   <div class="splash-progress"><div class="splash-progress-bar"></div></div>
   <div class="splash-loading-text">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
-  <div class="splash-made">Made in Hisar 🇮🇳</div>
+  <div class="splash-made">Made in India <span class="india-flag"></span></div>
 </div>
 
 <!-- MAIN APP -->
@@ -242,6 +270,12 @@ input:checked+.slider:before{transform:translateX(19px);}
     <div class="header">
       <h1 data-i18n="title">SecurePass</h1>
       <p data-i18n="subtitle">Ultra Secure Password Generator</p>
+    </div>
+
+    <div class="trust-badges">
+      <span class="trust-badge"><i class="fas fa-lock"></i> <span data-i18n="badgeOffline">100% Offline</span></span>
+      <span class="trust-badge blue"><i class="fas fa-shield-halved"></i> <span data-i18n="badgeNoStore">No Data Stored</span></span>
+      <span class="trust-badge purple"><i class="fas fa-heart"></i> <span data-i18n="badgeFree">Free Forever</span></span>
     </div>
 
     <div class="tabs">
@@ -385,12 +419,61 @@ input:checked+.slider:before{transform:translateX(19px);}
 <!-- ABOUT MODAL -->
 <div class="modal" id="aboutModal">
   <div class="modal-content">
-    <h3 data-i18n="aboutTitle">About SecurePass</h3>
-    <p style="font-size:.82rem;color:var(--text2);line-height:1.7;margin-bottom:14px;">
-      <b>v2.0</b><br>
-      <span data-i18n="aboutText">Made with ❤️ in Hisar, India. A 100% offline, privacy-first password generator.</span>
-    </p>
-    <button class="modal-close" onclick="closeModal('aboutModal')" data-i18n="close">Close</button>
+    <div class="about-hero">
+      <svg class="about-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="50%" stop-color="#818cf8"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs>
+        <path d="M256 60 L410 118 L410 270 C410 360 335 425 256 455 C177 425 102 360 102 270 L102 118 Z" fill="url(#ag)"/>
+        <rect x="205" y="245" width="102" height="80" rx="14" fill="#0a0a0f"/>
+        <path d="M233 245 L233 220 C233 188 256 170 256 170 C256 170 279 188 279 220 L279 245" fill="none" stroke="#0a0a0f" stroke-width="16" stroke-linecap="round"/>
+        <circle cx="256" cy="278" r="10" fill="#38bdf8"/>
+        <rect x="251" y="278" width="10" height="24" rx="5" fill="#38bdf8"/>
+      </svg>
+      <div class="about-app-name">SecurePass</div>
+      <div class="about-version">Version 2.0 · Premium</div>
+    </div>
+
+    <div class="about-badges">
+      <div class="about-badge">
+        <div class="about-badge-icon green"><i class="fas fa-shield-halved"></i></div>
+        <div class="about-badge-text">
+          <strong data-i18n="aboutB1T">100% Privacy Protected</strong>
+          <span data-i18n="aboutB1S">Passwords कभी server पर नहीं भेजे जाते। सब आपके device में ही बनते हैं।</span>
+        </div>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-icon blue"><i class="fas fa-wifi"></i></div>
+        <div class="about-badge-text">
+          <strong data-i18n="aboutB2T">Works Offline</strong>
+          <span data-i18n="aboutB2S">इंटरनेट बंद हो, तब भी पासवर्ड बनाएँ और कॉपी करें।</span>
+        </div>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-icon purple"><i class="fas fa-database"></i></div>
+        <div class="about-badge-text">
+          <strong data-i18n="aboutB3T">Zero Data Storage</strong>
+          <span data-i18n="aboutB3S">हम कोई भी password, log या personal data store नहीं करते।</span>
+        </div>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-icon pink"><i class="fas fa-heart"></i></div>
+        <div class="about-badge-text">
+          <strong data-i18n="aboutB4T">Free Forever</strong>
+          <span data-i18n="aboutB4S">कोई subscription नहीं, कोई ads नहीं, कोई limit नहीं।</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-message">
+      <b data-i18n="aboutMsgT">Our Promise:</b><br>
+      <span data-i18n="aboutMsgS">आपकी सुरक्षा हमारी ज़िम्मेदारी है। यह टूल इसलिए बनाया गया है ताकि हर इंसान — student, professional, या बुज़ुर्ग — आसानी से strong password बना सके, बिना किसी डर या शक के। हम आपकी privacy का पूरा सम्मान करते हैं।</span>
+    </div>
+
+    <div class="about-footer">
+      <div>Made with <i class="fas fa-heart" style="color:#f472b6;"></i> in India <span class="about-flag"></span></div>
+      <div style="margin-top:6px;"><b>SecurePass v2.0</b> · All rights reserved</div>
+    </div>
+
+    <button class="modal-close" onclick="closeModal('aboutModal')" style="margin-top:16px;" data-i18n="close">Close</button>
   </div>
 </div>
 
@@ -406,7 +489,6 @@ input:checked+.slider:before{transform:translateX(19px);}
 <div class="toast" id="toast">✅ Copied!</div>
 
 <script>
-// ========== SPLASH ==========
 window.addEventListener('load',function(){
   setTimeout(function(){
     document.getElementById('splashScreen').classList.add('hide');
@@ -418,22 +500,34 @@ setTimeout(function(){var s=document.getElementById('splashScreen');if(s&&!s.cla
 
 // ========== TRANSLATIONS ==========
 var TRANSLATIONS = {
-  en:{_name:"English",title:"SecurePass",subtitle:"Ultra Secure Password Generator",tabPass:"Password",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Your Secure Password",crackTime:"Crack Time",entropyLbl:"Entropy",ready:"Ready to generate",length:"Password Length:",upper:"Uppercase (A-Z)",lower:"Lowercase (a-z)",nums:"Numbers (0-9)",syms:"Symbols (!@#$)",excludeSim:"Exclude similar (0O1lI)",autoClear:"Auto-clear clipboard (30s)",words:"Words:",capFirst:"Capitalize words",addNum:"Add number",digits:"Digits:",generate:"Generate Password",qr:"QR",bulk:"Bulk (10)",history:"Session History",noHist:"No passwords yet. Generate one!",tips:"Security Tips",faq:"FAQ",share:"Share SecurePass",liveUsers:"Live Users",usersTrust:"users trust SecurePass",passwordsMade:"passwords generated",qrTitle:"Scan QR Code",qrHint:"Scan with another device",close:"Close",aboutTitle:"About SecurePass",aboutText:"Made with ❤️ in Hisar, India. A 100% offline, privacy-first password generator.",chooseLang:"Choose Language",tip1:"✅ Use 16+ character passwords for important accounts",tip2:"✅ Never reuse passwords across sites",tip3:"✅ Enable 2-factor authentication wherever possible",tip4:"✅ Change passwords every 3-6 months",tip5:"✅ Use a password manager for storage",tip6:"✅ Never share passwords over chat/email",q1:"Q: Is my password saved?",a1:"A: Absolutely not. Everything is generated in your browser.",q2:"Q: What is crack time?",a2:"A: How long a supercomputer would take to crack this password.",q3:"Q: Is this free?",a3:"A: Yes, 100% free forever. No signup, no ads."},
-  hi:{_name:"हिंदी",title:"SecurePass",subtitle:"अल्ट्रा सुरक्षित पासवर्ड जनरेटर",tabPass:"पासवर्ड",tabPhrase:"वाक्यांश",tabPin:"पिन",yourPwd:"आपका सुरक्षित पासवर्ड",crackTime:"तोड़ने का समय",entropyLbl:"एंट्रॉपी",ready:"बनाने के लिए तैयार",length:"पासवर्ड लंबाई:",upper:"बड़े अक्षर (A-Z)",lower:"छोटे अक्षर (a-z)",nums:"नंबर (0-9)",syms:"सिंबल (!@#$)",excludeSim:"समान अक्षर हटाएँ (0O1lI)",autoClear:"क्लिपबोर्ड 30s बाद साफ",words:"शब्द:",capFirst:"पहला अक्षर बड़ा",addNum:"नंबर जोड़ें",digits:"अंक:",generate:"पासवर्ड बनाएँ",qr:"QR",bulk:"बल्क (10)",history:"सेशन इतिहास",noHist:"अभी कोई पासवर्ड नहीं। एक बनाएँ!",tips:"सुरक्षा टिप्स",faq:"सामान्य प्रश्न",share:"SecurePass शेयर करें",liveUsers:"लाइव यूज़र्स",usersTrust:"लोग SecurePass पर भरोसा करते हैं",passwordsMade:"पासवर्ड बने",qrTitle:"QR कोड स्कैन करें",qrHint:"दूसरे डिवाइस से स्कैन करें",close:"बंद करें",aboutTitle:"SecurePass के बारे में",aboutText:"हिसार, भारत में ❤️ से बनाया गया। 100% ऑफलाइन, प्राइवेसी-फर्स्ट।",chooseLang:"भाषा चुनें",tip1:"✅ जरूरी अकाउंट के लिए 16+ अक्षर वाला पासवर्ड रखें",tip2:"✅ हर साइट पर अलग पासवर्ड रखें",tip3:"✅ जहाँ हो सके 2-फैक्टर ऑथेंटिकेशन ऑन करें",tip4:"✅ हर 3-6 महीने में पासवर्ड बदलें",tip5:"✅ पासवर्ड मैनेजर में सेव करें",tip6:"✅ चैट/ईमेल पर पासवर्ड शेयर न करें",q1:"प्र: क्या मेरा पासवर्ड सेव होता है?",a1:"उ: बिल्कुल नहीं। सब आपके ब्राउज़र में बनता है।",q2:"प्र: तोड़ने का समय क्या है?",a2:"उ: सुपर कंप्यूटर से तोड़ने में कितना समय लगेगा।",q3:"प्र: क्या यह फ्री है?",a3:"उ: हाँ, हमेशा के लिए 100% फ्री।"},
-  es:{_name:"Español",title:"SecurePass",subtitle:"Generador de contraseñas ultra seguro",tabPass:"Contraseña",tabPhrase:"Frase",tabPin:"PIN",yourPwd:"Tu contraseña segura",crackTime:"Tiempo de hackeo",entropyLbl:"Entropía",ready:"Listo para generar",length:"Longitud:",upper:"Mayúsculas (A-Z)",lower:"Minúsculas (a-z)",nums:"Números (0-9)",syms:"Símbolos (!@#$)",excludeSim:"Excluir similares (0O1lI)",autoClear:"Auto-limpiar portapapeles (30s)",words:"Palabras:",capFirst:"Capitalizar",addNum:"Añadir número",digits:"Dígitos:",generate:"Generar Contraseña",qr:"QR",bulk:"Lote (10)",history:"Historial",noHist:"¡Sin contraseñas aún!",tips:"Consejos de seguridad",faq:"Preguntas",share:"Comparte SecurePass",liveUsers:"Usuarios en vivo",usersTrust:"confían en SecurePass",passwordsMade:"contraseñas generadas",qrTitle:"Escanea el código QR",qrHint:"Escanea con otro dispositivo",close:"Cerrar",aboutTitle:"Sobre SecurePass",aboutText:"Hecho con ❤️ en Hisar, India. Generador 100% offline.",chooseLang:"Elegir idioma",tip1:"✅ Usa contraseñas de 16+ caracteres",tip2:"✅ Nunca reutilices contraseñas",tip3:"✅ Activa autenticación de 2 factores",tip4:"✅ Cambia contraseñas cada 3-6 meses",tip5:"✅ Usa un gestor de contraseñas",tip6:"✅ Nunca compartas por chat/email",q1:"¿Se guarda mi contraseña?",a1:"No. Todo se genera en tu navegador.",q2:"¿Qué es el tiempo de hackeo?",a2:"Cuánto tardaría una supercomputadora.",q3:"¿Es gratis?",a3:"Sí, 100% gratis para siempre."},
-  fr:{_name:"Français",title:"SecurePass",subtitle:"Générateur de mots de passe ultra sécurisé",tabPass:"Mot de passe",tabPhrase:"Phrase",tabPin:"NIP",yourPwd:"Votre mot de passe sécurisé",crackTime:"Temps de piratage",entropyLbl:"Entropie",ready:"Prêt à générer",length:"Longueur:",upper:"Majuscules (A-Z)",lower:"Minuscules (a-z)",nums:"Chiffres (0-9)",syms:"Symboles (!@#$)",excludeSim:"Exclure similaires (0O1lI)",autoClear:"Effacer le presse-papiers (30s)",words:"Mots:",capFirst:"Majuscule initiale",addNum:"Ajouter un numéro",digits:"Chiffres:",generate:"Générer",qr:"QR",bulk:"Lot (10)",history:"Historique",noHist:"Aucun mot de passe encore!",tips:"Conseils de sécurité",faq:"FAQ",share:"Partager SecurePass",liveUsers:"Utilisateurs en direct",usersTrust:"font confiance à SecurePass",passwordsMade:"mots de passe générés",qrTitle:"Scanner le code QR",qrHint:"Scannez avec un autre appareil",close:"Fermer",aboutTitle:"À propos",aboutText:"Fait avec ❤️ à Hisar, Inde. 100% hors ligne.",chooseLang:"Choisir la langue",tip1:"✅ Utilisez 16+ caractères",tip2:"✅ Ne réutilisez jamais les mots de passe",tip3:"✅ Activez l'authentification à 2 facteurs",tip4:"✅ Changez tous les 3-6 mois",tip5:"✅ Utilisez un gestionnaire",tip6:"✅ Ne partagez jamais par chat",q1:"Mon mot de passe est-il enregistré?",a1:"Non. Tout est généré dans votre navigateur.",q2:"Qu'est-ce que le temps de piratage?",a2:"Le temps qu'un superordinateur prendrait.",q3:"Est-ce gratuit?",a3:"Oui, 100% gratuit pour toujours."},
-  de:{_name:"Deutsch",title:"SecurePass",subtitle:"Ultra-sicherer Passwort-Generator",tabPass:"Passwort",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Ihr sicheres Passwort",crackTime:"Knackzeit",entropyLbl:"Entropie",ready:"Bereit",length:"Länge:",upper:"Großbuchstaben (A-Z)",lower:"Kleinbuchstaben (a-z)",nums:"Zahlen (0-9)",syms:"Symbole (!@#$)",excludeSim:"Ähnliche ausschließen (0O1lI)",autoClear:"Zwischenablage löschen (30s)",words:"Wörter:",capFirst:"Großbuchstabe",addNum:"Zahl hinzufügen",digits:"Ziffern:",generate:"Generieren",qr:"QR",bulk:"Masse (10)",history:"Verlauf",noHist:"Noch keine Passwörter!",tips:"Sicherheitstipps",faq:"FAQ",share:"SecurePass teilen",liveUsers:"Live-Nutzer",usersTrust:"vertrauen SecurePass",passwordsMade:"Passwörter generiert",qrTitle:"QR-Code scannen",qrHint:"Mit anderem Gerät scannen",close:"Schließen",aboutTitle:"Über SecurePass",aboutText:"Mit ❤️ in Hisar, Indien gemacht. 100% offline.",chooseLang:"Sprache wählen",tip1:"✅ Verwenden Sie 16+ Zeichen",tip2:"✅ Nie Passwörter wiederverwenden",tip3:"✅ 2-Faktor-Authentifizierung aktivieren",tip4:"✅ Alle 3-6 Monate ändern",tip5:"✅ Passwort-Manager verwenden",tip6:"✅ Nie über Chat teilen",q1:"Wird mein Passwort gespeichert?",a1:"Nein. Alles wird in Ihrem Browser generiert.",q2:"Was ist die Knackzeit?",a2:"Wie lange ein Supercomputer brauchen würde.",q3:"Ist es kostenlos?",a3:"Ja, für immer 100% kostenlos."},
-  pt:{_name:"Português",title:"SecurePass",subtitle:"Gerador de senhas ultra seguro",tabPass:"Senha",tabPhrase:"Frase",tabPin:"PIN",yourPwd:"Sua senha segura",crackTime:"Tempo de quebra",entropyLbl:"Entropia",ready:"Pronto",length:"Comprimento:",upper:"Maiúsculas (A-Z)",lower:"Minúsculas (a-z)",nums:"Números (0-9)",syms:"Símbolos (!@#$)",excludeSim:"Excluir similares (0O1lI)",autoClear:"Limpar área de transferência (30s)",words:"Palavras:",capFirst:"Capitalizar",addNum:"Adicionar número",digits:"Dígitos:",generate:"Gerar Senha",qr:"QR",bulk:"Lote (10)",history:"Histórico",noHist:"Sem senhas ainda!",tips:"Dicas de segurança",faq:"FAQ",share:"Compartilhar",liveUsers:"Usuários ao vivo",usersTrust:"confiam no SecurePass",passwordsMade:"senhas geradas",qrTitle:"Escanear código QR",qrHint:"Escaneie com outro dispositivo",close:"Fechar",aboutTitle:"Sobre",aboutText:"Feito com ❤️ em Hisar, Índia. 100% offline.",chooseLang:"Escolher idioma",tip1:"✅ Use 16+ caracteres",tip2:"✅ Nunca reutilize senhas",tip3:"✅ Ative 2FA",tip4:"✅ Mude a cada 3-6 meses",tip5:"✅ Use um gerenciador",tip6:"✅ Nunca compartilhe por chat",q1:"Minha senha é salva?",a1:"Não. Tudo é gerado no seu navegador.",q2:"O que é tempo de quebra?",a2:"Quanto tempo um supercomputador levaria.",q3:"É grátis?",a3:"Sim, 100% grátis para sempre."},
-  ar:{_name:"العربية",title:"SecurePass",subtitle:"مولد كلمات مرور فائق الأمان",tabPass:"كلمة المرور",tabPhrase:"عبارة",tabPin:"رقم سري",yourPwd:"كلمة المرور الآمنة",crackTime:"وقت الاختراق",entropyLbl:"الإنتروبيا",ready:"جاهز",length:"الطول:",upper:"أحرف كبيرة (A-Z)",lower:"أحرف صغيرة (a-z)",nums:"أرقام (0-9)",syms:"رموز (!@#$)",excludeSim:"استبعاد المتشابهة (0O1lI)",autoClear:"مسح الحافظة (30ث)",words:"كلمات:",capFirst:"حرف كبير",addNum:"إضافة رقم",digits:"أرقام:",generate:"إنشاء كلمة المرور",qr:"QR",bulk:"دفعة (10)",history:"السجل",noHist:"لا توجد كلمات مرور بعد!",tips:"نصائح الأمان",faq:"الأسئلة الشائعة",share:"شارك SecurePass",liveUsers:"مستخدمون مباشرون",usersTrust:"يثقون بـ SecurePass",passwordsMade:"كلمة مرور تم إنشاؤها",qrTitle:"امسح رمز QR",qrHint:"امسح بجهاز آخر",close:"إغلاق",aboutTitle:"حول SecurePass",aboutText:"صُنع بـ ❤️ في حصار، الهند. 100% بدون اتصال.",chooseLang:"اختر اللغة",tip1:"✅ استخدم 16+ حرفًا",tip2:"✅ لا تعد استخدام كلمات المرور",tip3:"✅ فعّل المصادقة الثنائية",tip4:"✅ غيّرها كل 3-6 أشهر",tip5:"✅ استخدم مدير كلمات المرور",tip6:"✅ لا تشارك عبر الدردشة",q1:"هل يتم حفظ كلمة المرور؟",a1:"لا. كل شيء يُنشأ في متصفحك.",q2:"ما هو وقت الاختراق؟",a2:"المدة التي يستغرقها حاسوب فائق.",q3:"هل هو مجاني؟",a3:"نعم، مجاني 100% للأبد."},
-  zh:{_name:"中文",title:"SecurePass",subtitle:"超安全密码生成器",tabPass:"密码",tabPhrase:"短语",tabPin:"PIN",yourPwd:"您的安全密码",crackTime:"破解时间",entropyLbl:"熵值",ready:"准备生成",length:"长度:",upper:"大写字母 (A-Z)",lower:"小写字母 (a-z)",nums:"数字 (0-9)",syms:"符号 (!@#$)",excludeSim:"排除相似字符 (0O1lI)",autoClear:"30秒后清除剪贴板",words:"单词:",capFirst:"首字母大写",addNum:"添加数字",digits:"位数:",generate:"生成密码",qr:"二维码",bulk:"批量 (10)",history:"历史记录",noHist:"还没有密码！",tips:"安全提示",faq:"常见问题",share:"分享 SecurePass",liveUsers:"在线用户",usersTrust:"用户信任 SecurePass",passwordsMade:"个密码已生成",qrTitle:"扫描二维码",qrHint:"用另一台设备扫描",close:"关闭",aboutTitle:"关于",aboutText:"用 ❤️ 在印度希萨尔制作。100% 离线。",chooseLang:"选择语言",tip1:"✅ 重要账户使用16位以上密码",tip2:"✅ 切勿重复使用密码",tip3:"✅ 尽可能启用双因素认证",tip4:"✅ 每3-6个月更换密码",tip5:"✅ 使用密码管理器",tip6:"✅ 切勿通过聊天分享密码",q1:"我的密码会被保存吗？",a1:"不会。一切都在您的浏览器中生成。",q2:"什么是破解时间？",a2:"超级计算机破解所需的时间。",q3:"免费吗？",a3:"是的，永久100%免费。"},
-  ja:{_name:"日本語",title:"SecurePass",subtitle:"超安全パスワード生成ツール",tabPass:"パスワード",tabPhrase:"パスフレーズ",tabPin:"PIN",yourPwd:"安全なパスワード",crackTime:"解読時間",entropyLbl:"エントロピー",ready:"準備完了",length:"長さ:",upper:"大文字 (A-Z)",lower:"小文字 (a-z)",nums:"数字 (0-9)",syms:"記号 (!@#$)",excludeSim:"類似文字を除外 (0O1lI)",autoClear:"30秒後にクリップボードを削除",words:"単語:",capFirst:"頭文字を大文字",addNum:"数字を追加",digits:"桁数:",generate:"パスワード生成",qr:"QR",bulk:"一括 (10)",history:"履歴",noHist:"パスワードがまだありません！",tips:"セキュリティのヒント",faq:"よくある質問",share:"SecurePassを共有",liveUsers:"ライブユーザー",usersTrust:"人がSecurePassを信頼",passwordsMade:"個のパスワード生成",qrTitle:"QRコードをスキャン",qrHint:"別のデバイスでスキャン",close:"閉じる",aboutTitle:"SecurePassについて",aboutText:"インド・ヒサールで❤️を込めて作成。100%オフライン。",chooseLang:"言語を選択",tip1:"✅ 重要なアカウントには16文字以上",tip2:"✅ パスワードを再利用しない",tip3:"✅ 2要素認証を有効に",tip4:"✅ 3〜6ヶ月ごとに変更",tip5:"✅ パスワードマネージャーを使用",tip6:"✅ チャットで共有しない",q1:"パスワードは保存されますか？",a1:"いいえ。すべてブラウザで生成されます。",q2:"解読時間とは？",a2:"スーパーコンピュータが解読するのにかかる時間。",q3:"無料ですか？",a3:"はい、永久に100%無料です。"},
-  ru:{_name:"Русский",title:"SecurePass",subtitle:"Ультра-безопасный генератор паролей",tabPass:"Пароль",tabPhrase:"Фраза",tabPin:"PIN",yourPwd:"Ваш безопасный пароль",crackTime:"Время взлома",entropyLbl:"Энтропия",ready:"Готово",length:"Длина:",upper:"Заглавные (A-Z)",lower:"Строчные (a-z)",nums:"Цифры (0-9)",syms:"Символы (!@#$)",excludeSim:"Исключить похожие (0O1lI)",autoClear:"Очистить буфер (30с)",words:"Слова:",capFirst:"Заглавная буква",addNum:"Добавить число",digits:"Цифры:",generate:"Создать пароль",qr:"QR",bulk:"Массово (10)",history:"История",noHist:"Паролей пока нет!",tips:"Советы по безопасности",faq:"ЧЗВ",share:"Поделиться",liveUsers:"Пользователи онлайн",usersTrust:"доверяют SecurePass",passwordsMade:"паролей создано",qrTitle:"Сканировать QR",qrHint:"Отсканируйте другим устройством",close:"Закрыть",aboutTitle:"О SecurePass",aboutText:"Сделано с ❤️ в Хисар, Индия. 100% офлайн.",chooseLang:"Выбрать язык",tip1:"✅ Используйте 16+ символов",tip2:"✅ Не повторяйте пароли",tip3:"✅ Включите 2FA",tip4:"✅ Меняйте каждые 3-6 месяцев",tip5:"✅ Используйте менеджер паролей",tip6:"✅ Не делитесь в чате",q1:"Сохраняется ли пароль?",a1:"Нет. Всё генерируется в вашем браузере.",q2:"Что такое время взлома?",a2:"Сколько времени займёт у суперкомпьютера.",q3:"Это бесплатно?",a3:"Да, навсегда 100% бесплатно."},
-  bn:{_name:"বাংলা",title:"SecurePass",subtitle:"আল্ট্রা সিকিউর পাসওয়ার্ড জেনারেটর",tabPass:"পাসওয়ার্ড",tabPhrase:"বাক্যাংশ",tabPin:"পিন",yourPwd:"আপনার নিরাপদ পাসওয়ার্ড",crackTime:"হ্যাক করার সময়",entropyLbl:"এনট্রপি",ready:"তৈরি করতে প্রস্তুত",length:"দৈর্ঘ্য:",upper:"বড় হাতের (A-Z)",lower:"ছোট হাতের (a-z)",nums:"সংখ্যা (0-9)",syms:"চিহ্ন (!@#$)",excludeSim:"একই রকম বাদ দিন (0O1lI)",autoClear:"৩০সে পর ক্লিপবোর্ড সাফ",words:"শব্দ:",capFirst:"প্রথম বড় হাত",addNum:"সংখ্যা যোগ",digits:"অঙ্ক:",generate:"পাসওয়ার্ড তৈরি",qr:"QR",bulk:"বাল্ক (10)",history:"ইতিহাস",noHist:"এখনো কোনো পাসওয়ার্ড নেই!",tips:"নিরাপত্তা টিপস",faq:"সাধারণ প্রশ্ন",share:"শেয়ার করুন",liveUsers:"লাইভ ব্যবহারকারী",usersTrust:"SecurePass-এ বিশ্বাস",passwordsMade:"পাসওয়ার্ড তৈরি",qrTitle:"QR কোড স্ক্যান করুন",qrHint:"অন্য ডিভাইস দিয়ে স্ক্যান",close:"বন্ধ",aboutTitle:"সম্পর্কে",aboutText:"ভারতের হিসারে ❤️ দিয়ে তৈরি। 100% অফলাইন।",chooseLang:"ভাষা নির্বাচন",tip1:"✅ গুরুত্বপূর্ণ অ্যাকাউন্টে 16+ অক্ষর",tip2:"✅ পাসওয়ার্ড পুনরায় ব্যবহার করবেন না",tip3:"✅ 2FA চালু করুন",tip4:"✅ 3-6 মাসে পরিবর্তন",tip5:"✅ পাসওয়ার্ড ম্যানেজার ব্যবহার",tip6:"✅ চ্যাটে শেয়ার করবেন না",q1:"পাসওয়ার্ড সংরক্ষিত হয়?",a1:"না। সব আপনার ব্রাউজারে তৈরি হয়।",q2:"হ্যাক করার সময় কী?",a2:"সুপার কম্পিউটার কত সময় নেবে।",q3:"ফ্রি?",a3:"হ্যাঁ, চিরকাল 100% ফ্রি।"},
-  ur:{_name:"اردو",title:"SecurePass",subtitle:"الٹرا محفوظ پاس ورڈ جنریٹر",tabPass:"پاس ورڈ",tabPhrase:"جملہ",tabPin:"پن",yourPwd:"آپ کا محفوظ پاس ورڈ",crackTime:"ہیک ہونے کا وقت",entropyLbl:"اینٹروپی",ready:"تیار",length:"لمبائی:",upper:"بڑے حروف (A-Z)",lower:"چھوٹے حروف (a-z)",nums:"نمبر (0-9)",syms:"علامات (!@#$)",excludeSim:"ملتے جلتے نکالیں (0O1lI)",autoClear:"30 سیکنڈ بعد صاف",words:"الفاظ:",capFirst:"پہلا حرف بڑا",addNum:"نمبر شامل",digits:"ہندسے:",generate:"پاس ورڈ بنائیں",qr:"QR",bulk:"بلک (10)",history:"تاریخ",noHist:"ابھی کوئی پاس ورڈ نہیں!",tips:"سیکیورٹی ٹپس",faq:"عام سوالات",share:"شیئر کریں",liveUsers:"لائیو صارفین",usersTrust:"SecurePass پر بھروسہ",passwordsMade:"پاس ورڈ بنے",qrTitle:"QR اسکین کریں",qrHint:"دوسرے ڈیوائس سے اسکین",close:"بند",aboutTitle:"کے بارے میں",aboutText:"ہندوستان کے حصار میں ❤️ سے بنایا۔ 100% آف لائن۔",chooseLang:"زبان منتخب کریں",tip1:"✅ اہم اکاؤنٹ کے لیے 16+ حروف",tip2:"✅ پاس ورڈ دوبارہ استعمال نہ کریں",tip3:"✅ 2FA فعال کریں",tip4:"✅ ہر 3-6 ماہ میں تبدیل کریں",tip5:"✅ پاس ورڈ مینیجر استعمال کریں",tip6:"✅ چیٹ پر شیئر نہ کریں",q1:"کیا پاس ورڈ محفوظ ہے؟",a1:"نہیں۔ سب کچھ آپ کے براؤزر میں بنتا ہے۔",q2:"ہیک کا وقت کیا ہے؟",a2:"سپر کمپیوٹر کو کتنا وقت لگے گا۔",q3:"کیا یہ مفت ہے؟",a3:"ہاں، ہمیشہ کے لیے 100% مفت۔"},
-  id:{_name:"Indonesia",title:"SecurePass",subtitle:"Generator Kata Sandi Ultra Aman",tabPass:"Kata Sandi",tabPhrase:"Frasa",tabPin:"PIN",yourPwd:"Kata sandi aman Anda",crackTime:"Waktu retas",entropyLbl:"Entropi",ready:"Siap",length:"Panjang:",upper:"Huruf besar (A-Z)",lower:"Huruf kecil (a-z)",nums:"Angka (0-9)",syms:"Simbol (!@#$)",excludeSim:"Kecualikan mirip (0O1lI)",autoClear:"Bersihkan clipboard (30d)",words:"Kata:",capFirst:"Kapitalisasi",addNum:"Tambah angka",digits:"Digit:",generate:"Buat Kata Sandi",qr:"QR",bulk:"Massal (10)",history:"Riwayat",noHist:"Belum ada kata sandi!",tips:"Tips Keamanan",faq:"FAQ",share:"Bagikan",liveUsers:"Pengguna aktif",usersTrust:"percaya pada SecurePass",passwordsMade:"kata sandi dibuat",qrTitle:"Pindai Kode QR",qrHint:"Pindai dengan perangkat lain",close:"Tutup",aboutTitle:"Tentang",aboutText:"Dibuat dengan ❤️ di Hisar, India. 100% offline.",chooseLang:"Pilih Bahasa",tip1:"✅ Gunakan 16+ karakter",tip2:"✅ Jangan pakai ulang",tip3:"✅ Aktifkan 2FA",tip4:"✅ Ganti tiap 3-6 bulan",tip5:"✅ Gunakan pengelola",tip6:"✅ Jangan bagikan via chat",q1:"Apakah kata sandi disimpan?",a1:"Tidak. Semua dibuat di browser Anda.",q2:"Apa itu waktu retas?",a2:"Berapa lama superkomputer meretasnya.",q3:"Gratis?",a3:"Ya, 100% gratis selamanya."}
+  en:{_name:"English",title:"SecurePass",subtitle:"Ultra Secure Password Generator",badgeOffline:"100% Offline",badgeNoStore:"No Data Stored",badgeFree:"Free Forever",tabPass:"Password",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Your Secure Password",crackTime:"Crack Time",entropyLbl:"Entropy",ready:"Ready to generate",length:"Password Length:",upper:"Uppercase (A-Z)",lower:"Lowercase (a-z)",nums:"Numbers (0-9)",syms:"Symbols (!@#$)",excludeSim:"Exclude similar (0O1lI)",autoClear:"Auto-clear clipboard (30s)",words:"Words:",capFirst:"Capitalize words",addNum:"Add number",digits:"Digits:",generate:"Generate Password",qr:"QR",bulk:"Bulk (10)",history:"Session History",noHist:"No passwords yet. Generate one!",tips:"Security Tips",faq:"FAQ",share:"Share SecurePass",liveUsers:"Live Users",usersTrust:"users trust SecurePass",passwordsMade:"passwords generated",qrTitle:"Scan QR Code",qrHint:"Scan with another device",close:"Close",aboutTitle:"About SecurePass",chooseLang:"Choose Language",tip1:"✅ Use 16+ character passwords for important accounts",tip2:"✅ Never reuse passwords across sites",tip3:"✅ Enable 2-factor authentication wherever possible",tip4:"✅ Change passwords every 3-6 months",tip5:"✅ Use a password manager for storage",tip6:"✅ Never share passwords over chat/email",q1:"Q: Is my password saved?",a1:"A: Absolutely not. Everything is generated in your browser. Nothing is sent anywhere.",q2:"Q: What is crack time?",a2:"A: It shows how long a supercomputer would take to crack this password.",q3:"Q: Is this free?",a3:"A: Yes, 100% free forever. No signup, no ads.",
+    aboutB1T:"100% Privacy Protected",aboutB1S:"Passwords are never sent to any server. Everything happens on your device.",aboutB2T:"Works Offline",aboutB2S:"Generate and copy passwords even without internet.",aboutB3T:"Zero Data Storage",aboutB3S:"We do not store any password, log, or personal data.",aboutB4T:"Free Forever",aboutB4S:"No subscription, no ads, no limits. Ever.",aboutMsgT:"Our Promise:",aboutMsgS:"Your security is our responsibility. This tool was built so every person — student, professional, or elder — can easily create strong passwords, without fear or doubt. We deeply respect your privacy."},
+  hi:{_name:"हिंदी",title:"SecurePass",subtitle:"अल्ट्रा सुरक्षित पासवर्ड जनरेटर",badgeOffline:"100% ऑफलाइन",badgeNoStore:"डेटा सेव नहीं",badgeFree:"हमेशा फ्री",tabPass:"पासवर्ड",tabPhrase:"वाक्यांश",tabPin:"पिन",yourPwd:"आपका सुरक्षित पासवर्ड",crackTime:"तोड़ने का समय",entropyLbl:"एंट्रॉपी",ready:"बनाने के लिए तैयार",length:"पासवर्ड लंबाई:",upper:"बड़े अक्षर (A-Z)",lower:"छोटे अक्षर (a-z)",nums:"नंबर (0-9)",syms:"सिंबल (!@#$)",excludeSim:"समान अक्षर हटाएँ (0O1lI)",autoClear:"क्लिपबोर्ड 30s बाद साफ",words:"शब्द:",capFirst:"पहला अक्षर बड़ा",addNum:"नंबर जोड़ें",digits:"अंक:",generate:"पासवर्ड बनाएँ",qr:"QR",bulk:"बल्क (10)",history:"सेशन इतिहास",noHist:"अभी कोई पासवर्ड नहीं। एक बनाएँ!",tips:"सुरक्षा टिप्स",faq:"सामान्य प्रश्न",share:"SecurePass शेयर करें",liveUsers:"लाइव यूज़र्स",usersTrust:"लोग SecurePass पर भरोसा करते हैं",passwordsMade:"पासवर्ड बने",qrTitle:"QR कोड स्कैन करें",qrHint:"दूसरे डिवाइस से स्कैन करें",close:"बंद करें",aboutTitle:"SecurePass के बारे में",chooseLang:"भाषा चुनें",tip1:"✅ जरूरी अकाउंट के लिए 16+ अक्षर वाला पासवर्ड रखें",tip2:"✅ हर साइट पर अलग पासवर्ड रखें",tip3:"✅ जहाँ हो सके 2-फैक्टर ऑथेंटिकेशन ऑन करें",tip4:"✅ हर 3-6 महीने में पासवर्ड बदलें",tip5:"✅ पासवर्ड मैनेजर में सेव करें",tip6:"✅ चैट/ईमेल पर पासवर्ड शेयर न करें",q1:"प्र: क्या मेरा पासवर्ड सेव होता है?",a1:"उ: बिल्कुल नहीं। सब आपके ब्राउज़र में बनता है। कहीं नहीं भेजा जाता।",q2:"प्र: तोड़ने का समय क्या है?",a2:"उ: यह बताता है कि सुपर कंप्यूटर से तोड़ने में कितना समय लगेगा।",q3:"प्र: क्या यह फ्री है?",a3:"उ: हाँ, हमेशा के लिए 100% फ्री। कोई साइनअप नहीं, कोई विज्ञापन नहीं।",
+    aboutB1T:"100% प्राइवेसी सुरक्षित",aboutB1S:"पासवर्ड कभी किसी सर्वर पर नहीं भेजे जाते। सब आपके डिवाइस में ही बनते हैं।",aboutB2T:"बिना इंटरनेट काम करे",aboutB2S:"इंटरनेट बंद हो, तब भी पासवर्ड बनाएँ और कॉपी करें।",aboutB3T:"शून्य डेटा स्टोरेज",aboutB3S:"हम कोई भी password, log या personal data store नहीं करते।",aboutB4T:"हमेशा के लिए फ्री",aboutB4S:"कोई subscription नहीं, कोई ads नहीं, कोई limit नहीं।",aboutMsgT:"हमारा वादा:",aboutMsgS:"आपकी सुरक्षा हमारी ज़िम्मेदारी है। यह टूल इसलिए बनाया गया है ताकि हर इंसान — student, professional, या बुज़ुर्ग — आसानी से strong password बना सके, बिना किसी डर या शक के। हम आपकी privacy का पूरा सम्मान करते हैं।"},
+  es:{_name:"Español",title:"SecurePass",subtitle:"Generador de contraseñas ultra seguro",badgeOffline:"100% Sin conexión",badgeNoStore:"Sin datos guardados",badgeFree:"Gratis para siempre",tabPass:"Contraseña",tabPhrase:"Frase",tabPin:"PIN",yourPwd:"Tu contraseña segura",crackTime:"Tiempo de hackeo",entropyLbl:"Entropía",ready:"Listo",length:"Longitud:",upper:"Mayúsculas (A-Z)",lower:"Minúsculas (a-z)",nums:"Números (0-9)",syms:"Símbolos (!@#$)",excludeSim:"Excluir similares (0O1lI)",autoClear:"Auto-limpiar portapapeles (30s)",words:"Palabras:",capFirst:"Capitalizar",addNum:"Añadir número",digits:"Dígitos:",generate:"Generar",qr:"QR",bulk:"Lote (10)",history:"Historial",noHist:"¡Sin contraseñas aún!",tips:"Consejos de seguridad",faq:"Preguntas",share:"Compartir",liveUsers:"Usuarios en vivo",usersTrust:"confían en SecurePass",passwordsMade:"contraseñas generadas",qrTitle:"Escanea el código QR",qrHint:"Escanea con otro dispositivo",close:"Cerrar",aboutTitle:"Sobre SecurePass",chooseLang:"Elegir idioma",tip1:"✅ Usa contraseñas de 16+ caracteres",tip2:"✅ Nunca reutilices contraseñas",tip3:"✅ Activa autenticación de 2 factores",tip4:"✅ Cambia cada 3-6 meses",tip5:"✅ Usa un gestor de contraseñas",tip6:"✅ Nunca compartas por chat",q1:"¿Se guarda mi contraseña?",a1:"No. Todo se genera en tu navegador.",q2:"¿Qué es el tiempo de hackeo?",a2:"Cuánto tardaría una supercomputadora.",q3:"¿Es gratis?",a3:"Sí, 100% gratis para siempre.",
+    aboutB1T:"Privacidad 100% protegida",aboutB1S:"Las contraseñas nunca se envían a ningún servidor.",aboutB2T:"Funciona sin conexión",aboutB2S:"Genera y copia contraseñas sin internet.",aboutB3T:"Cero almacenamiento",aboutB3S:"No guardamos ninguna contraseña o dato.",aboutB4T:"Gratis para siempre",aboutB4S:"Sin suscripción, sin anuncios.",aboutMsgT:"Nuestra promesa:",aboutMsgS:"Tu seguridad es nuestra responsabilidad. Esta herramienta fue creada para que cualquiera pueda crear contraseñas fuertes sin miedo. Respetamos tu privacidad."},
+  fr:{_name:"Français",title:"SecurePass",subtitle:"Générateur de mots de passe ultra sécurisé",badgeOffline:"100% Hors ligne",badgeNoStore:"Aucune donnée",badgeFree:"Gratuit à vie",tabPass:"Mot de passe",tabPhrase:"Phrase",tabPin:"NIP",yourPwd:"Votre mot de passe sécurisé",crackTime:"Temps de piratage",entropyLbl:"Entropie",ready:"Prêt",length:"Longueur:",upper:"Majuscules (A-Z)",lower:"Minuscules (a-z)",nums:"Chiffres (0-9)",syms:"Symboles (!@#$)",excludeSim:"Exclure similaires (0O1lI)",autoClear:"Effacer le presse-papiers (30s)",words:"Mots:",capFirst:"Majuscule",addNum:"Ajouter un numéro",digits:"Chiffres:",generate:"Générer",qr:"QR",bulk:"Lot (10)",history:"Historique",noHist:"Aucun mot de passe encore!",tips:"Conseils",faq:"FAQ",share:"Partager",liveUsers:"Utilisateurs en direct",usersTrust:"font confiance",passwordsMade:"mots de passe générés",qrTitle:"Scanner le code QR",qrHint:"Scannez avec un autre appareil",close:"Fermer",aboutTitle:"À propos",chooseLang:"Choisir la langue",tip1:"✅ Utilisez 16+ caractères",tip2:"✅ Ne réutilisez jamais",tip3:"✅ Activez 2FA",tip4:"✅ Changez tous les 3-6 mois",tip5:"✅ Utilisez un gestionnaire",tip6:"✅ Ne partagez jamais par chat",q1:"Mon mot de passe est-il enregistré?",a1:"Non. Tout est généré dans votre navigateur.",q2:"Qu'est-ce que le temps de piratage?",a2:"Le temps qu'un superordinateur prendrait.",q3:"Est-ce gratuit?",a3:"Oui, 100% gratuit pour toujours.",
+    aboutB1T:"Confidentialité 100%",aboutB1S:"Les mots de passe ne sont jamais envoyés.",aboutB2T:"Fonctionne hors ligne",aboutB2S:"Générez sans internet.",aboutB3T:"Zéro stockage",aboutB3S:"Aucune donnée n'est enregistrée.",aboutB4T:"Gratuit à vie",aboutB4S:"Pas d'abonnement, pas de pub.",aboutMsgT:"Notre promesse:",aboutMsgS:"Votre sécurité est notre responsabilité. Cet outil a été créé pour que chacun puisse créer des mots de passe forts en toute confiance. Nous respectons votre vie privée."},
+  de:{_name:"Deutsch",title:"SecurePass",subtitle:"Ultra-sicherer Passwort-Generator",badgeOffline:"100% Offline",badgeNoStore:"Keine Daten",badgeFree:"Für immer kostenlos",tabPass:"Passwort",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Ihr sicheres Passwort",crackTime:"Knackzeit",entropyLbl:"Entropie",ready:"Bereit",length:"Länge:",upper:"Großbuchstaben (A-Z)",lower:"Kleinbuchstaben (a-z)",nums:"Zahlen (0-9)",syms:"Symbole (!@#$)",excludeSim:"Ähnliche ausschließen (0O1lI)",autoClear:"Zwischenablage löschen (30s)",words:"Wörter:",capFirst:"Großbuchstabe",addNum:"Zahl hinzufügen",digits:"Ziffern:",generate:"Generieren",qr:"QR",bulk:"Masse (10)",history:"Verlauf",noHist:"Noch keine Passwörter!",tips:"Sicherheitstipps",faq:"FAQ",share:"Teilen",liveUsers:"Live-Nutzer",usersTrust:"vertrauen SecurePass",passwordsMade:"Passwörter generiert",qrTitle:"QR-Code scannen",qrHint:"Mit anderem Gerät scannen",close:"Schließen",aboutTitle:"Über SecurePass",chooseLang:"Sprache wählen",tip1:"✅ Verwenden Sie 16+ Zeichen",tip2:"✅ Nie Passwörter wiederverwenden",tip3:"✅ 2FA aktivieren",tip4:"✅ Alle 3-6 Monate ändern",tip5:"✅ Passwort-Manager verwenden",tip6:"✅ Nie über Chat teilen",q1:"Wird mein Passwort gespeichert?",a1:"Nein. Alles wird in Ihrem Browser generiert.",q2:"Was ist die Knackzeit?",a2:"Wie lange ein Supercomputer brauchen würde.",q3:"Ist es kostenlos?",a3:"Ja, für immer 100% kostenlos.",
+    aboutB1T:"100% Datenschutz",aboutB1S:"Passwörter werden nie gesendet.",aboutB2T:"Funktioniert offline",aboutB2S:"Auch ohne Internet generieren.",aboutB3T:"Null Datenspeicherung",aboutB3S:"Wir speichern keine Daten.",aboutB4T:"Für immer kostenlos",aboutB4S:"Kein Abo, keine Werbung.",aboutMsgT:"Unser Versprechen:",aboutMsgS:"Ihre Sicherheit ist unsere Verantwortung. Dieses Tool wurde entwickelt, damit jeder starke Passwörter ohne Angst erstellen kann. Wir respektieren Ihre Privatsphäre."},
+  pt:{_name:"Português",title:"SecurePass",subtitle:"Gerador de senhas ultra seguro",badgeOffline:"100% Offline",badgeNoStore:"Sem dados salvos",badgeFree:"Grátis para sempre",tabPass:"Senha",tabPhrase:"Frase",tabPin:"PIN",yourPwd:"Sua senha segura",crackTime:"Tempo de quebra",entropyLbl:"Entropia",ready:"Pronto",length:"Comprimento:",upper:"Maiúsculas (A-Z)",lower:"Minúsculas (a-z)",nums:"Números (0-9)",syms:"Símbolos (!@#$)",excludeSim:"Excluir similares (0O1lI)",autoClear:"Limpar clipboard (30s)",words:"Palavras:",capFirst:"Capitalizar",addNum:"Adicionar número",digits:"Dígitos:",generate:"Gerar",qr:"QR",bulk:"Lote (10)",history:"Histórico",noHist:"Sem senhas ainda!",tips:"Dicas",faq:"FAQ",share:"Compartilhar",liveUsers:"Usuários ao vivo",usersTrust:"confiam no SecurePass",passwordsMade:"senhas geradas",qrTitle:"Escanear QR",qrHint:"Escaneie com outro dispositivo",close:"Fechar",aboutTitle:"Sobre",chooseLang:"Escolher idioma",tip1:"✅ Use 16+ caracteres",tip2:"✅ Nunca reutilize senhas",tip3:"✅ Ative 2FA",tip4:"✅ Mude a cada 3-6 meses",tip5:"✅ Use um gerenciador",tip6:"✅ Nunca compartilhe por chat",q1:"Minha senha é salva?",a1:"Não. Tudo é gerado no seu navegador.",q2:"O que é tempo de quebra?",a2:"Quanto tempo um supercomputador levaria.",q3:"É grátis?",a3:"Sim, 100% grátis para sempre.",
+    aboutB1T:"Privacidade 100% protegida",aboutB1S:"Senhas nunca são enviadas.",aboutB2T:"Funciona offline",aboutB2S:"Gere sem internet.",aboutB3T:"Zero armazenamento",aboutB3S:"Não guardamos nenhum dado.",aboutB4T:"Grátis para sempre",aboutB4S:"Sem assinatura, sem anúncios.",aboutMsgT:"Nossa promessa:",aboutMsgS:"Sua segurança é nossa responsabilidade. Esta ferramenta foi criada para que qualquer pessoa crie senhas fortes sem medo. Respeitamos sua privacidade."},
+  ar:{_name:"العربية",title:"SecurePass",subtitle:"مولد كلمات مرور فائق الأمان",badgeOffline:"100% بدون اتصال",badgeNoStore:"لا يتم حفظ البيانات",badgeFree:"مجاني للأبد",tabPass:"كلمة المرور",tabPhrase:"عبارة",tabPin:"رقم سري",yourPwd:"كلمة المرور الآمنة",crackTime:"وقت الاختراق",entropyLbl:"الإنتروبيا",ready:"جاهز",length:"الطول:",upper:"أحرف كبيرة (A-Z)",lower:"أحرف صغيرة (a-z)",nums:"أرقام (0-9)",syms:"رموز (!@#$)",excludeSim:"استبعاد المتشابهة (0O1lI)",autoClear:"مسح الحافظة (30ث)",words:"كلمات:",capFirst:"حرف كبير",addNum:"إضافة رقم",digits:"أرقام:",generate:"إنشاء",qr:"QR",bulk:"دفعة (10)",history:"السجل",noHist:"لا توجد كلمات مرور بعد!",tips:"نصائح",faq:"الأسئلة الشائعة",share:"شارك",liveUsers:"مستخدمون مباشرون",usersTrust:"يثقون بـ SecurePass",passwordsMade:"كلمة مرور تم إنشاؤها",qrTitle:"امسح رمز QR",qrHint:"امسح بجهاز آخر",close:"إغلاق",aboutTitle:"حول SecurePass",chooseLang:"اختر اللغة",tip1:"✅ استخدم 16+ حرفًا",tip2:"✅ لا تعد استخدام كلمات المرور",tip3:"✅ فعّل المصادقة الثنائية",tip4:"✅ غيّرها كل 3-6 أشهر",tip5:"✅ استخدم مدير كلمات المرور",tip6:"✅ لا تشارك عبر الدردشة",q1:"هل يتم حفظ كلمة المرور؟",a1:"لا. كل شيء يُنشأ في متصفحك.",q2:"ما هو وقت الاختراق؟",a2:"المدة التي يستغرقها حاسوب فائق.",q3:"هل هو مجاني؟",a3:"نعم، مجاني 100% للأبد.",
+    aboutB1T:"خصوصية 100%",aboutB1S:"لا يتم إرسال كلمات المرور أبداً.",aboutB2T:"يعمل بدون اتصال",aboutB2S:"أنشئ كلمات المرور دون إنترنت.",aboutB3T:"بدون تخزين بيانات",aboutB3S:"لا نحفظ أي بيانات.",aboutB4T:"مجاني للأبد",aboutB4S:"لا اشتراكات، لا إعلانات.",aboutMsgT:"وعدنا:",aboutMsgS:"أمانك مسؤوليتنا. صُنع هذا الأداة ليتمكن الجميع من إنشاء كلمات مرور قوية بثقة. نحترم خصوصيتك."},
+  zh:{_name:"中文",title:"SecurePass",subtitle:"超安全密码生成器",badgeOffline:"100% 离线",badgeNoStore:"不存储数据",badgeFree:"永久免费",tabPass:"密码",tabPhrase:"短语",tabPin:"PIN",yourPwd:"您的安全密码",crackTime:"破解时间",entropyLbl:"熵值",ready:"准备",length:"长度:",upper:"大写 (A-Z)",lower:"小写 (a-z)",nums:"数字 (0-9)",syms:"符号 (!@#$)",excludeSim:"排除相似字符 (0O1lI)",autoClear:"30秒后清除剪贴板",words:"单词:",capFirst:"首字母大写",addNum:"添加数字",digits:"位数:",generate:"生成",qr:"二维码",bulk:"批量 (10)",history:"历史",noHist:"还没有密码！",tips:"安全提示",faq:"常见问题",share:"分享",liveUsers:"在线用户",usersTrust:"信任 SecurePass",passwordsMade:"密码已生成",qrTitle:"扫描二维码",qrHint:"用另一台设备扫描",close:"关闭",aboutTitle:"关于",chooseLang:"选择语言",tip1:"✅ 使用16位以上密码",tip2:"✅ 切勿重复使用",tip3:"✅ 启用双因素认证",tip4:"✅ 每3-6个月更换",tip5:"✅ 使用密码管理器",tip6:"✅ 切勿通过聊天分享",q1:"密码会被保存吗？",a1:"不会。一切都在浏览器中生成。",q2:"什么是破解时间？",a2:"超级计算机破解所需时间。",q3:"免费吗？",a3:"是的，永久100%免费。",
+    aboutB1T:"100% 隐私保护",aboutB1S:"密码永不发送到服务器。",aboutB2T:"离线可用",aboutB2S:"无网络也可生成。",aboutB3T:"零数据存储",aboutB3S:"不保存任何数据。",aboutB4T:"永久免费",aboutB4S:"无订阅，无广告。",aboutMsgT:"我们的承诺：",aboutMsgS:"您的安全是我们的责任。我们尊重您的隐私。"},
+  ja:{_name:"日本語",title:"SecurePass",subtitle:"超安全パスワード生成",badgeOffline:"100% オフライン",badgeNoStore:"データ保存なし",badgeFree:"永久無料",tabPass:"パスワード",tabPhrase:"パスフレーズ",tabPin:"PIN",yourPwd:"安全なパスワード",crackTime:"解読時間",entropyLbl:"エントロピー",ready:"準備完了",length:"長さ:",upper:"大文字 (A-Z)",lower:"小文字 (a-z)",nums:"数字 (0-9)",syms:"記号 (!@#$)",excludeSim:"類似文字を除外 (0O1lI)",autoClear:"30秒後にクリップボード削除",words:"単語:",capFirst:"頭文字大文字",addNum:"数字追加",digits:"桁数:",generate:"生成",qr:"QR",bulk:"一括 (10)",history:"履歴",noHist:"まだありません！",tips:"セキュリティ",faq:"FAQ",share:"共有",liveUsers:"ライブユーザー",usersTrust:"が信頼",passwordsMade:"パスワード生成",qrTitle:"QRコードをスキャン",qrHint:"別のデバイスで",close:"閉じる",aboutTitle:"について",chooseLang:"言語を選択",tip1:"✅ 16文字以上を使用",tip2:"✅ パスワードを再利用しない",tip3:"✅ 2FAを有効に",tip4:"✅ 3〜6ヶ月ごとに変更",tip5:"✅ パスワードマネージャー",tip6:"✅ チャットで共有しない",q1:"保存されますか？",a1:"いいえ。ブラウザで生成されます。",q2:"解読時間とは？",a2:"スーパーコンピュータの解読時間。",q3:"無料ですか？",a3:"はい、永久無料です。",
+    aboutB1T:"100% プライバシー",aboutB1S:"パスワードは送信されません。",aboutB2T:"オフライン動作",aboutB2S:"ネットなしで生成可能。",aboutB3T:"データ保存ゼロ",aboutB3S:"一切保存しません。",aboutB4T:"永久無料",aboutB4S:"サブスクなし、広告なし。",aboutMsgT:"私たちの約束：",aboutMsgS:"あなたの安全は私たちの責任です。プライバシーを尊重します。"},
+  ru:{_name:"Русский",title:"SecurePass",subtitle:"Ультра-безопасный генератор",badgeOffline:"100% Офлайн",badgeNoStore:"Без хранения данных",badgeFree:"Навсегда бесплатно",tabPass:"Пароль",tabPhrase:"Фраза",tabPin:"PIN",yourPwd:"Ваш пароль",crackTime:"Время взлома",entropyLbl:"Энтропия",ready:"Готово",length:"Длина:",upper:"Заглавные (A-Z)",lower:"Строчные (a-z)",nums:"Цифры (0-9)",syms:"Символы (!@#$)",excludeSim:"Исключить похожие (0O1lI)",autoClear:"Очистить буфер (30с)",words:"Слова:",capFirst:"Заглавная",addNum:"Добавить число",digits:"Цифры:",generate:"Создать",qr:"QR",bulk:"Массово (10)",history:"История",noHist:"Пока нет паролей!",tips:"Советы",faq:"ЧЗВ",share:"Поделиться",liveUsers:"Пользователи онлайн",usersTrust:"доверяют",passwordsMade:"паролей создано",qrTitle:"Сканировать QR",qrHint:"Отсканируйте другим",close:"Закрыть",aboutTitle:"О SecurePass",chooseLang:"Выбрать язык",tip1:"✅ 16+ символов",tip2:"✅ Не повторяйте пароли",tip3:"✅ Включите 2FA",tip4:"✅ Меняйте каждые 3-6 мес.",tip5:"✅ Используйте менеджер",tip6:"✅ Не делитесь в чате",q1:"Пароль сохраняется?",a1:"Нет. Всё в вашем браузере.",q2:"Что такое время взлома?",a2:"Сколько времени займёт у суперкомпьютера.",q3:"Это бесплатно?",a3:"Да, навсегда бесплатно.",
+    aboutB1T:"100% Приватность",aboutB1S:"Пароли никогда не отправляются.",aboutB2T:"Работает офлайн",aboutB2S:"Генерация без интернета.",aboutB3T:"Без хранения данных",aboutB3S:"Ничего не сохраняем.",aboutB4T:"Навсегда бесплатно",aboutB4S:"Без подписки и рекламы.",aboutMsgT:"Наше обещание:",aboutMsgS:"Ваша безопасность — наша ответственность. Мы уважаем вашу приватность."},
+  bn:{_name:"বাংলা",title:"SecurePass",subtitle:"আল্ট্রা সিকিউর পাসওয়ার্ড",badgeOffline:"100% অফলাইন",badgeNoStore:"ডেটা সেভ নয়",badgeFree:"চিরকাল ফ্রি",tabPass:"পাসওয়ার্ড",tabPhrase:"বাক্যাংশ",tabPin:"পিন",yourPwd:"আপনার নিরাপদ পাসওয়ার্ড",crackTime:"হ্যাক সময়",entropyLbl:"এনট্রপি",ready:"প্রস্তুত",length:"দৈর্ঘ্য:",upper:"বড় হাতের (A-Z)",lower:"ছোট হাতের (a-z)",nums:"সংখ্যা (0-9)",syms:"চিহ্ন (!@#$)",excludeSim:"একই রকম বাদ (0O1lI)",autoClear:"৩০সে পর সাফ",words:"শব্দ:",capFirst:"প্রথম বড়",addNum:"সংখ্যা যোগ",digits:"অঙ্ক:",generate:"তৈরি করুন",qr:"QR",bulk:"বাল্ক (10)",history:"ইতিহাস",noHist:"এখনো নেই!",tips:"নিরাপত্তা",faq:"প্রশ্ন",share:"শেয়ার",liveUsers:"লাইভ ব্যবহারকারী",usersTrust:"SecurePass-এ বিশ্বাস",passwordsMade:"পাসওয়ার্ড তৈরি",qrTitle:"QR স্ক্যান",qrHint:"অন্য ডিভাইস দিয়ে",close:"বন্ধ",aboutTitle:"সম্পর্কে",chooseLang:"ভাষা নির্বাচন",tip1:"✅ 16+ অক্ষর",tip2:"✅ পুনরায় ব্যবহার না",tip3:"✅ 2FA চালু",tip4:"✅ 3-6 মাসে পরিবর্তন",tip5:"✅ ম্যানেজার ব্যবহার",tip6:"✅ চ্যাটে শেয়ার না",q1:"পাসওয়ার্ড সংরক্ষিত?",a1:"না। সব ব্রাউজারে তৈরি হয়।",q2:"হ্যাক সময় কী?",a2:"সুপার কম্পিউটারের সময়।",q3:"ফ্রি?",a3:"হ্যাঁ, চিরকাল ফ্রি।",
+    aboutB1T:"100% গোপনীয়তা",aboutB1S:"পাসওয়ার্ড কখনো পাঠানো হয় না।",aboutB2T:"অফলাইনে কাজ করে",aboutB2S:"ইন্টারনেট ছাড়াই তৈরি।",aboutB3T:"শূন্য ডেটা",aboutB3S:"কোনো ডেটা সংরক্ষণ নেই।",aboutB4T:"চিরকাল ফ্রি",aboutB4S:"কোনো সাবস্ক্রিপশন নেই।",aboutMsgT:"আমাদের প্রতিশ্রুতি:",aboutMsgS:"আপনার নিরাপত্তা আমাদের দায়িত্ব। আমরা আপনার গোপনীয়তা সম্মান করি।"},
+  ur:{_name:"اردو",title:"SecurePass",subtitle:"الٹرا محفوظ پاس ورڈ",badgeOffline:"100% آف لائن",badgeNoStore:"ڈیٹا محفوظ نہیں",badgeFree:"ہمیشہ مفت",tabPass:"پاس ورڈ",tabPhrase:"جملہ",tabPin:"پن",yourPwd:"آپ کا محفوظ پاس ورڈ",crackTime:"ہیک وقت",entropyLbl:"اینٹروپی",ready:"تیار",length:"لمبائی:",upper:"بڑے حروف (A-Z)",lower:"چھوٹے حروف (a-z)",nums:"نمبر (0-9)",syms:"علامات (!@#$)",excludeSim:"ملتے جلتے نکالیں (0O1lI)",autoClear:"30 سیکنڈ بعد صاف",words:"الفاظ:",capFirst:"پہلا بڑا",addNum:"نمبر شامل",digits:"ہندسے:",generate:"بنائیں",qr:"QR",bulk:"بلک (10)",history:"تاریخ",noHist:"ابھی نہیں!",tips:"سیکیورٹی",faq:"سوالات",share:"شیئر",liveUsers:"لائیو صارفین",usersTrust:"بھروسہ",passwordsMade:"پاس ورڈ بنے",qrTitle:"QR اسکین",qrHint:"دوسرے ڈیوائس سے",close:"بند",aboutTitle:"کے بارے میں",chooseLang:"زبان منتخب",tip1:"✅ 16+ حروف",tip2:"✅ دوبارہ استعمال نہ کریں",tip3:"✅ 2FA فعال",tip4:"✅ 3-6 ماہ میں تبدیل",tip5:"✅ مینیجر استعمال",tip6:"✅ چیٹ پر شیئر نہ",q1:"پاس ورڈ محفوظ؟",a1:"نہیں۔ سب براؤزر میں بنتا ہے۔",q2:"ہیک وقت کیا ہے؟",a2:"سپر کمپیوٹر کا وقت۔",q3:"مفت؟",a3:"ہاں، ہمیشہ مفت۔",
+    aboutB1T:"100% رازداری",aboutB1S:"پاس ورڈ کبھی نہیں بھیجے جاتے۔",aboutB2T:"آف لائن کام",aboutB2S:"انٹرنیٹ کے بغیر بنائیں۔",aboutB3T:"زیرو ڈیٹا",aboutB3S:"کوئی ڈیٹا محفوظ نہیں۔",aboutB4T:"ہمیشہ مفت",aboutB4S:"کوئی سبسکرپشن نہیں۔",aboutMsgT:"ہمارا وعدہ:",aboutMsgS:"آپ کی حفاظت ہماری ذمہ داری ہے۔ ہم آپ کی رازداری کا احترام کرتے ہیں۔"},
+  id:{_name:"Indonesia",title:"SecurePass",subtitle:"Generator Sandi Ultra Aman",badgeOffline:"100% Offline",badgeNoStore:"Tanpa Data",badgeFree:"Gratis Selamanya",tabPass:"Sandi",tabPhrase:"Frasa",tabPin:"PIN",yourPwd:"Sandi aman Anda",crackTime:"Waktu retas",entropyLbl:"Entropi",ready:"Siap",length:"Panjang:",upper:"Besar (A-Z)",lower:"Kecil (a-z)",nums:"Angka (0-9)",syms:"Simbol (!@#$)",excludeSim:"Kecuali mirip (0O1lI)",autoClear:"Bersihkan clipboard (30d)",words:"Kata:",capFirst:"Kapital",addNum:"Tambah angka",digits:"Digit:",generate:"Buat",qr:"QR",bulk:"Massal (10)",history:"Riwayat",noHist:"Belum ada!",tips:"Tips",faq:"FAQ",share:"Bagikan",liveUsers:"Pengguna aktif",usersTrust:"percaya",passwordsMade:"sandi dibuat",qrTitle:"Pindai QR",qrHint:"Pindai dengan perangkat lain",close:"Tutup",aboutTitle:"Tentang",chooseLang:"Pilih Bahasa",tip1:"✅ 16+ karakter",tip2:"✅ Jangan pakai ulang",tip3:"✅ Aktifkan 2FA",tip4:"✅ Ganti tiap 3-6 bulan",tip5:"✅ Gunakan pengelola",tip6:"✅ Jangan bagikan via chat",q1:"Sandi disimpan?",a1:"Tidak. Semua di browser Anda.",q2:"Apa itu waktu retas?",a2:"Berapa lama superkomputer.",q3:"Gratis?",a3:"Ya, 100% gratis selamanya.",
+    aboutB1T:"Privasi 100%",aboutB1S:"Sandi tidak pernah dikirim.",aboutB2T:"Bekerja offline",aboutB2S:"Buat tanpa internet.",aboutB3T:"Nol penyimpanan",aboutB3S:"Tidak menyimpan data.",aboutB4T:"Gratis selamanya",aboutB4S:"Tanpa langganan, tanpa iklan.",aboutMsgT:"Janji kami:",aboutMsgS:"Keamanan Anda adalah tanggung jawab kami. Kami menghormati privasi Anda."}
 };
 
-// ========== STATE ==========
 var pageUrl = window.location.href.split('?')[0].split('#')[0];
 var shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
 var shareTitle = "SecurePass - Ultra Secure Password Generator";
@@ -442,13 +536,10 @@ var sessionHistory = [];
 var clipboardTimer = null;
 var lang = localStorage.getItem('sp_lang') || 'en';
 var theme = localStorage.getItem('sp_theme') || 'dark';
-
 var WORDS = "tiger mango cloud silent river mountain purple golden happy clever brave rapid bright ocean thunder forest garden silver diamond rocket planet coffee sunset sunrise window mirror candle whisper dragon phoenix crystal shadow breeze storm meadow falcon harbor island jungle kettle lantern marble needle orange pebble quartz ribbon saddle temple velvet walnut yellow zephyr galaxy cosmic nebula vortex eclipse horizon".split(" ");
 
-// ========== INIT THEME ==========
 if(theme==='light'){document.documentElement.setAttribute('data-theme','light');document.getElementById('themeIcon').className='fas fa-sun';}
 
-// ========== APPLY LANGUAGE ==========
 function applyLang(){
   var T = TRANSLATIONS[lang] || TRANSLATIONS.en;
   document.querySelectorAll('[data-i18n]').forEach(function(el){
@@ -460,7 +551,6 @@ function applyLang(){
 }
 applyLang();
 
-// ========== LANGUAGE MODAL ==========
 var langGrid = document.getElementById('langGrid');
 Object.keys(TRANSLATIONS).forEach(function(code){
   var btn = document.createElement('button');
@@ -478,7 +568,6 @@ Object.keys(TRANSLATIONS).forEach(function(code){
 });
 document.getElementById('langBtn').addEventListener('click',function(){document.getElementById('langModal').classList.add('open');});
 
-// ========== THEME ==========
 document.getElementById('themeBtn').addEventListener('click',function(){
   theme = theme === 'dark' ? 'light' : 'dark';
   localStorage.setItem('sp_theme',theme);
@@ -486,14 +575,12 @@ document.getElementById('themeBtn').addEventListener('click',function(){
   else{document.documentElement.removeAttribute('data-theme');document.getElementById('themeIcon').className='fas fa-moon';}
 });
 
-// ========== TOAST ==========
 function showToast(msg){
   var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   if(window._tT)clearTimeout(window._tT);
   window._tT=setTimeout(function(){t.classList.remove('show');},2500);
 }
 
-// ========== COPY ==========
 function copyText(text,cb){
   var done=false;function fin(){if(!done){done=true;if(cb)cb();}}
   if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(fin).catch(function(){fb(text);fin();});}
@@ -509,7 +596,6 @@ function scheduleClear(){
   clipboardTimer=setTimeout(function(){fb('');},30000);
 }
 
-// ========== TABS ==========
 document.querySelectorAll('.tab').forEach(function(t){
   t.addEventListener('click',function(){
     document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
@@ -527,7 +613,6 @@ document.querySelectorAll('.tab').forEach(function(t){
   });
 });
 
-// ========== SLIDERS ==========
 ['length','words','digits'].forEach(function(id){
   var s=document.getElementById(id);
   if(!s)return;
@@ -544,7 +629,6 @@ document.querySelectorAll('.presets button').forEach(function(b){
   });
 });
 
-// ========== SECTION TOGGLES ==========
 ['histTitle','tipsTitle','faqTitle'].forEach(function(id){
   var t=document.getElementById(id);if(!t)return;
   var body=document.getElementById(id.replace('Title','Body'));
@@ -553,7 +637,6 @@ document.querySelectorAll('.presets button').forEach(function(b){
   });
 });
 
-// ========== CRACK TIME & ENTROPY ==========
 function calcEntropy(pwd,charsetSize){
   if(!charsetSize||!pwd)return 0;
   return Math.round(pwd.length*Math.log2(charsetSize));
@@ -579,7 +662,6 @@ function calcCrackTime(entropy){
   return formatTime(seconds);
 }
 
-// ========== STRENGTH ==========
 function calcStrength(entropy){
   var bar=document.getElementById('strength-bar');
   var txt=document.getElementById('strength-text');
@@ -592,7 +674,6 @@ function calcStrength(entropy){
   document.getElementById('crackTime').textContent=calcCrackTime(entropy);
 }
 
-// ========== GENERATE ==========
 var isGen=false;
 document.getElementById('gen-btn').addEventListener('click',function(){
   if(isGen)return;
@@ -663,7 +744,6 @@ document.getElementById('gen-btn').addEventListener('click',function(){
     btn.disabled=false;btn.innerHTML='⚡ '+(TRANSLATIONS[lang]||TRANSLATIONS.en).generate;
     isGen=false;
     addToHistory(finalResult);
-    // Increment global counter as if this user contributed
     var gc=parseInt(localStorage.getItem('sp_gen_display')||'247893')+1;
     localStorage.setItem('sp_gen_display',gc);
     document.getElementById('genCount').textContent=gc.toLocaleString();
@@ -671,7 +751,6 @@ document.getElementById('gen-btn').addEventListener('click',function(){
   },totalTime);
 });
 
-// ========== HISTORY ==========
 function addToHistory(pwd){
   sessionHistory.unshift(pwd);
   if(sessionHistory.length>10)sessionHistory.pop();
@@ -687,7 +766,6 @@ function addToHistory(pwd){
   });
 }
 
-// ========== LIVE ANIMATED COUNTERS ==========
 var userCount = parseInt(localStorage.getItem('sp_users_display') || '12847');
 var passCount = parseInt(localStorage.getItem('sp_gen_display') || '247893');
 
@@ -728,17 +806,14 @@ function bumpPasswords(){
   setTimeout(bumpPasswords, next);
 }
 
-// Initialize displays
 document.getElementById('userCount').textContent = userCount.toLocaleString();
 document.getElementById('genCount').textContent = passCount.toLocaleString();
 
-// Start counters after splash
 setTimeout(function(){
   bumpUsers();
   bumpPasswords();
 }, 3000);
 
-// ========== COPY PASSWORD ==========
 document.getElementById('copyBtn').addEventListener('click',function(){
   var pwd=document.getElementById('password').value;
   if(pwd==='Click Generate...'||pwd===''){showToast('⚠️');return;}
@@ -750,7 +825,6 @@ document.getElementById('copyBtn').addEventListener('click',function(){
   });
 });
 
-// ========== QR ==========
 document.getElementById('qrBtn').addEventListener('click',function(){
   var pwd=document.getElementById('password').value;
   if(pwd==='Click Generate...'||pwd===''){showToast('⚠️');return;}
@@ -759,7 +833,6 @@ document.getElementById('qrBtn').addEventListener('click',function(){
   document.getElementById('qrModal').classList.add('open');
 });
 
-// ========== BULK ==========
 document.getElementById('bulkBtn').addEventListener('click',function(){
   if(currentTab!=='password'){showToast('⚠️');return;}
   var len=parseInt(document.getElementById('length').value);
@@ -786,14 +859,12 @@ document.getElementById('bulkBtn').addEventListener('click',function(){
   showToast('📥');
 });
 
-// ========== MODAL ==========
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal').forEach(function(m){
   m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});
 });
 document.getElementById('aboutBtn').addEventListener('click',function(){document.getElementById('aboutModal').classList.add('open');});
 
-// ========== SHARE ==========
 document.getElementById('lnk-wa').href="https://api.whatsapp.com/send?text="+encodeURIComponent(shareText+"\n\n"+pageUrl);
 document.getElementById('lnk-fb').href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(pageUrl)+"&display=popup";
 document.getElementById('lnk-tw').href="https://x.com/intent/tweet?text="+encodeURIComponent(shareText)+"&url="+encodeURIComponent(pageUrl);
@@ -811,7 +882,6 @@ document.getElementById('btn-cp').addEventListener('click',function(){
   copyText(pageUrl,function(){showToast('✅');});
 });
 
-// ========== SERVICE WORKER ==========
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
 </body>
