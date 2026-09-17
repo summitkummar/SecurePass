@@ -20,7 +20,6 @@
             overflow: hidden;
             position: relative;
         }
-        /* Animated Background */
         .bg-blob {
             position: absolute;
             width: 400px;
@@ -97,18 +96,15 @@
         }
         .copy-btn:hover { background: rgba(56, 189, 248, 0.1); color: #7dd3fc; }
         
-        /* Strength Meter */
         .strength-container { margin-bottom: 25px; }
         .strength-bar { height: 6px; border-radius: 3px; background: #333; width: 0%; transition: all 0.4s ease; }
-        .strength-text { font-size: 0.75rem; color: #94a3b8; text-align: right; margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .strength-text { font-size: 0.75rem; color: #94a3b8; text-align: right; margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
         
         .options { margin-bottom: 25px; }
         .option-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.95rem; color: #cbd5e1; font-weight: 500; }
         
-        /* Range Slider */
         input[type="range"] { width: 55%; accent-color: #38bdf8; cursor: pointer; }
         
-        /* Custom Toggles */
         .toggle-switch { position: relative; width: 44px; height: 24px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .4s; border-radius: 34px; }
@@ -130,12 +126,13 @@
             font-size: 1.1rem; 
             font-weight: 800; 
             cursor: pointer; 
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
             font-family: 'Plus Jakarta Sans', sans-serif;
             letter-spacing: 0.5px;
         }
-        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px #38bdf8; }
-        .generate-btn:active { transform: translateY(0); }
+        .generate-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 20px -10px #38bdf8; }
+        .generate-btn:active:not(:disabled) { transform: translateY(0); }
+        .generate-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; transform: none; }
         
         .footer { text-align: center; margin-top: 25px; font-size: 0.75rem; color: #64748b; font-weight: 500; }
         .footer a { color: #38bdf8; text-decoration: none; }
@@ -158,7 +155,7 @@
         
         <div class="strength-container">
             <div class="strength-bar" id="strength-bar"></div>
-            <div class="strength-text" id="strength-text">Enter Password</div>
+            <div class="strength-text" id="strength-text">Ready to generate</div>
         </div>
         
         <div class="options">
@@ -203,11 +200,13 @@
             <button onclick="setLength(32)">32</button>
         </div>
 
-        <button class="generate-btn" onclick="generatePassword()">⚡ Generate Password</button>
+        <button class="generate-btn" id="gen-btn" onclick="generatePassword()">⚡ Generate Password</button>
         <div class="footer">Protected by SecurePass. No data is stored.</div>
     </div>
 
     <script>
+        let isGenerating = false;
+
         function updateLength() {
             document.getElementById('length-val').innerText = document.getElementById('length').value;
         }
@@ -217,7 +216,24 @@
             updateLength();
         }
 
+        // पासवर्ड बनाने वाला मुख्य फंक्शन (अब इसमें टाइमर और एनिमेशन है)
         function generatePassword() {
+            if (isGenerating) return;
+            isGenerating = true;
+
+            const btn = document.getElementById('gen-btn');
+            const pwdField = document.getElementById('password');
+            const strengthText = document.getElementById('strength-text');
+            const strengthBar = document.getElementById('strength-bar');
+            
+            btn.disabled = true;
+            btn.innerText = "Generating...";
+            strengthText.innerText = "Scrambling...";
+            strengthText.style.color = "#f59e0b";
+            strengthBar.style.width = "0%";
+            strengthBar.style.background = "transparent";
+
+            // असली पासवर्ड तैयार करें (बैकग्राउंड में)
             const length = document.getElementById('length').value;
             const useUpper = document.getElementById('uppercase').checked;
             const useLower = document.getElementById('lowercase').checked;
@@ -232,15 +248,52 @@
 
             if (charset === "") {
                 alert("Please select at least one option!");
+                isGenerating = false;
+                btn.disabled = false;
+                btn.innerText = "⚡ Generate Password";
                 return;
             }
 
-            let password = "";
+            let finalPassword = "";
             for (let i = 0; i < length; i++) {
-                password += charset.charAt(Math.floor(Math.random() * charset.length));
+                finalPassword += charset.charAt(Math.floor(Math.random() * charset.length));
             }
-            document.getElementById("password").value = password;
-            calculateStrength(password);
+
+            // रैंडम समय (3 से 7 सेकंड के बीच)
+            const totalTime = Math.floor(Math.random() * 4000) + 3000; // 3000ms to 7000ms
+            let seconds = 0;
+
+            // 1. स्क्रैम्बलिंग एनिमेशन शुरू करें (हर 50ms में टेक्स्ट बदलेगा)
+            const scrambleInterval = setInterval(() => {
+                let scrambleStr = "";
+                for (let i = 0; i < length; i++) {
+                    scrambleStr += charset.charAt(Math.floor(Math.random() * charset.length));
+                }
+                pwdField.value = scrambleStr;
+            }, 50);
+
+            // 2. टाइमर शुरू करें (हर 1 सेकंड में अपडेट होगा)
+            const timerInterval = setInterval(() => {
+                seconds++;
+                strengthText.innerText = `Generating... ${seconds}s`;
+            }, 1000);
+
+            // 3. तय समय (3-7 सेकंड) के बाद एनिमेशन रोककर असली पासवर्ड दिखाएँ
+            setTimeout(() => {
+                clearInterval(scrambleInterval);
+                clearInterval(timerInterval);
+                
+                pwdField.value = finalPassword;
+                calculateStrength(finalPassword);
+                
+                // टाइमर की जगह अब स्ट्रेंथ दिखाएँ
+                strengthText.innerText = `Generated in ${seconds}s`;
+                strengthText.style.color = "#10b981"; // Green
+                
+                btn.disabled = false;
+                btn.innerText = "⚡ Generate Password";
+                isGenerating = false;
+            }, totalTime);
         }
 
         function calculateStrength(pwd) {
@@ -255,11 +308,11 @@
             const text = document.getElementById('strength-text');
 
             if (strength <= 2) {
-                bar.style.width = '33%'; bar.style.background = '#ef4444'; text.innerText = 'WEAK'; text.style.color = '#ef4444';
+                bar.style.width = '33%'; bar.style.background = '#ef4444'; text.innerText = 'WEAK';
             } else if (strength <= 4) {
-                bar.style.width = '66%'; bar.style.background = '#f59e0b'; text.innerText = 'MODERATE'; text.style.color = '#f59e0b';
+                bar.style.width = '66%'; bar.style.background = '#f59e0b'; text.innerText = 'MODERATE';
             } else {
-                bar.style.width = '100%'; bar.style.background = '#10b981'; text.innerText = 'STRONG'; text.style.color = '#10b981';
+                bar.style.width = '100%'; bar.style.background = '#10b981'; text.innerText = 'STRONG';
             }
         }
 
@@ -284,4 +337,4 @@
         }
     </script>
 </body>
-</html>
+                             </html>
