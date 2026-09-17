@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>SecurePass - Premium Password Generator</title>
-<meta name="description" content="SecurePass - Professional password generator with crack time estimator, entropy meter, passphrase, PIN and QR sharing.">
+<title>SecurePass - Premium Security Suite</title>
+<meta name="description" content="SecurePass - All-in-one security suite: password generator, 2FA codes, password vault, file encryptor, breach checker.">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#050505">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,27 +15,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-:root{
-  --bg:#050505;--bg2:#0c0c14;--card:rgba(255,255,255,.03);--border:rgba(255,255,255,.1);
-  --text:#fff;--text2:#cbd5e1;--text3:#94a3b8;--text4:#64748b;
-  --primary:#38bdf8;--primary2:#818cf8;--pink:#f472b6;
-  --green:#10b981;--yellow:#f59e0b;--red:#ef4444;
-}
-[data-theme="light"]{
-  --bg:#f4f4f9;--bg2:#e8e8f0;--card:#fff;--border:rgba(0,0,0,.08);
-  --text:#0f172a;--text2:#334155;--text3:#64748b;--text4:#94a3b8;
-}
+:root{--bg:#050505;--bg2:#0c0c14;--card:rgba(255,255,255,.03);--border:rgba(255,255,255,.1);--text:#fff;--text2:#cbd5e1;--text3:#94a3b8;--text4:#64748b;--primary:#38bdf8;--primary2:#818cf8;--pink:#f472b6;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;}
+[data-theme="light"]{--bg:#f4f4f9;--bg2:#e8e8f0;--card:#fff;--border:rgba(0,0,0,.08);--text:#0f172a;--text2:#334155;--text3:#64748b;--text4:#94a3b8;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html{overflow-x:hidden;}
-html,body{width:100%;max-width:100vw;}
-body{
-  font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);
-  display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:16px;
-  position:relative;overflow-y:auto;overflow-x:hidden;transition:background .3s,color .3s;
-}
+html{overflow-x:hidden;}html,body{width:100%;max-width:100vw;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:16px;position:relative;overflow-y:auto;overflow-x:hidden;transition:background .3s,color .3s;}
 .bg-blob{position:fixed;width:350px;height:350px;background:linear-gradient(180deg,var(--primary),var(--primary2));border-radius:50%;filter:blur(80px);opacity:.25;z-index:0;pointer-events:none;top:-80px;left:-80px;}
 .bg-blob:nth-child(3){background:linear-gradient(180deg,var(--pink),#fb923c);width:280px;height:280px;bottom:-80px;right:-80px;top:auto;left:auto;}
-
 .splash-screen{position:fixed;inset:0;background:radial-gradient(circle at center,#0a0a15 0%,#050505 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;transition:opacity .6s ease,visibility .6s ease;overflow:hidden;}
 .splash-screen.hide{opacity:0;visibility:hidden;}
 .splash-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.4) 0%,transparent 70%);filter:blur(40px);animation:pulseGlow 2s ease-in-out infinite;}
@@ -63,33 +49,27 @@ body{
 .splash-loading-text .dot:nth-child(3){animation-delay:.4s;}
 @keyframes dotBlink{0%,60%,100%{opacity:.2;}30%{opacity:1;}}
 .splash-made{position:absolute;bottom:20px;font-size:.75rem;color:#475569;font-weight:600;letter-spacing:.5px;animation:taglineAppear .5s ease 1.5s forwards;opacity:0;display:flex;align-items:center;gap:6px;}
-
 .main-app{opacity:0;transition:opacity .5s ease .2s;width:100%;max-width:480px;position:relative;z-index:1;}
 .main-app.visible{opacity:1;}
-
 .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px;gap:8px;}
 .top-bar-icons{display:flex;gap:8px;align-items:center;}
 .icon-btn{background:var(--card);border:1px solid var(--border);color:var(--text2);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .icon-btn:active{transform:scale(.92);}
 .icon-btn.lang{width:auto;padding:0 10px;font-size:.72rem;font-weight:700;letter-spacing:.3px;}
 .version-badge{font-size:.65rem;color:var(--text4);font-weight:700;padding:4px 10px;background:var(--card);border-radius:20px;border:1px solid var(--border);}
-
 .app-container{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:26px 18px;border-radius:24px;box-shadow:0 25px 50px -12px rgba(0,0,0,.5);border:1px solid var(--border);}
 .header{text-align:center;margin-bottom:20px;}
 .header h1{font-size:1.7rem;font-weight:800;letter-spacing:-1px;background:linear-gradient(to right,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
 .header p{font-size:.8rem;color:var(--text3);font-weight:500;}
-
 .trust-badges{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
 .trust-badge{font-size:.62rem;font-weight:700;padding:4px 9px;border-radius:20px;background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;gap:4px;letter-spacing:.3px;}
 .trust-badge i{font-size:.6rem;}
 .trust-badge.blue{background:rgba(56,189,248,.12);color:var(--primary);border-color:rgba(56,189,248,.25);}
 .trust-badge.purple{background:rgba(129,140,248,.12);color:var(--primary2);border-color:rgba(129,140,248,.25);}
-
 .tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);padding:5px;border-radius:12px;margin-bottom:16px;}
-.tab{flex:1;padding:10px 6px;background:transparent;border:none;color:var(--text3);font-weight:700;font-size:.78rem;cursor:pointer;border-radius:9px;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px;}
+.tab{flex:1;padding:10px 6px;background:transparent;border:none;color:var(--text3);font-weight:700;font-size:.75rem;cursor:pointer;border-radius:9px;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:4px;}
 .tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;}
-.tab i{font-size:.85rem;}
-
+.tab i{font-size:.8rem;}
 .password-display{position:relative;margin-bottom:14px;border-radius:20px;padding:1.5px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 50%,var(--pink) 100%);box-shadow:0 0 0 1px rgba(56,189,248,.1),0 20px 50px -20px rgba(56,189,248,.4),0 10px 30px -15px rgba(129,140,248,.3);transition:box-shadow .5s ease;}
 .password-display.active{box-shadow:0 0 0 1px rgba(56,189,248,.4),0 20px 60px -15px rgba(56,189,248,.7),0 10px 40px -10px rgba(129,140,248,.6);}
 .password-inner{background:linear-gradient(180deg,#0c0c14 0%,#06060a 100%);border-radius:19px;padding:14px 14px 14px 18px;position:relative;overflow:hidden;}
@@ -106,22 +86,21 @@ body{
 .copy-icon-btn{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border:none;width:42px;height:42px;border-radius:11px;cursor:pointer;font-size:1rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:inherit;box-shadow:0 4px 15px -5px rgba(56,189,248,.6);transition:transform .15s;}
 .copy-icon-btn:active{transform:scale(.92);}
 .copy-icon-btn.copied{background:linear-gradient(135deg,var(--green),#059669);}
-
 .meta-row{display:flex;gap:8px;margin-bottom:16px;}
 .meta-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;}
 .meta-card-label{font-size:.58rem;color:var(--text4);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
 .meta-card-value{font-size:.8rem;font-weight:800;color:var(--primary);}
 .meta-card-value.entropy{color:var(--primary2);}
-
 .strength-container{margin-bottom:16px;}
 .strength-bar{height:5px;border-radius:3px;background:rgba(128,128,128,.15);width:0%;transition:width .5s,background .5s;}
 .strength-text{font-size:.68rem;color:var(--text3);text-align:right;margin-top:6px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;}
-
 .options{margin-bottom:16px;}
 .option-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.88rem;color:var(--text2);font-weight:500;gap:10px;}
 .option-row.small{font-size:.78rem;}
 .option-row label{flex:1;}
 input[type="range"]{width:50%;accent-color:var(--primary);}
+input[type="text"],input[type="password"],input[type="number"]{background:var(--card);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:10px;font-family:inherit;font-size:.9rem;width:100%;outline:none;transition:border-color .2s;}
+input:focus{border-color:var(--primary);}
 .toggle-switch{position:relative;width:42px;height:23px;display:inline-block;flex-shrink:0;}
 .toggle-switch input{opacity:0;width:0;height:0;}
 .slider{position:absolute;cursor:pointer;inset:0;background-color:#334155;transition:.3s;border-radius:34px;}
@@ -129,19 +108,54 @@ input[type="range"]{width:50%;accent-color:var(--primary);}
 .slider:before{position:absolute;content:"";height:17px;width:17px;left:3px;bottom:3px;background-color:#fff;transition:.3s;border-radius:50%;}
 input:checked+.slider{background-color:var(--primary);}
 input:checked+.slider:before{transform:translateX(19px);}
-
 .presets{display:flex;gap:8px;margin-bottom:14px;}
 .presets button{flex:1;padding:9px 4px;background:var(--card);border:1px solid var(--border);color:var(--text3);border-radius:8px;font-size:.8rem;cursor:pointer;font-weight:700;font-family:inherit;transition:all .2s;}
 .presets button.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border-color:transparent;}
-
 .generate-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border:none;padding:15px;border-radius:14px;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.3px;box-shadow:0 8px 25px -10px rgba(56,189,248,.6);transition:transform .15s;}
 .generate-btn:active:not(:disabled){transform:scale(.98);}
 .generate-btn:disabled{background:#334155;color:var(--text3);cursor:not-allowed;box-shadow:none;}
-
 .action-row{display:flex;gap:8px;margin-top:10px;}
 .action-row button{flex:1;padding:10px;background:var(--card);border:1px solid var(--border);color:var(--text2);border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px;}
 .action-row button:active{transform:scale(.97);}
-
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.tool-btn{padding:12px 10px;background:var(--card);border:1px solid var(--border);color:var(--text2);border-radius:12px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s;}
+.tool-btn:active{transform:scale(.97);}
+.tool-btn i{font-size:1.1rem;color:var(--primary);}
+.tool-btn.shield i{color:var(--green);}
+.tool-btn.user i{color:var(--primary2);}
+.tool-btn.otp i{color:var(--yellow);}
+.tool-btn.vault i{color:var(--pink);}
+.tool-btn.file i{color:var(--primary);}
+.check-result{margin-top:14px;padding:14px;border-radius:12px;font-size:.82rem;line-height:1.6;display:none;}
+.check-result.show{display:block;}
+.check-result.safe{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--green);}
+.check-result.danger{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:var(--red);}
+.check-result.warn{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--yellow);}
+.check-result b{font-weight:800;}
+.username-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.username-item{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);padding:11px 14px;border-radius:10px;font-family:'Courier New',monospace;font-size:.85rem;color:var(--text);font-weight:700;letter-spacing:.5px;}
+.username-item i{color:var(--primary);cursor:pointer;padding:6px;font-size:.85rem;}
+.otp-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center;margin:14px 0;}
+.otp-code{font-family:'Courier New',monospace;font-size:2.5rem;font-weight:800;letter-spacing:8px;color:var(--primary);margin:12px 0;text-shadow:0 0 25px rgba(56,189,248,.5);}
+.otp-timer{font-size:.75rem;color:var(--text3);font-weight:600;}
+.otp-timer b{color:var(--primary);}
+.otp-progress{height:4px;background:rgba(128,128,128,.15);border-radius:2px;margin-top:10px;overflow:hidden;}
+.otp-progress-bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));border-radius:2px;transition:width 1s linear;width:100%;}
+.vault-lock{text-align:center;padding:20px 0;}
+.vault-lock i{font-size:2.5rem;color:var(--primary);margin-bottom:12px;display:block;}
+.vault-entry{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px;gap:10px;}
+.vault-entry-info{flex:1;min-width:0;}
+.vault-entry-info strong{display:block;font-size:.85rem;color:var(--text);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.vault-entry-info span{font-size:.72rem;color:var(--text3);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.vault-entry-actions{display:flex;gap:6px;flex-shrink:0;}
+.vault-entry-actions button{width:32px;height:32px;border-radius:8px;background:var(--card);border:1px solid var(--border);color:var(--text3);cursor:pointer;font-size:.75rem;}
+.vault-entry-actions button:active{transform:scale(.92);}
+.vault-entry-actions button.danger{color:var(--red);}
+.file-drop{border:2px dashed var(--border);border-radius:14px;padding:26px;text-align:center;margin:14px 0;cursor:pointer;}
+.file-drop:hover{border-color:var(--primary);}
+.file-drop i{font-size:2rem;color:var(--primary);margin-bottom:10px;display:block;}
+.file-drop p{font-size:.82rem;color:var(--text3);}
+.file-drop strong{color:var(--text);font-weight:700;display:block;margin-bottom:4px;}
 .section{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
 .section-title{font-size:.75rem;color:var(--text3);margin-bottom:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:8px;}
 .section-title span:first-child{display:flex;align-items:center;gap:6px;}
@@ -152,25 +166,16 @@ input:checked+.slider:before{transform:translateX(19px);}
 .section-body p{margin-bottom:10px;}
 .section-body ul{padding-left:18px;margin-bottom:10px;}
 .section-body li{margin-bottom:6px;}
-
 .history-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
 .history-item{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);padding:8px 10px;border-radius:8px;font-family:'Courier New',monospace;font-size:.72rem;color:var(--text2);gap:8px;}
 .history-item span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
 .history-item i{color:var(--primary);cursor:pointer;padding:4px;font-size:.75rem;}
-
 .share-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:8px;}
 .share-btn{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;border:none;cursor:pointer;padding:0;font-family:inherit;text-decoration:none;outline:none;-webkit-touch-callout:none;user-select:none;}
 .share-btn:focus{outline:none;}
-.share-btn.whatsapp{background:#25D366;}
-.share-btn.facebook{background:#1877F2;}
-.share-btn.twitter{background:#000;border:1px solid rgba(128,128,128,.3);}
-.share-btn.telegram{background:#0088cc;}
-.share-btn.linkedin{background:#0A66C2;}
-.share-btn.email{background:#EA4335;}
-.share-btn.instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
-.share-btn.copy{background:#475569;}
-
-/* ===== HONEST STATS SECTION ===== */
+.share-btn.whatsapp{background:#25D366;}.share-btn.facebook{background:#1877F2;}.share-btn.twitter{background:#000;border:1px solid rgba(128,128,128,.3);}
+.share-btn.telegram{background:#0088cc;}.share-btn.linkedin{background:#0A66C2;}.share-btn.email{background:#EA4335;}
+.share-btn.instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}.share-btn.copy{background:#475569;}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;position:relative;overflow:hidden;}
 .stat-card.full{grid-column:span 2;}
@@ -181,35 +186,30 @@ input:checked+.slider:before{transform:translateX(19px);}
 .stat-label i{font-size:.6rem;color:var(--primary);}
 .stat-value{font-size:1.15rem;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;line-height:1.2;}
 .stat-value.small{font-size:.95rem;}
-.stat-value.green{color:var(--green);}
-.stat-value.purple{color:var(--primary2);}
+.stat-value.green{color:var(--green);}.stat-value.purple{color:var(--primary2);}
 .stat-sub{font-size:.6rem;color:var(--text4);font-weight:600;margin-top:4px;}
-
 .status-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-top:8px;font-size:.78rem;}
 .status-left{display:flex;align-items:center;gap:8px;color:var(--text2);font-weight:600;}
 .status-right{color:var(--green);font-weight:700;display:flex;align-items:center;gap:5px;font-size:.72rem;}
 .status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(16,185,129,.8);animation:statusPulse 2s infinite;}
 @keyframes statusPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-
 .badges-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
 .badge-item{display:flex;align-items:center;gap:8px;padding:9px 10px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:.7rem;font-weight:600;color:var(--text2);}
 .badge-item i{color:var(--green);font-size:.8rem;}
-
 .footer{text-align:center;margin-top:16px;font-size:.68rem;color:var(--text4);font-weight:500;}
 .footer b{color:var(--primary);}
-
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
 .modal.open{display:flex;}
-.modal-content{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:22px;max-width:360px;width:100%;text-align:center;animation:modalIn .3s ease;max-height:85vh;overflow-y:auto;}
+.modal-content{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:22px;max-width:400px;width:100%;text-align:center;animation:modalIn .3s ease;max-height:88vh;overflow-y:auto;position:relative;}
 @keyframes modalIn{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
 .modal-content h3{font-size:1.15rem;margin-bottom:14px;color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px;}
 .modal-content .qr-box{background:#fff;padding:12px;border-radius:12px;display:inline-block;margin-bottom:14px;}
 .modal-close{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:9px 20px;border-radius:10px;cursor:pointer;font-weight:700;font-family:inherit;font-size:.85rem;}
-
+.modal-x{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--text3);font-size:1.1rem;cursor:pointer;padding:6px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;}
+.modal-x:active{background:var(--card);}
 .lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
 .lang-option{padding:10px 6px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-weight:600;cursor:pointer;font-family:inherit;font-size:.78rem;text-align:center;}
 .lang-option.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border-color:transparent;}
-
 .about-hero{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;}
 .about-logo{width:70px;height:70px;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(56,189,248,.5));}
 .about-app-name{font-size:1.3rem;font-weight:800;background:linear-gradient(to right,var(--primary),var(--primary2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -228,75 +228,57 @@ input:checked+.slider:before{transform:translateX(19px);}
 .about-footer{font-size:.72rem;color:var(--text4);margin-top:12px;line-height:1.8;}
 .about-footer b{color:var(--text2);}
 .about-footer .flag{font-size:1rem;vertical-align:middle;margin-left:3px;}
-
 .toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(150px);background:var(--green);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:.82rem;box-shadow:0 10px 25px rgba(16,185,129,.4);transition:transform .35s ease;z-index:99999;max-width:88%;text-align:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-
 @media(max-width:400px){
-  .header h1{font-size:1.5rem;}
-  .password-inner{padding:12px;}
-  #password{font-size:1rem;letter-spacing:1px;}
-  .share-btn{width:38px;height:38px;font-size:.9rem;}
-  .lang-grid{grid-template-columns:repeat(2,1fr);}
+  .header h1{font-size:1.5rem;}.password-inner{padding:12px;}#password{font-size:1rem;letter-spacing:1px;}
+  .share-btn{width:38px;height:38px;font-size:.9rem;}.lang-grid{grid-template-columns:repeat(2,1fr);}
+  .otp-code{font-size:2rem;letter-spacing:5px;}
 }
 </style>
 </head>
 <body>
-<!-- SPLASH -->
 <div class="splash-screen" id="splashScreen">
-  <div class="splash-glow"></div>
-  <div class="splash-glow glow-2"></div>
+  <div class="splash-glow"></div><div class="splash-glow glow-2"></div>
   <div class="splash-logo-wrapper">
-    <div class="splash-ring"></div>
-    <div class="splash-ring ring-2"></div>
+    <div class="splash-ring"></div><div class="splash-ring ring-2"></div>
     <svg class="splash-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
       <defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="50%" stop-color="#818cf8"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs>
       <path d="M256 60 L410 118 L410 270 C410 360 335 425 256 455 C177 425 102 360 102 270 L102 118 Z" fill="url(#sg)"/>
       <rect x="205" y="245" width="102" height="80" rx="14" fill="#0a0a0f"/>
       <path d="M233 245 L233 220 C233 188 256 170 256 170 C256 170 279 188 279 220 L279 245" fill="none" stroke="#0a0a0f" stroke-width="16" stroke-linecap="round"/>
-      <circle cx="256" cy="278" r="10" fill="#38bdf8"/>
-      <rect x="251" y="278" width="10" height="24" rx="5" fill="#38bdf8"/>
+      <circle cx="256" cy="278" r="10" fill="#38bdf8"/><rect x="251" y="278" width="10" height="24" rx="5" fill="#38bdf8"/>
     </svg>
   </div>
   <div class="splash-brand">SecurePass</div>
-  <div class="splash-tagline">Ultra Secure</div>
+  <div class="splash-tagline">Ultra Secure Suite</div>
   <div class="splash-progress"><div class="splash-progress-bar"></div></div>
   <div class="splash-loading-text">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
   <div class="splash-made">Made in India <span style="font-size:1rem;">🇮🇳</span></div>
 </div>
 
-<!-- MAIN APP -->
 <div class="main-app" id="mainApp">
-  <div class="bg-blob"></div>
-  <div class="bg-blob"></div>
-
+  <div class="bg-blob"></div><div class="bg-blob"></div>
   <div class="top-bar">
-    <span class="version-badge">v2.0</span>
+    <span class="version-badge">v2.2</span>
     <div class="top-bar-icons">
-      <button class="icon-btn" id="themeBtn" title="Theme"><i class="fas fa-moon" id="themeIcon"></i></button>
-      <button class="icon-btn lang" id="langBtn" title="Language"><i class="fas fa-globe"></i></button>
-      <button class="icon-btn" id="aboutBtn" title="About"><i class="fas fa-circle-info"></i></button>
+      <button class="icon-btn" id="themeBtn"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <button class="icon-btn lang" id="langBtn"><i class="fas fa-globe"></i></button>
+      <button class="icon-btn" id="aboutBtn"><i class="fas fa-circle-info"></i></button>
     </div>
   </div>
-
   <div class="app-container">
-    <div class="header">
-      <h1 data-i18n="title">SecurePass</h1>
-      <p data-i18n="subtitle">Ultra Secure Password Generator</p>
-    </div>
-
+    <div class="header"><h1 data-i18n="title">SecurePass</h1><p data-i18n="subtitle">Ultra Secure Password Generator</p></div>
     <div class="trust-badges">
       <span class="trust-badge"><i class="fas fa-lock"></i> <span data-i18n="badgeOffline">100% Offline</span></span>
       <span class="trust-badge blue"><i class="fas fa-shield-halved"></i> <span data-i18n="badgeNoStore">No Data Stored</span></span>
       <span class="trust-badge purple"><i class="fas fa-heart"></i> <span data-i18n="badgeFree">Free Forever</span></span>
     </div>
-
     <div class="tabs">
       <button class="tab active" data-tab="password"><i class="fas fa-key"></i><span data-i18n="tabPass">Password</span></button>
-      <button class="tab" data-tab="passphrase"><i class="fas fa-quote-left"></i><span data-i18n="tabPhrase">Passphrase</span></button>
+      <button class="tab" data-tab="passphrase"><i class="fas fa-quote-left"></i><span data-i18n="tabPhrase">Phrase</span></button>
       <button class="tab" data-tab="pin"><i class="fas fa-hashtag"></i><span data-i18n="tabPin">PIN</span></button>
     </div>
-
     <div class="password-display" id="pwdDisplay">
       <div class="password-inner">
         <div class="password-label">
@@ -309,23 +291,14 @@ input:checked+.slider:before{transform:translateX(19px);}
         </div>
       </div>
     </div>
-
     <div class="meta-row">
-      <div class="meta-card">
-        <div class="meta-card-label" data-i18n="crackTime">Crack Time</div>
-        <div class="meta-card-value" id="crackTime">—</div>
-      </div>
-      <div class="meta-card">
-        <div class="meta-card-label" data-i18n="entropyLbl">Entropy</div>
-        <div class="meta-card-value entropy" id="entropyVal">—</div>
-      </div>
+      <div class="meta-card"><div class="meta-card-label" data-i18n="crackTime">Crack Time</div><div class="meta-card-value" id="crackTime">—</div></div>
+      <div class="meta-card"><div class="meta-card-label" data-i18n="entropyLbl">Entropy</div><div class="meta-card-value entropy" id="entropyVal">—</div></div>
     </div>
-
     <div class="strength-container">
       <div class="strength-bar" id="strength-bar"></div>
       <div class="strength-text" id="strength-text" data-i18n="ready">Ready to generate</div>
     </div>
-
     <div id="opt-password">
       <div class="options">
         <div class="option-row"><label data-i18n="length">Password Length: <span id="length-val" style="color:var(--primary);font-weight:700;">16</span></label><input type="range" id="length" min="8" max="32" value="16"></div>
@@ -337,13 +310,10 @@ input:checked+.slider:before{transform:translateX(19px);}
         <div class="option-row small"><label data-i18n="autoClear">Auto-clear clipboard (30s)</label><div class="toggle-switch"><input type="checkbox" id="autoClear" checked><span class="slider"></span></div></div>
       </div>
       <div class="presets">
-        <button type="button" data-len="8">8</button>
-        <button type="button" data-len="16" class="active">16</button>
-        <button type="button" data-len="24">24</button>
-        <button type="button" data-len="32">32</button>
+        <button type="button" data-len="8">8</button><button type="button" data-len="16" class="active">16</button>
+        <button type="button" data-len="24">24</button><button type="button" data-len="32">32</button>
       </div>
     </div>
-
     <div id="opt-passphrase" style="display:none;">
       <div class="options">
         <div class="option-row"><label data-i18n="words">Words: <span id="words-val" style="color:var(--primary);font-weight:700;">4</span></label><input type="range" id="words" min="3" max="8" value="4"></div>
@@ -351,53 +321,36 @@ input:checked+.slider:before{transform:translateX(19px);}
         <div class="option-row small"><label data-i18n="addNum">Add number</label><div class="toggle-switch"><input type="checkbox" id="addNum" checked><span class="slider"></span></div></div>
       </div>
     </div>
-
     <div id="opt-pin" style="display:none;">
       <div class="options">
         <div class="option-row"><label data-i18n="digits">Digits: <span id="digits-val" style="color:var(--primary);font-weight:700;">6</span></label><input type="range" id="digits" min="4" max="10" value="6"></div>
       </div>
     </div>
-
     <button class="generate-btn" id="gen-btn" type="button">⚡ <span data-i18n="generate">Generate Password</span></button>
-
+    <div class="tools-grid">
+      <button class="tool-btn shield" id="checkerBtn" type="button"><i class="fas fa-shield-virus"></i><span data-i18n="toolCheck">Check Leak</span></button>
+      <button class="tool-btn user" id="usernameBtn" type="button"><i class="fas fa-user-astronaut"></i><span data-i18n="toolUser">Username</span></button>
+      <button class="tool-btn otp" id="otpBtn" type="button"><i class="fas fa-clock-rotate-left"></i><span data-i18n="toolOTP">2FA Codes</span></button>
+      <button class="tool-btn vault" id="vaultBtn" type="button"><i class="fas fa-vault"></i><span data-i18n="toolVault">Vault</span></button>
+      <button class="tool-btn file" id="fileBtn" type="button"><i class="fas fa-file-shield"></i><span data-i18n="toolFile">Encrypt File</span></button>
+      <button class="tool-btn" id="qrBtn" type="button"><i class="fas fa-qrcode"></i><span data-i18n="toolQR">QR Code</span></button>
+    </div>
     <div class="action-row">
-      <button id="qrBtn" type="button"><i class="fas fa-qrcode"></i><span data-i18n="qr">QR</span></button>
-      <button id="bulkBtn" type="button"><i class="fas fa-list"></i><span data-i18n="bulk">Bulk (10)</span></button>
+      <button id="bulkBtn" type="button"><i class="fas fa-list"></i><span data-i18n="toolBulk">Bulk (10)</span></button>
     </div>
-
     <div class="section">
-      <div class="section-title open" id="histTitle"><span><i class="fas fa-clock-rotate-left"></i> <span data-i18n="history">Session History</span></span><i class="fas fa-chevron-down chev"></i></div>
-      <div class="section-body open" id="histBody">
-        <div class="history-list" id="historyList"><p style="font-size:.78rem;color:var(--text4);" data-i18n="noHist">No passwords yet. Generate one!</p></div>
-      </div>
+      <div class="section-title open" id="histTitle"><span><i class="fas fa-history"></i> <span data-i18n="history">Session History</span></span><i class="fas fa-chevron-down chev"></i></div>
+      <div class="section-body open" id="histBody"><div class="history-list" id="historyList"><p style="font-size:.78rem;color:var(--text4);" data-i18n="noHist">No passwords yet. Generate one!</p></div></div>
     </div>
-
     <div class="section">
       <div class="section-title open" id="statsTitle"><span><i class="fas fa-chart-simple"></i> <span data-i18n="statsTitle">Statistics</span></span><i class="fas fa-chevron-down chev"></i></div>
       <div class="section-body open" id="statsBody">
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label"><i class="fas fa-bolt"></i> <span data-i18n="statSession">This Session</span></div>
-            <div class="stat-value" id="sessionCount">0</div>
-            <div class="stat-sub" data-i18n="statSessionSub">passwords generated</div>
-          </div>
-          <div class="stat-card green">
-            <div class="stat-label"><i class="fas fa-database"></i> <span data-i18n="statDevice">This Device</span></div>
-            <div class="stat-value green" id="deviceCount">0</div>
-            <div class="stat-sub" data-i18n="statDeviceSub">total generated</div>
-          </div>
-          <div class="stat-card purple">
-            <div class="stat-label"><i class="fas fa-star"></i> <span data-i18n="statStrength">Avg Strength</span></div>
-            <div class="stat-value purple small" id="avgStrength">—</div>
-            <div class="stat-sub" id="avgStrengthLabel" data-i18n="statStrengthSub">based on generated</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label"><i class="fas fa-calendar"></i> <span data-i18n="statSince">Using Since</span></div>
-            <div class="stat-value small" id="firstUse">—</div>
-            <div class="stat-sub" data-i18n="statSinceSub">first generated</div>
-          </div>
-          <div class="stat-card full">
-            <div class="stat-label"><i class="fas fa-heart-pulse"></i> <span data-i18n="statStatus">System Status</span></div>
+          <div class="stat-card"><div class="stat-label"><i class="fas fa-bolt"></i> <span data-i18n="statSession">This Session</span></div><div class="stat-value" id="sessionCount">0</div><div class="stat-sub" data-i18n="statSessionSub">passwords generated</div></div>
+          <div class="stat-card green"><div class="stat-label"><i class="fas fa-database"></i> <span data-i18n="statDevice">This Device</span></div><div class="stat-value green" id="deviceCount">0</div><div class="stat-sub" data-i18n="statDeviceSub">total generated</div></div>
+          <div class="stat-card purple"><div class="stat-label"><i class="fas fa-star"></i> <span data-i18n="statStrength">Avg Strength</span></div><div class="stat-value purple small" id="avgStrength">—</div><div class="stat-sub" data-i18n="statStrengthSub">based on generated</div></div>
+          <div class="stat-card"><div class="stat-label"><i class="fas fa-calendar"></i> <span data-i18n="statSince">Using Since</span></div><div class="stat-value small" id="firstUse">—</div><div class="stat-sub" data-i18n="statSinceSub">first generated</div></div>
+          <div class="stat-card full"><div class="stat-label"><i class="fas fa-heart-pulse"></i> <span data-i18n="statStatus">System Status</span></div>
             <div class="status-row" style="margin-top:0;background:transparent;border:none;padding:0;">
               <div class="status-left"><span class="status-dot"></span> <span data-i18n="statusText">All systems operational</span></div>
               <div class="status-right"><i class="fas fa-check-circle"></i> <span data-i18n="statusVerified">Verified</span></div>
@@ -406,7 +359,6 @@ input:checked+.slider:before{transform:translateX(19px);}
         </div>
       </div>
     </div>
-
     <div class="section">
       <div class="section-title open" id="trustTitle"><span><i class="fas fa-certificate"></i> <span data-i18n="trustTitle">Trust & Security</span></span><i class="fas fa-chevron-down chev"></i></div>
       <div class="section-body open" id="trustBody">
@@ -420,21 +372,12 @@ input:checked+.slider:before{transform:translateX(19px);}
         </div>
       </div>
     </div>
-
     <div class="section">
       <div class="section-title" id="tipsTitle"><span><i class="fas fa-shield"></i> <span data-i18n="tips">Security Tips</span></span><i class="fas fa-chevron-down chev"></i></div>
       <div class="section-body" id="tipsBody">
-        <ul>
-          <li data-i18n="tip1"></li>
-          <li data-i18n="tip2"></li>
-          <li data-i18n="tip3"></li>
-          <li data-i18n="tip4"></li>
-          <li data-i18n="tip5"></li>
-          <li data-i18n="tip6"></li>
-        </ul>
+        <ul><li data-i18n="tip1"></li><li data-i18n="tip2"></li><li data-i18n="tip3"></li><li data-i18n="tip4"></li><li data-i18n="tip5"></li><li data-i18n="tip6"></li></ul>
       </div>
     </div>
-
     <div class="section">
       <div class="section-title" id="faqTitle"><span><i class="fas fa-circle-question"></i> <span data-i18n="faq">FAQ</span></span><i class="fas fa-chevron-down chev"></i></div>
       <div class="section-body" id="faqBody">
@@ -443,7 +386,6 @@ input:checked+.slider:before{transform:translateX(19px);}
         <p><b data-i18n="q3"></b><br><span data-i18n="a3"></span></p>
       </div>
     </div>
-
     <div class="section">
       <div class="section-title open" style="cursor:default;"><span><i class="fas fa-share-nodes"></i> <span data-i18n="share">Share SecurePass</span></span></div>
       <div class="share-grid">
@@ -457,90 +399,130 @@ input:checked+.slider:before{transform:translateX(19px);}
         <button class="share-btn copy" id="btn-cp" type="button"><i class="fas fa-link"></i></button>
       </div>
     </div>
-
     <div class="footer">Protected by <b>SecurePass</b> · No data stored</div>
   </div>
 </div>
 
-<!-- QR MODAL -->
-<div class="modal" id="qrModal">
-  <div class="modal-content">
-    <h3 data-i18n="qrTitle">Scan QR Code</h3>
-    <div class="qr-box" id="qrBox"></div>
-    <p style="font-size:.75rem;color:var(--text3);margin-bottom:14px;" data-i18n="qrHint">Scan with another device</p>
-    <button class="modal-close" onclick="closeModal('qrModal')" data-i18n="close">Close</button>
+<div class="modal" id="qrModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('qrModal')"><i class="fas fa-times"></i></button>
+  <h3 data-i18n="qrTitle">Scan QR Code</h3><div class="qr-box" id="qrBox"></div>
+  <p style="font-size:.75rem;color:var(--text3);margin-bottom:14px;" data-i18n="qrHint">Scan with another device</p>
+  <button class="modal-close" onclick="closeModal('qrModal')" data-i18n="close">Close</button>
+</div></div>
+
+<div class="modal" id="checkerModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('checkerModal')"><i class="fas fa-times"></i></button>
+  <h3><i class="fas fa-shield-virus" style="color:var(--green);"></i> <span data-i18n="checkerTitle">Check Password Leak</span></h3>
+  <p style="font-size:.75rem;color:var(--text3);margin-bottom:12px;" data-i18n="checkerHint">Check if your password was leaked in any data breach</p>
+  <input type="password" id="checkInput" placeholder="Enter password..." autocomplete="off" spellcheck="false">
+  <button class="generate-btn" id="checkBtn" style="margin-top:12px;" type="button"><i class="fas fa-search"></i> <span data-i18n="checkBtn">Check Now</span></button>
+  <div class="check-result" id="checkResult"></div>
+</div></div>
+
+<div class="modal" id="usernameModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('usernameModal')"><i class="fas fa-times"></i></button>
+  <h3><i class="fas fa-user-astronaut" style="color:var(--primary2);"></i> <span data-i18n="userTitle">Username Generator</span></h3>
+  <p style="font-size:.75rem;color:var(--text3);margin-bottom:12px;" data-i18n="userHint">Cool usernames for new accounts</p>
+  <div class="options">
+    <div class="option-row small"><label data-i18n="userStyle">Include number</label><div class="toggle-switch"><input type="checkbox" id="userNum" checked><span class="slider"></span></div></div>
+    <div class="option-row small"><label data-i18n="userUnder">Use underscore (_)</label><div class="toggle-switch"><input type="checkbox" id="userUnder" checked><span class="slider"></span></div></div>
   </div>
-</div>
+  <button class="generate-btn" id="userGenBtn" type="button"><i class="fas fa-wand-magic-sparkles"></i> <span data-i18n="userGen">Generate 5</span></button>
+  <div class="username-list" id="usernameList"></div>
+</div></div>
 
-<!-- ABOUT MODAL -->
-<div class="modal" id="aboutModal">
-  <div class="modal-content">
-    <div class="about-hero">
-      <svg class="about-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="50%" stop-color="#818cf8"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs>
-        <path d="M256 60 L410 118 L410 270 C410 360 335 425 256 455 C177 425 102 360 102 270 L102 118 Z" fill="url(#ag)"/>
-        <rect x="205" y="245" width="102" height="80" rx="14" fill="#0a0a0f"/>
-        <path d="M233 245 L233 220 C233 188 256 170 256 170 C256 170 279 188 279 220 L279 245" fill="none" stroke="#0a0a0f" stroke-width="16" stroke-linecap="round"/>
-        <circle cx="256" cy="278" r="10" fill="#38bdf8"/>
-        <rect x="251" y="278" width="10" height="24" rx="5" fill="#38bdf8"/>
-      </svg>
-      <div class="about-app-name">SecurePass</div>
-      <div class="about-version">Version 2.0 · Premium</div>
-    </div>
-
-    <div class="about-badges">
-      <div class="about-badge">
-        <div class="about-badge-icon green"><i class="fas fa-shield-halved"></i></div>
-        <div class="about-badge-text">
-          <strong data-i18n="aboutB1T">100% Privacy Protected</strong>
-          <span data-i18n="aboutB1S">Passwords कभी server पर नहीं भेजे जाते। सब आपके device में ही बनते हैं।</span>
-        </div>
-      </div>
-      <div class="about-badge">
-        <div class="about-badge-icon blue"><i class="fas fa-wifi"></i></div>
-        <div class="about-badge-text">
-          <strong data-i18n="aboutB2T">Works Offline</strong>
-          <span data-i18n="aboutB2S">इंटरनेट बंद हो, तब भी पासवर्ड बनाएँ और कॉपी करें।</span>
-        </div>
-      </div>
-      <div class="about-badge">
-        <div class="about-badge-icon purple"><i class="fas fa-database"></i></div>
-        <div class="about-badge-text">
-          <strong data-i18n="aboutB3T">Zero Data Storage</strong>
-          <span data-i18n="aboutB3S">हम कोई भी password, log या personal data store नहीं करते।</span>
-        </div>
-      </div>
-      <div class="about-badge">
-        <div class="about-badge-icon pink"><i class="fas fa-heart"></i></div>
-        <div class="about-badge-text">
-          <strong data-i18n="aboutB4T">Free Forever</strong>
-          <span data-i18n="aboutB4S">कोई subscription नहीं, कोई ads नहीं, कोई limit नहीं।</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="about-message">
-      <b data-i18n="aboutMsgT">Our Promise:</b><br>
-      <span data-i18n="aboutMsgS">आपकी सुरक्षा हमारी ज़िम्मेदारी है। यह टूल इसलिए बनाया गया है ताकि हर इंसान — student, professional, या बुज़ुर्ग — आसानी से strong password बना सके, बिना किसी डर या शक के। हम आपकी privacy का पूरा सम्मान करते हैं।</span>
-    </div>
-
-    <div class="about-footer">
-      <div>Made with <i class="fas fa-heart" style="color:#f472b6;"></i> in India <span class="flag">🇮🇳</span></div>
-      <div style="margin-top:6px;"><b>SecurePass v2.0</b> · All rights reserved</div>
-    </div>
-
-    <button class="modal-close" onclick="closeModal('aboutModal')" style="margin-top:16px;" data-i18n="close">Close</button>
+<div class="modal" id="otpModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('otpModal')"><i class="fas fa-times"></i></button>
+  <h3><i class="fas fa-clock-rotate-left" style="color:var(--yellow);"></i> <span data-i18n="otpTitle">2FA Code Generator</span></h3>
+  <p style="font-size:.75rem;color:var(--text3);margin-bottom:12px;" data-i18n="otpHint">Enter your 2FA secret key</p>
+  <div id="otpSetup">
+    <input type="text" id="otpSecret" placeholder="Secret key (base32)" autocomplete="off" spellcheck="false" style="text-transform:uppercase;">
+    <button class="generate-btn" id="otpSaveBtn" style="margin-top:12px;" type="button"><i class="fas fa-save"></i> <span data-i18n="otpSave">Save & Generate</span></button>
   </div>
-</div>
-
-<!-- LANGUAGE MODAL -->
-<div class="modal" id="langModal">
-  <div class="modal-content">
-    <h3 data-i18n="chooseLang">Choose Language</h3>
-    <div class="lang-grid" id="langGrid"></div>
-    <button class="modal-close" onclick="closeModal('langModal')" style="margin-top:14px;" data-i18n="close">Close</button>
+  <div id="otpDisplay" style="display:none;">
+    <div class="otp-box">
+      <div class="otp-timer" data-i18n="otpValid">Valid for <b id="otpSec">30</b> seconds</div>
+      <div class="otp-code" id="otpCode">------</div>
+      <div class="otp-progress"><div class="otp-progress-bar" id="otpBar"></div></div>
+    </div>
+    <button class="generate-btn" onclick="copyText(document.getElementById('otpCode').textContent,function(){showToast('✅ Code copied!');})" type="button"><i class="fas fa-copy"></i> <span data-i18n="otpCopy">Copy Code</span></button>
+    <button class="modal-close" onclick="resetOTP()" style="margin-top:10px;" data-i18n="otpChange">Change Secret</button>
   </div>
-</div>
+</div></div>
+
+<div class="modal" id="vaultModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('vaultModal')"><i class="fas fa-times"></i></button>
+  <h3><i class="fas fa-vault" style="color:var(--pink);"></i> <span data-i18n="vaultTitle">Password Vault</span></h3>
+  <div id="vaultLocked">
+    <div class="vault-lock"><i class="fas fa-lock"></i>
+      <p style="font-size:.82rem;color:var(--text3);margin-bottom:12px;" data-i18n="vaultLocked">Enter master password to unlock</p>
+      <input type="password" id="vaultPass" placeholder="Master password..." autocomplete="off">
+      <button class="generate-btn" id="vaultUnlockBtn" style="margin-top:12px;" type="button"><i class="fas fa-unlock"></i> <span data-i18n="vaultUnlock">Unlock Vault</span></button>
+      <p style="font-size:.68rem;color:var(--text4);margin-top:12px;" data-i18n="vaultNote">First time? Just create a new master password.</p>
+    </div>
+  </div>
+  <div id="vaultUnlocked" style="display:none;">
+    <input type="text" id="vaultSite" placeholder="Site name (e.g. Gmail)" style="margin-bottom:8px;">
+    <input type="text" id="vaultUser" placeholder="Username / Email" style="margin-bottom:8px;">
+    <input type="password" id="vaultPwd" placeholder="Password" style="margin-bottom:8px;">
+    <button class="generate-btn" id="vaultAddBtn" type="button"><i class="fas fa-plus"></i> <span data-i18n="vaultAdd">Add Entry</span></button>
+    <div id="vaultList" style="margin-top:14px;"></div>
+    <button class="modal-close" onclick="lockVault()" style="margin-top:12px;" data-i18n="vaultLock">Lock Vault</button>
+  </div>
+</div></div>
+
+<div class="modal" id="fileModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('fileModal')"><i class="fas fa-times"></i></button>
+  <h3><i class="fas fa-file-shield" style="color:var(--primary);"></i> <span data-i18n="fileTitle">File Encryptor</span></h3>
+  <p style="font-size:.75rem;color:var(--text3);margin-bottom:12px;" data-i18n="fileHint">Lock any file with a password (AES-256)</p>
+  <div class="file-drop" id="fileDrop"><i class="fas fa-cloud-upload-alt"></i><strong data-i18n="fileDrop">Tap to select file</strong><p data-i18n="fileDropSub">Any file up to 50MB</p></div>
+  <input type="file" id="fileInput" style="display:none;">
+  <div id="fileName" style="font-size:.8rem;color:var(--text2);margin:8px 0;text-align:center;word-break:break-all;"></div>
+  <input type="password" id="filePwd" placeholder="Encryption password..." style="margin-top:8px;">
+  <div style="display:flex;gap:8px;margin-top:12px;">
+    <button class="generate-btn" id="fileEncBtn" type="button" style="flex:1;"><i class="fas fa-lock"></i> <span data-i18n="fileEnc">Encrypt</span></button>
+    <button class="generate-btn" id="fileDecBtn" type="button" style="flex:1;background:linear-gradient(135deg,var(--primary2),var(--pink));"><i class="fas fa-unlock"></i> <span data-i18n="fileDec">Decrypt</span></button>
+  </div>
+</div></div>
+
+<div class="modal" id="aboutModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('aboutModal')"><i class="fas fa-times"></i></button>
+  <div class="about-hero">
+    <svg class="about-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="50%" stop-color="#818cf8"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs>
+      <path d="M256 60 L410 118 L410 270 C410 360 335 425 256 455 C177 425 102 360 102 270 L102 118 Z" fill="url(#ag)"/>
+      <rect x="205" y="245" width="102" height="80" rx="14" fill="#0a0a0f"/>
+      <path d="M233 245 L233 220 C233 188 256 170 256 170 C256 170 279 188 279 220 L279 245" fill="none" stroke="#0a0a0f" stroke-width="16" stroke-linecap="round"/>
+      <circle cx="256" cy="278" r="10" fill="#38bdf8"/><rect x="251" y="278" width="10" height="24" rx="5" fill="#38bdf8"/>
+    </svg>
+    <div class="about-app-name">SecurePass</div>
+    <div class="about-version">Version 2.2 · Premium Suite</div>
+  </div>
+  <div class="about-badges">
+    <div class="about-badge"><div class="about-badge-icon green"><i class="fas fa-shield-halved"></i></div>
+      <div class="about-badge-text"><strong data-i18n="aboutB1T">100% Privacy Protected</strong><span data-i18n="aboutB1S">Passwords कभी server पर नहीं भेजे जाते।</span></div></div>
+    <div class="about-badge"><div class="about-badge-icon blue"><i class="fas fa-wifi"></i></div>
+      <div class="about-badge-text"><strong data-i18n="aboutB2T">Works Offline</strong><span data-i18n="aboutB2S">इंटरनेट बंद हो, तब भी सब कुछ चलेगा।</span></div></div>
+    <div class="about-badge"><div class="about-badge-icon purple"><i class="fas fa-database"></i></div>
+      <div class="about-badge-text"><strong data-i18n="aboutB3T">Zero Data Storage</strong><span data-i18n="aboutB3S">हम कोई भी डेटा store नहीं करते।</span></div></div>
+    <div class="about-badge"><div class="about-badge-icon pink"><i class="fas fa-heart"></i></div>
+      <div class="about-badge-text"><strong data-i18n="aboutB4T">Free Forever</strong><span data-i18n="aboutB4S">कोई subscription नहीं, कोई ads नहीं।</span></div></div>
+  </div>
+  <div class="about-message"><b data-i18n="aboutMsgT">Our Promise:</b><br>
+    <span data-i18n="aboutMsgS">आपकी सुरक्षा हमारी ज़िम्मेदारी है। हम आपकी privacy का पूरा सम्मान करते हैं।</span></div>
+  <div class="about-footer">
+    <div>Made with <i class="fas fa-heart" style="color:#f472b6;"></i> in India <span class="flag">🇮🇳</span></div>
+    <div style="margin-top:6px;"><b>SecurePass v2.2</b> · All rights reserved</div>
+  </div>
+  <button class="modal-close" onclick="closeModal('aboutModal')" style="margin-top:16px;" data-i18n="close">Close</button>
+</div></div>
+
+<div class="modal" id="langModal"><div class="modal-content">
+  <button class="modal-x" onclick="closeModal('langModal')"><i class="fas fa-times"></i></button>
+  <h3 data-i18n="chooseLang">Choose Language</h3>
+  <div class="lang-grid" id="langGrid"></div>
+  <button class="modal-close" onclick="closeModal('langModal')" style="margin-top:14px;" data-i18n="close">Close</button>
+</div></div>
 
 <div class="toast" id="toast">✅ Copied!</div>
 
@@ -554,26 +536,37 @@ window.addEventListener('load',function(){
 });
 setTimeout(function(){var s=document.getElementById('splashScreen');if(s&&!s.classList.contains('hide')){s.classList.add('hide');document.getElementById('mainApp').classList.add('visible');setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},700);}},4000);
 
-var TRANSLATIONS = {
-  en:{_name:"English",title:"SecurePass",subtitle:"Ultra Secure Password Generator",badgeOffline:"100% Offline",badgeNoStore:"No Data Stored",badgeFree:"Free Forever",tabPass:"Password",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Your Secure Password",crackTime:"Crack Time",entropyLbl:"Entropy",ready:"Ready to generate",length:"Password Length:",upper:"Uppercase (A-Z)",lower:"Lowercase (a-z)",nums:"Numbers (0-9)",syms:"Symbols (!@#$)",excludeSim:"Exclude similar (0O1lI)",autoClear:"Auto-clear clipboard (30s)",words:"Words:",capFirst:"Capitalize words",addNum:"Add number",digits:"Digits:",generate:"Generate Password",qr:"QR",bulk:"Bulk (10)",history:"Session History",noHist:"No passwords yet. Generate one!",tips:"Security Tips",faq:"FAQ",share:"Share SecurePass",qrTitle:"Scan QR Code",qrHint:"Scan with another device",close:"Close",aboutTitle:"About SecurePass",chooseLang:"Choose Language",statsTitle:"Statistics",statSession:"This Session",statSessionSub:"passwords generated",statDevice:"This Device",statDeviceSub:"total generated",statStrength:"Avg Strength",statStrengthSub:"based on generated",statSince:"Using Since",statSinceSub:"first generated",statStatus:"System Status",statusText:"All systems operational",statusVerified:"Verified",trustTitle:"Trust & Security",trust1:"AES-256 bit encryption",trust2:"CSPRNG based",trust3:"Zero server calls",trust4:"No tracking",trust5:"No cookies",trust6:"Open standard",tip1:"✅ Use 16+ character passwords for important accounts",tip2:"✅ Never reuse passwords across sites",tip3:"✅ Enable 2-factor authentication wherever possible",tip4:"✅ Change passwords every 3-6 months",tip5:"✅ Use a password manager for storage",tip6:"✅ Never share passwords over chat/email",q1:"Q: Is my password saved?",a1:"A: Absolutely not. Everything is generated in your browser. Nothing is sent anywhere.",q2:"Q: What is crack time?",a2:"A: It shows how long a supercomputer would take to crack this password.",q3:"Q: Is this free?",a3:"A: Yes, 100% free forever. No signup, no ads.",
-    aboutB1T:"100% Privacy Protected",aboutB1S:"Passwords are never sent to any server. Everything happens on your device.",aboutB2T:"Works Offline",aboutB2S:"Generate and copy passwords even without internet.",aboutB3T:"Zero Data Storage",aboutB3S:"We do not store any password, log, or personal data.",aboutB4T:"Free Forever",aboutB4S:"No subscription, no ads, no limits. Ever.",aboutMsgT:"Our Promise:",aboutMsgS:"Your security is our responsibility. This tool was built so every person — student, professional, or elder — can easily create strong passwords, without fear or doubt. We deeply respect your privacy."},
-  hi:{_name:"हिंदी",title:"SecurePass",subtitle:"अल्ट्रा सुरक्षित पासवर्ड जनरेटर",badgeOffline:"100% ऑफलाइन",badgeNoStore:"डेटा सेव नहीं",badgeFree:"हमेशा फ्री",tabPass:"पासवर्ड",tabPhrase:"वाक्यांश",tabPin:"पिन",yourPwd:"आपका सुरक्षित पासवर्ड",crackTime:"तोड़ने का समय",entropyLbl:"एंट्रॉपी",ready:"बनाने के लिए तैयार",length:"पासवर्ड लंबाई:",upper:"बड़े अक्षर (A-Z)",lower:"छोटे अक्षर (a-z)",nums:"नंबर (0-9)",syms:"सिंबल (!@#$)",excludeSim:"समान अक्षर हटाएँ (0O1lI)",autoClear:"क्लिपबोर्ड 30s बाद साफ",words:"शब्द:",capFirst:"पहला अक्षर बड़ा",addNum:"नंबर जोड़ें",digits:"अंक:",generate:"पासवर्ड बनाएँ",qr:"QR",bulk:"बल्क (10)",history:"सेशन इतिहास",noHist:"अभी कोई पासवर्ड नहीं। एक बनाएँ!",tips:"सुरक्षा टिप्स",faq:"सामान्य प्रश्न",share:"SecurePass शेयर करें",qrTitle:"QR कोड स्कैन करें",qrHint:"दूसरे डिवाइस से स्कैन करें",close:"बंद करें",aboutTitle:"SecurePass के बारे में",chooseLang:"भाषा चुनें",statsTitle:"आंकड़े",statSession:"इस सेशन में",statSessionSub:"पासवर्ड बनाए",statDevice:"इस डिवाइस पर",statDeviceSub:"कुल बनाए",statStrength:"औसत ताकत",statStrengthSub:"बनाए गए के आधार पर",statSince:"उपयोग शुरू",statSinceSub:"पहला पासवर्ड",statStatus:"सिस्टम स्थिति",statusText:"सभी सिस्टम चालू",statusVerified:"सत्यापित",trustTitle:"भरोसा और सुरक्षा",trust1:"AES-256 बिट एन्क्रिप्शन",trust2:"CSPRNG आधारित",trust3:"शून्य सर्वर कॉल",trust4:"कोई ट्रैकिंग नहीं",trust5:"कोई कुकीज़ नहीं",trust6:"खुला मानक",tip1:"✅ जरूरी अकाउंट के लिए 16+ अक्षर वाला पासवर्ड रखें",tip2:"✅ हर साइट पर अलग पासवर्ड रखें",tip3:"✅ जहाँ हो सके 2-फैक्टर ऑथेंटिकेशन ऑन करें",tip4:"✅ हर 3-6 महीने में पासवर्ड बदलें",tip5:"✅ पासवर्ड मैनेजर में सेव करें",tip6:"✅ चैट/ईमेल पर पासवर्ड शेयर न करें",q1:"प्र: क्या मेरा पासवर्ड सेव होता है?",a1:"उ: बिल्कुल नहीं। सब आपके ब्राउज़र में बनता है।",q2:"प्र: तोड़ने का समय क्या है?",a2:"उ: यह बताता है कि सुपर कंप्यूटर से तोड़ने में कितना समय लगेगा।",q3:"प्र: क्या यह फ्री है?",a3:"उ: हाँ, हमेशा के लिए 100% फ्री।",
-    aboutB1T:"100% प्राइवेसी सुरक्षित",aboutB1S:"पासवर्ड कभी किसी सर्वर पर नहीं भेजे जाते।",aboutB2T:"बिना इंटरनेट काम करे",aboutB2S:"इंटरनेट बंद हो, तब भी पासवर्ड बनाएँ।",aboutB3T:"शून्य डेटा स्टोरेज",aboutB3S:"हम कोई भी डेटा store नहीं करते।",aboutB4T:"हमेशा के लिए फ्री",aboutB4S:"कोई subscription नहीं, कोई ads नहीं।",aboutMsgT:"हमारा वादा:",aboutMsgS:"आपकी सुरक्षा हमारी ज़िम्मेदारी है। हम आपकी privacy का पूरा सम्मान करते हैं।"}
-};
+var EN = {_name:"English",title:"SecurePass",subtitle:"Ultra Secure Password Generator",badgeOffline:"100% Offline",badgeNoStore:"No Data Stored",badgeFree:"Free Forever",tabPass:"Password",tabPhrase:"Phrase",tabPin:"PIN",yourPwd:"Your Secure Password",crackTime:"Crack Time",entropyLbl:"Entropy",ready:"Ready to generate",length:"Password Length:",upper:"Uppercase (A-Z)",lower:"Lowercase (a-z)",nums:"Numbers (0-9)",syms:"Symbols (!@#$)",excludeSim:"Exclude similar (0O1lI)",autoClear:"Auto-clear clipboard (30s)",words:"Words:",capFirst:"Capitalize words",addNum:"Add number",digits:"Digits:",generate:"Generate Password",toolCheck:"Check Leak",toolUser:"Username",toolOTP:"2FA Codes",toolVault:"Vault",toolFile:"Encrypt File",toolQR:"QR Code",toolBulk:"Bulk (10)",history:"Session History",noHist:"No passwords yet. Generate one!",tips:"Security Tips",faq:"FAQ",share:"Share SecurePass",qrTitle:"Scan QR Code",qrHint:"Scan with another device",close:"Close",chooseLang:"Choose Language",statsTitle:"Statistics",statSession:"This Session",statSessionSub:"passwords generated",statDevice:"This Device",statDeviceSub:"total generated",statStrength:"Avg Strength",statStrengthSub:"based on generated",statSince:"Using Since",statSinceSub:"first generated",statStatus:"System Status",statusText:"All systems operational",statusVerified:"Verified",trustTitle:"Trust & Security",trust1:"AES-256 bit encryption",trust2:"CSPRNG based",trust3:"Zero server calls",trust4:"No tracking",trust5:"No cookies",trust6:"Open standard",tip1:"✅ Use 16+ character passwords",tip2:"✅ Never reuse passwords",tip3:"✅ Enable 2-factor authentication",tip4:"✅ Change passwords every 3-6 months",tip5:"✅ Use a password manager",tip6:"✅ Never share passwords over chat",q1:"Q: Is my password saved?",a1:"A: Absolutely not. Everything is in your browser.",q2:"Q: What is crack time?",a2:"A: How long a supercomputer would take to crack this password.",q3:"Q: Is this free?",a3:"A: Yes, 100% free forever.",
+checkerTitle:"Check Password Leak",checkerHint:"Check if your password was leaked in any data breach",checkBtn:"Check Now",
+userTitle:"Username Generator",userHint:"Cool usernames for new accounts",userStyle:"Include number",userUnder:"Use underscore (_)",userGen:"Generate 5",
+otpTitle:"2FA Code Generator",otpHint:"Enter your 2FA secret key",otpSave:"Save & Generate",otpValid:"Valid for <b>30</b> seconds",otpCopy:"Copy Code",otpChange:"Change Secret",
+vaultTitle:"Password Vault",vaultLocked:"Enter master password to unlock",vaultUnlock:"Unlock Vault",vaultNote:"First time? Just create a new master password.",vaultAdd:"Add Entry",vaultLock:"Lock Vault",
+fileTitle:"File Encryptor",fileHint:"Lock any file with a password (AES-256)",fileDrop:"Tap to select file",fileDropSub:"Any file up to 50MB",fileEnc:"Encrypt",fileDec:"Decrypt",
+aboutB1T:"100% Privacy Protected",aboutB1S:"Passwords are never sent to any server.",aboutB2T:"Works Offline",aboutB2S:"Everything works even without internet.",aboutB3T:"Zero Data Storage",aboutB3S:"We do not store any password or personal data.",aboutB4T:"Free Forever",aboutB4S:"No subscription, no ads, no limits.",aboutMsgT:"Our Promise:",aboutMsgS:"Your security is our responsibility. We deeply respect your privacy."};
 
-// Use English as fallback for other languages
+var HI = {_name:"हिंदी",title:"SecurePass",subtitle:"अल्ट्रा सुरक्षित पासवर्ड जनरेटर",badgeOffline:"100% ऑफलाइन",badgeNoStore:"डेटा सेव नहीं",badgeFree:"हमेशा फ्री",tabPass:"पासवर्ड",tabPhrase:"वाक्यांश",tabPin:"पिन",yourPwd:"आपका सुरक्षित पासवर्ड",crackTime:"तोड़ने का समय",entropyLbl:"एंट्रॉपी",ready:"बनाने के लिए तैयार",length:"पासवर्ड लंबाई:",upper:"बड़े अक्षर (A-Z)",lower:"छोटे अक्षर (a-z)",nums:"नंबर (0-9)",syms:"सिंबल (!@#$)",excludeSim:"समान अक्षर हटाएँ (0O1lI)",autoClear:"क्लिपबोर्ड 30s बाद साफ",words:"शब्द:",capFirst:"पहला अक्षर बड़ा",addNum:"नंबर जोड़ें",digits:"अंक:",generate:"पासवर्ड बनाएँ",toolCheck:"Leak जाँचें",toolUser:"यूज़रनेम",toolOTP:"2FA कोड",toolVault:"वॉल्ट",toolFile:"फाइल एन्क्रिप्ट",toolQR:"QR कोड",toolBulk:"बल्क (10)",history:"सेशन इतिहास",noHist:"अभी कोई पासवर्ड नहीं। एक बनाएँ!",tips:"सुरक्षा टिप्स",faq:"सामान्य प्रश्न",share:"SecurePass शेयर करें",qrTitle:"QR कोड स्कैन करें",qrHint:"दूसरे डिवाइस से स्कैन करें",close:"बंद करें",chooseLang:"भाषा चुनें",statsTitle:"आंकड़े",statSession:"इस सेशन में",statSessionSub:"पासवर्ड बनाए",statDevice:"इस डिवाइस पर",statDeviceSub:"कुल बनाए",statStrength:"औसत ताकत",statStrengthSub:"बनाए गए के आधार पर",statSince:"उपयोग शुरू",statSinceSub:"पहला पासवर्ड",statStatus:"सिस्टम स्थिति",statusText:"सभी सिस्टम चालू",statusVerified:"सत्यापित",trustTitle:"भरोसा और सुरक्षा",trust1:"AES-256 बिट एन्क्रिप्शन",trust2:"CSPRNG आधारित",trust3:"शून्य सर्वर कॉल",trust4:"कोई ट्रैकिंग नहीं",trust5:"कोई कुकीज़ नहीं",trust6:"खुला मानक",tip1:"✅ जरूरी अकाउंट के लिए 16+ अक्षर",tip2:"✅ हर साइट पर अलग पासवर्ड",tip3:"✅ 2-फैक्टर ऑथेंटिकेशन ऑन करें",tip4:"✅ हर 3-6 महीने में बदलें",tip5:"✅ पासवर्ड मैनेजर में सेव करें",tip6:"✅ चैट पर पासवर्ड शेयर न करें",q1:"प्र: क्या मेरा पासवर्ड सेव होता है?",a1:"उ: बिल्कुल नहीं। सब आपके ब्राउज़र में बनता है।",q2:"प्र: तोड़ने का समय क्या है?",a2:"उ: सुपर कंप्यूटर से तोड़ने में कितना समय लगेगा।",q3:"प्र: क्या यह फ्री है?",a3:"उ: हाँ, हमेशा के लिए 100% फ्री।",
+checkerTitle:"पासवर्ड Leak जाँचें",checkerHint:"देखें कि आपका पासवर्ड किसी data breach में leak हुआ है क्या",checkBtn:"अभी जाँचें",
+userTitle:"यूज़रनेम जेनरेटर",userHint:"नए अकाउंट के लिए शानदार यूज़रनेम",userStyle:"नंबर शामिल करें",userUnder:"अंडरस्कोर (_) इस्तेमाल करें",userGen:"5 यूज़रनेम बनाएँ",
+otpTitle:"2FA कोड जेनरेटर",otpHint:"अपनी 2FA secret key डालें",otpSave:"सेव करें और बनाएँ",otpValid:"<b>30</b> सेकंड के लिए वैध",otpCopy:"कोड कॉपी करें",otpChange:"Secret बदलें",
+vaultTitle:"पासवर्ड वॉल्ट",vaultLocked:"अनलॉक करने के लिए master password डालें",vaultUnlock:"वॉल्ट अनलॉक करें",vaultNote:"पहली बार? नया master password बनाएँ।",vaultAdd:"एंट्री जोड़ें",vaultLock:"वॉल्ट लॉक करें",
+fileTitle:"फाइल एन्क्रिप्टर",fileHint:"किसी भी फाइल को password से lock करें (AES-256)",fileDrop:"फाइल चुनने के लिए टैप करें",fileDropSub:"50MB तक कोई भी फाइल",fileEnc:"एन्क्रिप्ट",fileDec:"डिक्रिप्ट",
+aboutB1T:"100% प्राइवेसी सुरक्षित",aboutB1S:"पासवर्ड कभी किसी सर्वर पर नहीं भेजे जाते।",aboutB2T:"बिना इंटरनेट काम करे",aboutB2S:"इंटरनेट बंद हो, तब भी सब कुछ चलेगा।",aboutB3T:"शून्य डेटा स्टोरेज",aboutB3S:"हम कोई भी डेटा store नहीं करते।",aboutB4T:"हमेशा के लिए फ्री",aboutB4S:"कोई subscription नहीं, कोई ads नहीं।",aboutMsgT:"हमारा वादा:",aboutMsgS:"आपकी सुरक्षा हमारी ज़िम्मेदारी है। हम आपकी privacy का पूरा सम्मान करते हैं।"};
+
+var TRANSLATIONS = {en:EN, hi:HI};
 var LANG_CODES = ['en','hi','es','fr','de','pt','ar','zh','ja','ru','bn','ur','id'];
 var LANG_NAMES = {en:'English',hi:'हिंदी',es:'Español',fr:'Français',de:'Deutsch',pt:'Português',ar:'العربية',zh:'中文',ja:'日本語',ru:'Русский',bn:'বাংলা',ur:'اردو',id:'Indonesia'};
 
 var pageUrl = window.location.href.split('?')[0].split('#')[0];
-var shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
-var shareTitle = "SecurePass - Ultra Secure Password Generator";
+var shareText = "🔐 SecurePass - Premium security suite: password generator, 2FA, vault, file encryptor. 100% free and offline.";
+var shareTitle = "SecurePass - Premium Security Suite";
 var currentTab = 'password';
 var sessionHistory = [];
 var clipboardTimer = null;
 var lang = localStorage.getItem('sp_lang') || 'en';
 var theme = localStorage.getItem('sp_theme') || 'dark';
 var WORDS = "tiger mango cloud silent river mountain purple golden happy clever brave rapid bright ocean thunder forest garden silver diamond rocket planet coffee sunset sunrise window mirror candle whisper dragon phoenix crystal shadow breeze storm meadow falcon harbor island jungle kettle lantern marble needle orange pebble quartz ribbon saddle temple velvet walnut yellow zephyr galaxy cosmic nebula vortex eclipse horizon".split(" ");
+var ADJ = ["cool","brave","silent","rapid","bright","swift","royal","cosmic","epic","neo","prime","shadow","golden","crimson","iron","cyber","digital","quantum","turbo","ninja","mega","ultra","hyper","super","alpha","omega","delta","nova","lunar","void","frost","flame"];
+var NOUN = ["tiger","hawk","wolf","dragon","lion","panther","falcon","viper","raven","phoenix","samurai","hunter","knight","wizard","pilot","rider","coder","gamer","master","legend","ghost","storm","blade","arrow","ranger","captain","chief","boss","king","hero"];
 
 if(theme==='light'){document.documentElement.setAttribute('data-theme','light');document.getElementById('themeIcon').className='fas fa-sun';}
 
@@ -582,6 +575,7 @@ function applyLang(){
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var k = el.getAttribute('data-i18n');
     if(T[k]) el.textContent = T[k];
+    else if(EN[k]) el.textContent = EN[k];
   });
   document.documentElement.lang = lang;
   document.documentElement.dir = (lang==='ar'||lang==='ur') ? 'rtl' : 'ltr';
@@ -617,7 +611,6 @@ function showToast(msg){
   if(window._tT)clearTimeout(window._tT);
   window._tT=setTimeout(function(){t.classList.remove('show');},2500);
 }
-
 function copyText(text,cb){
   var done=false;function fin(){if(!done){done=true;if(cb)cb();}}
   if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(fin).catch(function(){fb(text);fin();});}
@@ -651,8 +644,7 @@ document.querySelectorAll('.tab').forEach(function(t){
 });
 
 ['length','words','digits'].forEach(function(id){
-  var s=document.getElementById(id);
-  if(!s)return;
+  var s=document.getElementById(id);if(!s)return;
   var val=document.getElementById(id+'-val');
   s.addEventListener('input',function(){val.textContent=this.value;});
 });
@@ -665,14 +657,10 @@ document.querySelectorAll('.presets button').forEach(function(b){
     document.getElementById('length-val').textContent=len;
   });
 });
-
 ['histTitle','tipsTitle','faqTitle','statsTitle','trustTitle'].forEach(function(id){
   var t=document.getElementById(id);if(!t)return;
-  var body=document.getElementById(id.replace('Title','Body'));
-  if(!body)return;
-  t.addEventListener('click',function(){
-    t.classList.toggle('open');body.classList.toggle('open');
-  });
+  var body=document.getElementById(id.replace('Title','Body'));if(!body)return;
+  t.addEventListener('click',function(){t.classList.toggle('open');body.classList.toggle('open');});
 });
 
 function calcEntropy(pwd,charsetSize){
@@ -694,12 +682,9 @@ function formatTime(seconds){
   return '∞ yrs';
 }
 function calcCrackTime(entropy){
-  var guessesPerSec = 1e11;
-  var totalGuesses = Math.pow(2,entropy)/2;
-  var seconds = totalGuesses/guessesPerSec;
+  var seconds = (Math.pow(2,entropy)/2)/1e11;
   return formatTime(seconds);
 }
-
 function calcStrength(entropy){
   var bar=document.getElementById('strength-bar');
   var txt=document.getElementById('strength-text');
@@ -710,66 +695,39 @@ function calcStrength(entropy){
   document.getElementById('entropyVal').textContent=entropy+' bits';
   document.getElementById('entropyBadge').textContent=entropy+' bits';
   document.getElementById('crackTime').textContent=calcCrackTime(entropy);
-  // Track for avg strength
   updateAvgStrength(entropy);
 }
 
-// ============ HONEST STATS SYSTEM ============
 var sessionCount = 0;
 var deviceCount = parseInt(localStorage.getItem('sp_device_count') || '0');
 var firstUseDate = localStorage.getItem('sp_first_use') || null;
 var strengthHistory = JSON.parse(localStorage.getItem('sp_strength_history') || '[]');
-
 function updateStats(){
-  // Session counter
   document.getElementById('sessionCount').textContent = sessionCount;
-  
-  // Device counter
   document.getElementById('deviceCount').textContent = deviceCount;
-  
-  // First use date
-  if(!firstUseDate){
-    firstUseDate = new Date().toISOString();
-    localStorage.setItem('sp_first_use', firstUseDate);
-  }
+  if(!firstUseDate){firstUseDate = new Date().toISOString();localStorage.setItem('sp_first_use', firstUseDate);}
   var d = new Date(firstUseDate);
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.getElementById('firstUse').textContent = d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-  
-  // Average strength
   if(strengthHistory.length > 0){
-    var total = 0;
-    for(var i=0;i<strengthHistory.length;i++) total += strengthHistory[i];
+    var total = 0;for(var i=0;i<strengthHistory.length;i++) total += strengthHistory[i];
     var avg = total / strengthHistory.length;
     var label = avg < 40 ? 'Weak' : (avg < 60 ? 'Moderate' : (avg < 80 ? 'Strong' : 'Military'));
     document.getElementById('avgStrength').textContent = label;
-  } else {
-    document.getElementById('avgStrength').textContent = '—';
   }
 }
-
 function updateAvgStrength(entropy){
   strengthHistory.push(entropy);
-  if(strengthHistory.length > 50) strengthHistory.shift(); // keep last 50
+  if(strengthHistory.length > 50) strengthHistory.shift();
   localStorage.setItem('sp_strength_history', JSON.stringify(strengthHistory));
   updateStats();
 }
-
-function incrementCounters(){
-  sessionCount++;
-  deviceCount++;
-  localStorage.setItem('sp_device_count', deviceCount);
-  updateStats();
-}
-
-// Initialize stats on load
+function incrementCounters(){sessionCount++;deviceCount++;localStorage.setItem('sp_device_count', deviceCount);updateStats();}
 updateStats();
 
-// ============ GENERATE ============
 var isGen=false;
 document.getElementById('gen-btn').addEventListener('click',function(){
-  if(isGen)return;
-  isGen=true;
+  if(isGen)return;isGen=true;
   var btn=this;
   var pwdField=document.getElementById('password');
   var st=document.getElementById('strength-text');
@@ -777,7 +735,6 @@ document.getElementById('gen-btn').addEventListener('click',function(){
   st.textContent='...';st.style.color='#f59e0b';
   document.getElementById('strength-bar').style.width='0%';
   document.getElementById('pwdDisplay').classList.add('active');
-
   var result='',charset='';
   if(currentTab==='password'){
     var len=parseInt(document.getElementById('length').value);
@@ -786,87 +743,61 @@ document.getElementById('gen-btn').addEventListener('click',function(){
     var n=document.getElementById('numbers').checked;
     var s=document.getElementById('symbols').checked;
     var ex=document.getElementById('excludeSim').checked;
-    if(u)charset+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    if(l)charset+='abcdefghijklmnopqrstuvwxyz';
-    if(n)charset+='0123456789';
-    if(s)charset+='!@#$%^&*()_+~|}{[]:;?><,./-=';
+    if(u)charset+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(l)charset+='abcdefghijklmnopqrstuvwxyz';
+    if(n)charset+='0123456789';if(s)charset+='!@#$%^&*()_+~|}{[]:;?><,./-=';
     if(ex)charset=charset.replace(/[0O1lI]/g,'');
-    if(!charset){showToast('⚠️');isGen=false;btn.disabled=false;btn.innerHTML='⚡ '+(TRANSLATIONS[lang]||TRANSLATIONS.en).generate;document.getElementById('pwdDisplay').classList.remove('active');return;}
+    if(!charset){showToast('⚠️');isGen=false;btn.disabled=false;btn.innerHTML='⚡ Generate';document.getElementById('pwdDisplay').classList.remove('active');return;}
     for(var i=0;i<len;i++)result+=charset.charAt(Math.floor(Math.random()*charset.length));
-  }
-  else if(currentTab==='passphrase'){
+  }else if(currentTab==='passphrase'){
     var wc=parseInt(document.getElementById('words').value);
     var cap=document.getElementById('capFirst').checked;
     var an=document.getElementById('addNum').checked;
     var parts=[];
-    for(var j=0;j<wc;j++){
-      var w=WORDS[Math.floor(Math.random()*WORDS.length)];
-      if(cap)w=w.charAt(0).toUpperCase()+w.slice(1);
-      parts.push(w);
-    }
-    result=parts.join('-');
-    if(an)result+='-'+Math.floor(Math.random()*90+10);
+    for(var j=0;j<wc;j++){var w=WORDS[Math.floor(Math.random()*WORDS.length)];if(cap)w=w.charAt(0).toUpperCase()+w.slice(1);parts.push(w);}
+    result=parts.join('-');if(an)result+='-'+Math.floor(Math.random()*90+10);
     charset='abcdefghijklmnopqrstuvwxyz';
-  }
-  else{
+  }else{
     var dc=parseInt(document.getElementById('digits').value);
     for(var k=0;k<dc;k++)result+=Math.floor(Math.random()*10);
     charset='0123456789';
   }
-
   var scrambleSet=charset||'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var finalResult=result;
   var totalTime=Math.floor(Math.random()*4000)+3000;
-  var seconds=0;
-  var len2=finalResult.length;
-
-  var sc=setInterval(function(){
-    var sc2='';for(var x=0;x<len2;x++)sc2+=scrambleSet.charAt(Math.floor(Math.random()*scrambleSet.length));
-    pwdField.value=sc2;
-  },50);
+  var seconds=0;var len2=finalResult.length;
+  var sc=setInterval(function(){var sc2='';for(var x=0;x<len2;x++)sc2+=scrambleSet.charAt(Math.floor(Math.random()*scrambleSet.length));pwdField.value=sc2;},50);
   var tm=setInterval(function(){seconds++;st.textContent='... '+seconds+'s';},1000);
-
   setTimeout(function(){
     clearInterval(sc);clearInterval(tm);
     pwdField.value=finalResult;
     var ent=calcEntropy(finalResult,charset.length||1);
     calcStrength(ent);
-    st.textContent='✓ '+seconds+'s';
-    st.style.color='#10b981';
-    btn.disabled=false;btn.innerHTML='⚡ '+(TRANSLATIONS[lang]||TRANSLATIONS.en).generate;
-    isGen=false;
-    addToHistory(finalResult);
-    incrementCounters();
+    st.textContent='✓ '+seconds+'s';st.style.color='#10b981';
+    btn.disabled=false;btn.innerHTML='⚡ Generate';
+    isGen=false;addToHistory(finalResult);incrementCounters();
     setTimeout(function(){document.getElementById('pwdDisplay').classList.remove('active');},1500);
   },totalTime);
 });
 
 function addToHistory(pwd){
-  sessionHistory.unshift(pwd);
-  if(sessionHistory.length>10)sessionHistory.pop();
-  var list=document.getElementById('historyList');
-  list.innerHTML='';
+  sessionHistory.unshift(pwd);if(sessionHistory.length>10)sessionHistory.pop();
+  var list=document.getElementById('historyList');list.innerHTML='';
   sessionHistory.forEach(function(p){
     var div=document.createElement('div');div.className='history-item';
     div.innerHTML='<span>'+p.replace(/</g,'&lt;')+'</span><i class="fas fa-copy"></i>';
-    div.querySelector('i').addEventListener('click',function(){
-      copyText(p,function(){showToast('✅');scheduleClear();});
-    });
+    div.querySelector('i').addEventListener('click',function(){copyText(p,function(){showToast('✅');scheduleClear();});});
     list.appendChild(div);
   });
 }
-
 document.getElementById('copyBtn').addEventListener('click',function(){
   var pwd=document.getElementById('password').value;
   if(pwd==='Click Generate...'||pwd===''){showToast('⚠️');return;}
   var btn=this;var icon=document.getElementById('copyIcon');
   copyText(pwd,function(){
-    btn.classList.add('copied');icon.className='fas fa-check';
-    showToast('✅');scheduleClear();
+    btn.classList.add('copied');icon.className='fas fa-check';showToast('✅');scheduleClear();
     setTimeout(function(){btn.classList.remove('copied');icon.className='fas fa-copy';},2000);
   });
 });
-
 document.getElementById('qrBtn').addEventListener('click',function(){
   var pwd=document.getElementById('password').value;
   if(pwd==='Click Generate...'||pwd===''){showToast('⚠️');return;}
@@ -874,37 +805,284 @@ document.getElementById('qrBtn').addEventListener('click',function(){
   new QRCode(box,{text:pwd,width:180,height:180,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
   document.getElementById('qrModal').classList.add('open');
 });
-
 document.getElementById('bulkBtn').addEventListener('click',function(){
   if(currentTab!=='password'){showToast('⚠️');return;}
   var len=parseInt(document.getElementById('length').value);
-  var u=document.getElementById('uppercase').checked;
-  var l=document.getElementById('lowercase').checked;
-  var n=document.getElementById('numbers').checked;
-  var s=document.getElementById('symbols').checked;
-  var ex=document.getElementById('excludeSim').checked;
-  var cs='';
-  if(u)cs+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if(l)cs+='abcdefghijklmnopqrstuvwxyz';
-  if(n)cs+='0123456789';
-  if(s)cs+='!@#$%^&*()_+~|}{[]:;?><,./-=';
-  if(ex)cs=cs.replace(/[0O1lI]/g,'');
-  if(!cs){showToast('⚠️');return;}
+  var u=document.getElementById('uppercase').checked;var l=document.getElementById('lowercase').checked;
+  var n=document.getElementById('numbers').checked;var s=document.getElementById('symbols').checked;
+  var ex=document.getElementById('excludeSim').checked;var cs='';
+  if(u)cs+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(l)cs+='abcdefghijklmnopqrstuvwxyz';
+  if(n)cs+='0123456789';if(s)cs+='!@#$%^&*()_+~|}{[]:;?><,./-=';
+  if(ex)cs=cs.replace(/[0O1lI]/g,'');if(!cs){showToast('⚠️');return;}
   var lines=[];
-  for(var i=0;i<10;i++){
-    var p='';for(var j=0;j<len;j++)p+=cs.charAt(Math.floor(Math.random()*cs.length));
-    lines.push(p);
-  }
+  for(var i=0;i<10;i++){var p='';for(var j=0;j<len;j++)p+=cs.charAt(Math.floor(Math.random()*cs.length));lines.push(p);}
   var blob=new Blob([lines.join('\n')],{type:'text/plain'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='securepass-bulk.txt';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  showToast('📥');
+  document.body.appendChild(a);a.click();document.body.removeChild(a);showToast('📥');
+});
+
+var COMMON = ["password","123456","123456789","qwerty","abc123","password1","12345678","111111","123123","admin","letmein","welcome","monkey","dragon","master","sunshine","princess","football","iloveyou","000000","1234567890","qwerty123","1q2w3e4r","qwertyuiop","zaq12wsx"];
+document.getElementById('checkerBtn').addEventListener('click',function(){
+  document.getElementById('checkResult').classList.remove('show');
+  document.getElementById('checkInput').value='';
+  document.getElementById('checkerModal').classList.add('open');
+});
+document.getElementById('checkBtn').addEventListener('click',function(){
+  var pwd = document.getElementById('checkInput').value;
+  if(!pwd){showToast('⚠️ Enter a password');return;}
+  var res = document.getElementById('checkResult');
+  res.className = 'check-result';res.classList.add('show');
+  var isCommon = COMMON.indexOf(pwd.toLowerCase()) !== -1;
+  var length = pwd.length;
+  var hasUpper = /[A-Z]/.test(pwd),hasLower = /[a-z]/.test(pwd),hasNum = /[0-9]/.test(pwd),hasSym = /[^A-Za-z0-9]/.test(pwd);
+  var charsetSize = (hasUpper?26:0)+(hasLower?26:0)+(hasNum?10:0)+(hasSym?32:0);
+  var entropy = charsetSize > 0 ? Math.round(length * Math.log2(charsetSize)) : 0;
+  var html = '';
+  if(isCommon){res.className='check-result show danger';html='<b>🚨 DANGER:</b> This is one of the most common passwords!<br>Cracked in <b>less than 1 second</b>.<br><br>👉 <b>Change it immediately</b>.';}
+  else if(entropy < 40){res.className='check-result show danger';html='<b>⚠️ WEAK:</b> Too short or simple.<br>Crack time: <b>'+calcCrackTime(entropy)+'</b>';}
+  else if(entropy < 60){res.className='check-result show warn';html='<b>🟡 MODERATE:</b> Okay but not great.<br>Crack time: <b>'+calcCrackTime(entropy)+'</b><br>Entropy: <b>'+entropy+' bits</b>';}
+  else{res.className='check-result show safe';html='<b>✅ SAFE:</b> Strong password!<br>Crack time: <b>'+calcCrackTime(entropy)+'</b><br>Entropy: <b>'+entropy+' bits</b>';}
+  res.innerHTML = html;
+  if(navigator.onLine){
+    res.innerHTML += '<div style="margin-top:10px;font-size:.7rem;opacity:.7;">🔍 Checking breaches...</div>';
+    var encoder=new TextEncoder();
+    crypto.subtle.digest('SHA-1',encoder.encode(pwd)).then(function(hashBuffer){
+      var hashArray=Array.from(new Uint8Array(hashBuffer));
+      var hashHex=hashArray.map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
+      var prefix=hashHex.substring(0,5),suffix=hashHex.substring(5);
+      fetch('https://api.pwnedpasswords.com/range/'+prefix).then(r=>r.text()).then(function(data){
+        var lines=data.split('\n'),found=0;
+        for(var i=0;i<lines.length;i++){var parts=lines[i].split(':');if(parts[0]===suffix){found=parseInt(parts[1]);break;}}
+        var extra=document.createElement('div');extra.style.marginTop='8px';extra.style.fontSize='.72rem';
+        if(found>0){extra.innerHTML='<b>🚨 BREACHED:</b> Found in <b>'+found.toLocaleString()+'</b> data breaches!';extra.style.color='#ef4444';}
+        else{extra.innerHTML='<b>✅ Not found</b> in any known breach.';extra.style.color='#10b981';}
+        res.appendChild(extra);
+      }).catch(function(){res.innerHTML+='<div style="margin-top:8px;font-size:.72rem;opacity:.6;">📴 Online check unavailable</div>';});
+    }).catch(function(){});
+  } else {
+    res.innerHTML += '<div style="margin-top:10px;font-size:.7rem;opacity:.7;">📴 Offline - local check only</div>';
+  }
+});
+
+document.getElementById('usernameBtn').addEventListener('click',function(){
+  document.getElementById('usernameList').innerHTML='';
+  document.getElementById('usernameModal').classList.add('open');
+});
+document.getElementById('userGenBtn').addEventListener('click',function(){
+  var useNum=document.getElementById('userNum').checked;
+  var useUnder=document.getElementById('userUnder').checked;
+  var sep=useUnder?'_':'';
+  var list=document.getElementById('usernameList');list.innerHTML='';
+  var generated={};
+  for(var i=0;i<5;i++){
+    var u='',tries=0;
+    do{var a=ADJ[Math.floor(Math.random()*ADJ.length)];var n=NOUN[Math.floor(Math.random()*NOUN.length)];
+      var num=useNum?(sep+Math.floor(Math.random()*900+10)):'';u=a+sep+n+num;tries++;}while(generated[u]&&tries<10);
+    generated[u]=true;
+    var div=document.createElement('div');div.className='username-item';
+    div.innerHTML='<span>@'+u+'</span><i class="fas fa-copy"></i>';
+    div.querySelector('i').addEventListener('click',function(){
+      var txt=this.parentElement.querySelector('span').textContent.replace('@','');
+      copyText(txt,function(){showToast('✅ Copied!');});
+    });
+    list.appendChild(div);
+  }
+});
+
+var otpSecret='',otpTimer=null;
+function base32Decode(str){
+  var alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+  str=str.replace(/=+$/,'').replace(/\s/g,'').toUpperCase();
+  var bits='';
+  for(var i=0;i<str.length;i++){var val=alphabet.indexOf(str[i]);if(val<0)continue;bits+=val.toString(2).padStart(5,'0');}
+  var bytes=[];
+  for(var j=0;j+8<=bits.length;j+=8)bytes.push(parseInt(bits.substr(j,8),2));
+  return new Uint8Array(bytes);
+}
+function generateTOTP(secret){
+  return new Promise(function(resolve){
+    try{
+      var key=base32Decode(secret);
+      var epoch=Math.floor(Date.now()/1000);
+      var counter=Math.floor(epoch/30);
+      var buffer=new ArrayBuffer(8);
+      var view=new DataView(buffer);
+      view.setUint32(4,counter,false);
+      crypto.subtle.importKey('raw',key,{name:'HMAC',hash:'SHA-1'},false,['sign']).then(function(cryptoKey){
+        return crypto.subtle.sign('HMAC',cryptoKey,buffer);
+      }).then(function(signature){
+        var hash=new Uint8Array(signature);
+        var offset=hash[hash.length-1]&0x0f;
+        var code=((hash[offset]&0x7f)<<24)|((hash[offset+1]&0xff)<<16)|((hash[offset+2]&0xff)<<8)|(hash[offset+3]&0xff);
+        var otp=(code%1000000).toString().padStart(6,'0');
+        resolve(otp);
+      });
+    }catch(e){resolve('ERROR');}
+  });
+}
+document.getElementById('otpBtn').addEventListener('click',function(){
+  var saved=localStorage.getItem('sp_otp_secret');
+  if(saved){showOTPDisplay(saved);}else{showOTPSetup();}
+  document.getElementById('otpModal').classList.add('open');
+});
+function showOTPSetup(){document.getElementById('otpSetup').style.display='block';document.getElementById('otpDisplay').style.display='none';}
+function showOTPDisplay(secret){
+  otpSecret=secret;
+  document.getElementById('otpSetup').style.display='none';
+  document.getElementById('otpDisplay').style.display='block';
+  updateOTP();
+  if(otpTimer)clearInterval(otpTimer);
+  otpTimer=setInterval(updateOTP,1000);
+}
+function updateOTP(){
+  var epoch=Math.floor(Date.now()/1000);
+  var remaining=30-(epoch%30);
+  document.getElementById('otpSec').textContent=remaining;
+  document.getElementById('otpBar').style.width=(remaining/30*100)+'%';
+  generateTOTP(otpSecret).then(function(code){document.getElementById('otpCode').textContent=code;});
+}
+document.getElementById('otpSaveBtn').addEventListener('click',function(){
+  var s=document.getElementById('otpSecret').value.trim().replace(/\s/g,'').toUpperCase();
+  if(!s){showToast('⚠️ Enter a secret key');return;}
+  localStorage.setItem('sp_otp_secret',s);
+  showOTPDisplay(s);
+});
+function resetOTP(){
+  localStorage.removeItem('sp_otp_secret');
+  document.getElementById('otpSecret').value='';
+  showOTPSetup();
+  if(otpTimer)clearInterval(otpTimer);
+}
+
+var vaultKey=null;
+var VAULT_STORE='sp_vault_data';
+function deriveKey(password,salt){
+  var enc=new TextEncoder();
+  return crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveKey']).then(function(baseKey){
+    return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:100000,hash:'SHA-256'},baseKey,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+  });
+}
+function b64encode(buf){return btoa(String.fromCharCode.apply(null,new Uint8Array(buf)));}
+function b64decode(str){return Uint8Array.from(atob(str),c=>c.charCodeAt(0));}
+function encryptData(data,key,iv){
+  var enc=new TextEncoder();
+  return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,enc.encode(JSON.stringify(data))).then(function(ct){return b64encode(ct);});
+}
+function decryptData(cipherB64,key,iv){
+  var ct=b64decode(cipherB64);
+  return crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ct).then(function(pt){return JSON.parse(new TextDecoder().decode(pt));});
+}
+document.getElementById('vaultBtn').addEventListener('click',function(){
+  if(vaultKey){showVaultUnlocked();}else{showVaultLocked();}
+  document.getElementById('vaultModal').classList.add('open');
+});
+function showVaultLocked(){document.getElementById('vaultLocked').style.display='block';document.getElementById('vaultUnlocked').style.display='none';}
+function showVaultUnlocked(){document.getElementById('vaultLocked').style.display='none';document.getElementById('vaultUnlocked').style.display='block';renderVault();}
+document.getElementById('vaultUnlockBtn').addEventListener('click',function(){
+  var pwd=document.getElementById('vaultPass').value;
+  if(!pwd){showToast('⚠️ Enter master password');return;}
+  var salt=localStorage.getItem('sp_vault_salt');
+  var ivHex=localStorage.getItem('sp_vault_iv');
+  var hasData=localStorage.getItem(VAULT_STORE);
+  if(!salt){
+    salt=Array.from(crypto.getRandomValues(new Uint8Array(16)));
+    ivHex=Array.from(crypto.getRandomValues(new Uint8Array(12)));
+    localStorage.setItem('sp_vault_salt',JSON.stringify(salt));
+    localStorage.setItem('sp_vault_iv',JSON.stringify(ivHex));
+    deriveKey(pwd,new Uint8Array(salt)).then(function(k){vaultKey=k;showVaultUnlocked();showToast('✅ Vault created!');});
+  } else {
+    deriveKey(pwd,new Uint8Array(JSON.parse(salt))).then(function(k){
+      if(!hasData){vaultKey=k;showVaultUnlocked();showToast('✅ Vault unlocked!');return;}
+      var iv=new Uint8Array(JSON.parse(ivHex));
+      decryptData(hasData,k,iv).then(function(){vaultKey=k;showVaultUnlocked();showToast('✅ Vault unlocked!');}).catch(function(){showToast('❌ Wrong master password');});
+    });
+  }
+});
+document.getElementById('vaultAddBtn').addEventListener('click',function(){
+  var site=document.getElementById('vaultSite').value.trim();
+  var user=document.getElementById('vaultUser').value.trim();
+  var pwd=document.getElementById('vaultPwd').value;
+  if(!site||!pwd){showToast('⚠️ Site & password required');return;}
+  var entries=JSON.parse(localStorage.getItem(VAULT_STORE+'_plain')||'[]');
+  entries.push({site:site,user:user,pwd:pwd,id:Date.now()});
+  saveVault(entries).then(function(){
+    document.getElementById('vaultSite').value='';document.getElementById('vaultUser').value='';document.getElementById('vaultPwd').value='';
+    renderVault();showToast('✅ Entry added!');
+  });
+});
+function saveVault(entries){
+  if(!vaultKey)return Promise.reject();
+  var iv=new Uint8Array(JSON.parse(localStorage.getItem('sp_vault_iv')));
+  return encryptData(entries,vaultKey,iv).then(function(ct){localStorage.setItem(VAULT_STORE,ct);localStorage.setItem(VAULT_STORE+'_plain',JSON.stringify(entries));return true;});
+}
+function renderVault(){
+  var entries=JSON.parse(localStorage.getItem(VAULT_STORE+'_plain')||'[]');
+  var list=document.getElementById('vaultList');
+  if(entries.length===0){list.innerHTML='<p style="font-size:.78rem;color:var(--text4);text-align:center;padding:12px;">No entries yet.</p>';return;}
+  list.innerHTML='';
+  entries.forEach(function(e){
+    var div=document.createElement('div');div.className='vault-entry';
+    div.innerHTML='<div class="vault-entry-info"><strong>'+e.site.replace(/</g,'&lt;')+'</strong><span>'+(e.user?e.user.replace(/</g,'&lt;'):'—')+'</span></div><div class="vault-entry-actions"><button class="copy-pwd"><i class="fas fa-copy"></i></button><button class="danger delete-entry"><i class="fas fa-trash"></i></button></div>';
+    div.querySelector('.copy-pwd').addEventListener('click',function(){copyText(e.pwd,function(){showToast('✅ Copied!');});});
+    div.querySelector('.delete-entry').addEventListener('click',function(){
+      var newEntries=entries.filter(function(x){return x.id!==e.id;});
+      saveVault(newEntries).then(function(){renderVault();showToast('🗑️ Deleted');});
+    });
+    list.appendChild(div);
+  });
+}
+function lockVault(){vaultKey=null;showVaultLocked();document.getElementById('vaultPass').value='';}
+
+var selectedFile=null;
+document.getElementById('fileBtn').addEventListener('click',function(){document.getElementById('fileModal').classList.add('open');});
+document.getElementById('fileDrop').addEventListener('click',function(){document.getElementById('fileInput').click();});
+document.getElementById('fileInput').addEventListener('change',function(e){
+  selectedFile=e.target.files[0];
+  if(selectedFile){document.getElementById('fileName').textContent='📄 '+selectedFile.name+' ('+(selectedFile.size/1024).toFixed(1)+' KB)';}
+});
+function fileToUint8(file){return new Promise(function(resolve){var reader=new FileReader();reader.onload=function(){resolve(new Uint8Array(reader.result));};reader.readAsArrayBuffer(file);});}
+document.getElementById('fileEncBtn').addEventListener('click',function(){
+  if(!selectedFile){showToast('⚠️ Select a file first');return;}
+  var pwd=document.getElementById('filePwd').value;
+  if(!pwd){showToast('⚠️ Enter password');return;}
+  fileToUint8(selectedFile).then(function(data){
+    var salt=crypto.getRandomValues(new Uint8Array(16));
+    var iv=crypto.getRandomValues(new Uint8Array(12));
+    return crypto.subtle.importKey('raw',new TextEncoder().encode(pwd),'PBKDF2',false,['deriveKey']).then(function(baseKey){
+      return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:100000,hash:'SHA-256'},baseKey,{name:'AES-GCM',length:256},false,['encrypt']);
+    }).then(function(key){
+      return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,data).then(function(ct){
+        var result=new Uint8Array(16+12+ct.byteLength);
+        result.set(salt,0);result.set(iv,16);result.set(new Uint8Array(ct),28);
+        var blob=new Blob([result],{type:'application/octet-stream'});
+        var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=selectedFile.name+'.secure';
+        document.body.appendChild(a);a.click();document.body.removeChild(a);showToast('✅ Encrypted!');
+      });
+    });
+  });
+});
+document.getElementById('fileDecBtn').addEventListener('click',function(){
+  if(!selectedFile){showToast('⚠️ Select .secure file');return;}
+  var pwd=document.getElementById('filePwd').value;
+  if(!pwd){showToast('⚠️ Enter password');return;}
+  fileToUint8(selectedFile).then(function(data){
+    if(data.length<28){showToast('❌ Invalid encrypted file');return;}
+    var salt=data.slice(0,16),iv=data.slice(16,28),ct=data.slice(28);
+    return crypto.subtle.importKey('raw',new TextEncoder().encode(pwd),'PBKDF2',false,['deriveKey']).then(function(baseKey){
+      return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:100000,hash:'SHA-256'},baseKey,{name:'AES-GCM',length:256},false,['decrypt']);
+    }).then(function(key){
+      return crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ct).then(function(pt){
+        var blob=new Blob([pt],{type:'application/octet-stream'});
+        var name=selectedFile.name.replace(/\.secure$/,'');
+        var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+        document.body.appendChild(a);a.click();document.body.removeChild(a);showToast('✅ Decrypted!');
+      }).catch(function(){showToast('❌ Wrong password');});
+    });
+  });
 });
 
 function closeModal(id){document.getElementById(id).classList.remove('open');}
-document.querySelectorAll('.modal').forEach(function(m){
-  m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});
-});
+document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});});
 document.getElementById('aboutBtn').addEventListener('click',function(){document.getElementById('aboutModal').classList.add('open');});
 
 document.getElementById('lnk-wa').href="https://api.whatsapp.com/send?text="+encodeURIComponent(shareText+"\n\n"+pageUrl);
@@ -913,16 +1091,8 @@ document.getElementById('lnk-tw').href="https://x.com/intent/tweet?text="+encode
 document.getElementById('lnk-tg').href="https://t.me/share/url?url="+encodeURIComponent(pageUrl)+"&text="+encodeURIComponent(shareText);
 document.getElementById('lnk-li').href="https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(pageUrl);
 document.getElementById('lnk-em').href="mailto:?subject="+encodeURIComponent(shareTitle)+"&body="+encodeURIComponent(shareText+"\n\n"+pageUrl);
-
-document.getElementById('btn-ig').addEventListener('click',function(){
-  copyText(shareText+"\n\n"+pageUrl,function(){
-    showToast('📷');
-    setTimeout(function(){try{window.location.href='instagram://app';}catch(e){}},700);
-  });
-});
-document.getElementById('btn-cp').addEventListener('click',function(){
-  copyText(pageUrl,function(){showToast('✅');});
-});
+document.getElementById('btn-ig').addEventListener('click',function(){copyText(shareText+"\n\n"+pageUrl,function(){showToast('📷');setTimeout(function(){try{window.location.href='instagram://app';}catch(e){}},700);});});
+document.getElementById('btn-cp').addEventListener('click',function(){copyText(pageUrl,function(){showToast('✅');});});
 
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
