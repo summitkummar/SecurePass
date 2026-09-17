@@ -1,4 +1,4 @@
-const CACHE_NAME = 'securepass-v4';
+const CACHE_NAME = 'securepass-v5';
 const urlsToCache = [
   './manifest.json',
   './icon.svg'
@@ -25,12 +25,10 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Network-first for HTML, cache-fallback for offline
 self.addEventListener('fetch', event => {
   const req = event.request;
   if (req.method !== 'GET') return;
-  
-  // For HTML pages - always try network first
+
   if (req.headers.get('accept') && req.headers.get('accept').includes('text/html')) {
     event.respondWith(
       fetch(req)
@@ -43,8 +41,7 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-  
-  // For other assets - cache first
+
   event.respondWith(
     caches.match(req).then(response => response || fetch(req))
   );
