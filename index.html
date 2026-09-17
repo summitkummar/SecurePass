@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -36,7 +36,6 @@ body{
 .bg-blob{position:fixed;width:350px;height:350px;background:linear-gradient(180deg,var(--primary),var(--primary2));border-radius:50%;filter:blur(80px);opacity:.25;z-index:0;pointer-events:none;top:-80px;left:-80px;}
 .bg-blob:nth-child(3){background:linear-gradient(180deg,var(--pink),#fb923c);width:280px;height:280px;bottom:-80px;right:-80px;top:auto;left:auto;}
 
-/* SPLASH */
 .splash-screen{position:fixed;inset:0;background:radial-gradient(circle at center,#0a0a15 0%,#050505 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;transition:opacity .6s ease,visibility .6s ease;overflow:hidden;}
 .splash-screen.hide{opacity:0;visibility:hidden;}
 .splash-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.4) 0%,transparent 70%);filter:blur(40px);animation:pulseGlow 2s ease-in-out infinite;}
@@ -65,40 +64,36 @@ body{
 @keyframes dotBlink{0%,60%,100%{opacity:.2;}30%{opacity:1;}}
 .splash-made{position:absolute;bottom:20px;font-size:.7rem;color:#475569;font-weight:600;letter-spacing:.5px;animation:taglineAppear .5s ease 1.5s forwards;opacity:0;}
 
-/* MAIN APP */
 .main-app{opacity:0;transition:opacity .5s ease .2s;width:100%;max-width:480px;position:relative;z-index:1;}
 .main-app.visible{opacity:1;}
 
-/* TOP BAR */
-.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px;}
+.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px;gap:8px;}
 .top-bar-icons{display:flex;gap:8px;align-items:center;}
 .icon-btn{background:var(--card);border:1px solid var(--border);color:var(--text2);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .icon-btn:active{transform:scale(.92);}
-.icon-btn.lang{width:auto;padding:0 12px;font-size:.75rem;font-weight:700;letter-spacing:.5px;}
+.icon-btn.lang{width:auto;padding:0 10px;font-size:.72rem;font-weight:700;letter-spacing:.3px;}
 .version-badge{font-size:.65rem;color:var(--text4);font-weight:700;padding:4px 10px;background:var(--card);border-radius:20px;border:1px solid var(--border);}
 
-/* APP CONTAINER */
-.app-container{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:28px 20px;border-radius:24px;box-shadow:0 25px 50px -12px rgba(0,0,0,.5);border:1px solid var(--border);}
-.header{text-align:center;margin-bottom:22px;}
+.app-container{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:26px 18px;border-radius:24px;box-shadow:0 25px 50px -12px rgba(0,0,0,.5);border:1px solid var(--border);}
+.header{text-align:center;margin-bottom:20px;}
 .header h1{font-size:1.7rem;font-weight:800;letter-spacing:-1px;background:linear-gradient(to right,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
 .header p{font-size:.8rem;color:var(--text3);font-weight:500;}
 
-/* TABS */
-.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);padding:5px;border-radius:12px;margin-bottom:18px;}
-.tab{flex:1;padding:10px;background:transparent;border:none;color:var(--text3);font-weight:700;font-size:.82rem;cursor:pointer;border-radius:9px;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px;}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);padding:5px;border-radius:12px;margin-bottom:16px;}
+.tab{flex:1;padding:10px 6px;background:transparent;border:none;color:var(--text3);font-weight:700;font-size:.78rem;cursor:pointer;border-radius:9px;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px;}
 .tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;}
+.tab i{font-size:.85rem;}
 
-/* PASSWORD DISPLAY */
-.password-display{position:relative;margin-bottom:16px;border-radius:20px;padding:1.5px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 50%,var(--pink) 100%);box-shadow:0 0 0 1px rgba(56,189,248,.1),0 20px 50px -20px rgba(56,189,248,.4),0 10px 30px -15px rgba(129,140,248,.3);transition:box-shadow .5s ease;}
+.password-display{position:relative;margin-bottom:14px;border-radius:20px;padding:1.5px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 50%,var(--pink) 100%);box-shadow:0 0 0 1px rgba(56,189,248,.1),0 20px 50px -20px rgba(56,189,248,.4),0 10px 30px -15px rgba(129,140,248,.3);transition:box-shadow .5s ease;}
 .password-display.active{box-shadow:0 0 0 1px rgba(56,189,248,.4),0 20px 60px -15px rgba(56,189,248,.7),0 10px 40px -10px rgba(129,140,248,.6);}
 .password-inner{background:linear-gradient(180deg,#0c0c14 0%,#06060a 100%);border-radius:19px;padding:14px 14px 14px 18px;position:relative;overflow:hidden;}
 [data-theme="light"] .password-inner{background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);}
 [data-theme="light"] #password{color:#0f172a;text-shadow:none;}
 .password-inner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.4),transparent);}
-.password-label{font-size:.6rem;color:var(--text4);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;}
+.password-label{font-size:.6rem;color:var(--text4);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .password-label span:first-child{display:flex;align-items:center;gap:6px;}
 .password-label i{color:var(--primary);font-size:.7rem;}
-.entropy-badge{font-size:.6rem;padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:.5px;background:rgba(56,189,248,.15);color:var(--primary);}
+.entropy-badge{font-size:.6rem;padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:.5px;background:rgba(56,189,248,.15);color:var(--primary);white-space:nowrap;}
 .password-row{display:flex;align-items:center;gap:8px;}
 #password{flex:1;background:transparent;border:none;padding:0;color:#fff;font-size:1.15rem;outline:none;font-family:'Courier New',monospace;font-weight:700;letter-spacing:1.5px;min-width:0;text-shadow:0 0 25px rgba(56,189,248,.5);line-height:1.4;}
 #password::selection{background:var(--primary);color:#0a0a0f;}
@@ -106,24 +101,22 @@ body{
 .copy-icon-btn:active{transform:scale(.92);}
 .copy-icon-btn.copied{background:linear-gradient(135deg,var(--green),#059669);}
 
-/* META INFO */
-.meta-row{display:flex;gap:8px;margin-bottom:18px;}
-.meta-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;text-align:center;}
-.meta-card-label{font-size:.6rem;color:var(--text4);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
-.meta-card-value{font-size:.82rem;font-weight:800;color:var(--primary);}
+.meta-row{display:flex;gap:8px;margin-bottom:16px;}
+.meta-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;}
+.meta-card-label{font-size:.58rem;color:var(--text4);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+.meta-card-value{font-size:.8rem;font-weight:800;color:var(--primary);}
 .meta-card-value.entropy{color:var(--primary2);}
 
-/* STRENGTH */
-.strength-container{margin-bottom:18px;}
+.strength-container{margin-bottom:16px;}
 .strength-bar{height:5px;border-radius:3px;background:rgba(128,128,128,.15);width:0%;transition:width .5s,background .5s;}
 .strength-text{font-size:.68rem;color:var(--text3);text-align:right;margin-top:6px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;}
 
-/* OPTIONS */
-.options{margin-bottom:18px;}
-.option-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.88rem;color:var(--text2);font-weight:500;}
+.options{margin-bottom:16px;}
+.option-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.88rem;color:var(--text2);font-weight:500;gap:10px;}
 .option-row.small{font-size:.78rem;}
-input[type="range"]{width:55%;accent-color:var(--primary);}
-.toggle-switch{position:relative;width:42px;height:23px;display:inline-block;}
+.option-row label{flex:1;}
+input[type="range"]{width:50%;accent-color:var(--primary);}
+.toggle-switch{position:relative;width:42px;height:23px;display:inline-block;flex-shrink:0;}
 .toggle-switch input{opacity:0;width:0;height:0;}
 .slider{position:absolute;cursor:pointer;inset:0;background-color:#334155;transition:.3s;border-radius:34px;}
 [data-theme="light"] .slider{background-color:#cbd5e1;}
@@ -131,45 +124,35 @@ input[type="range"]{width:55%;accent-color:var(--primary);}
 input:checked+.slider{background-color:var(--primary);}
 input:checked+.slider:before{transform:translateX(19px);}
 
-/* PRESETS */
-.presets{display:flex;gap:8px;margin-bottom:16px;}
+.presets{display:flex;gap:8px;margin-bottom:14px;}
 .presets button{flex:1;padding:9px 4px;background:var(--card);border:1px solid var(--border);color:var(--text3);border-radius:8px;font-size:.8rem;cursor:pointer;font-weight:700;font-family:inherit;transition:all .2s;}
 .presets button.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border-color:transparent;}
 
-/* GENERATE BUTTON */
 .generate-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border:none;padding:15px;border-radius:14px;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.3px;box-shadow:0 8px 25px -10px rgba(56,189,248,.6);transition:transform .15s;}
 .generate-btn:active:not(:disabled){transform:scale(.98);}
 .generate-btn:disabled{background:#334155;color:var(--text3);cursor:not-allowed;box-shadow:none;}
 
-/* ACTION ROW (below generate) */
 .action-row{display:flex;gap:8px;margin-top:10px;}
 .action-row button{flex:1;padding:10px;background:var(--card);border:1px solid var(--border);color:var(--text2);border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px;}
 .action-row button:active{transform:scale(.97);}
 
-/* SECTIONS */
-.section{margin-top:20px;padding-top:18px;border-top:1px solid var(--border);}
-.section-title{font-size:.75rem;color:var(--text3);margin-bottom:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+.section{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+.section-title{font-size:.75rem;color:var(--text3);margin-bottom:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:8px;}
+.section-title span:first-child{display:flex;align-items:center;gap:6px;}
 .section-title .chev{transition:transform .3s;font-size:.7rem;}
 .section-title.open .chev{transform:rotate(180deg);}
 .section-body{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:.82rem;color:var(--text2);line-height:1.6;}
-.section-body.open{max-height:1200px;}
+.section-body.open{max-height:1400px;}
 .section-body p{margin-bottom:10px;}
 .section-body ul{padding-left:18px;margin-bottom:10px;}
 .section-body li{margin-bottom:6px;}
 
-/* HISTORY */
 .history-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
-.history-item{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);padding:8px 10px;border-radius:8px;font-family:'Courier New',monospace;font-size:.72rem;color:var(--text2);}
+.history-item{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);padding:8px 10px;border-radius:8px;font-family:'Courier New',monospace;font-size:.72rem;color:var(--text2);gap:8px;}
 .history-item span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
 .history-item i{color:var(--primary);cursor:pointer;padding:4px;font-size:.75rem;}
 
-/* BULK */
-.bulk-row{display:flex;gap:8px;margin-top:8px;}
-.bulk-row button{flex:1;padding:9px;background:var(--card);border:1px solid var(--border);color:var(--text2);border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;}
-.bulk-row button:active{transform:scale(.97);}
-
-/* SHARE */
-.share-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;}
+.share-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:8px;}
 .share-btn{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;border:none;cursor:pointer;padding:0;font-family:inherit;text-decoration:none;outline:none;-webkit-touch-callout:none;user-select:none;}
 .share-btn:focus{outline:none;}
 .share-btn.whatsapp{background:#25D366;}
@@ -181,32 +164,39 @@ input:checked+.slider:before{transform:translateX(19px);}
 .share-btn.instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
 .share-btn.copy{background:#475569;}
 
-/* USER COUNTER */
-.user-counter{text-align:center;margin-top:16px;font-size:.75rem;color:var(--text3);font-weight:600;}
-.user-counter b{color:var(--primary);font-weight:800;}
+.user-counter{text-align:center;margin-top:16px;font-size:.74rem;color:var(--text3);font-weight:600;line-height:1.6;}
+.user-counter b{color:var(--primary);font-weight:800;font-variant-numeric:tabular-nums;}
+.counter-row{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:4px;}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(16,185,129,.7);animation:livePulse 1.8s infinite;}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,.7);}70%{box-shadow:0 0 0 10px rgba(16,185,129,0);}100%{box-shadow:0 0 0 0 rgba(16,185,129,0);}}
+.num-change{animation:numPop .5s ease;}
+@keyframes numPop{0%{transform:scale(1);}50%{transform:scale(1.15);color:var(--green);}100%{transform:scale(1);}}
 
-/* FOOTER */
-.footer{text-align:center;margin-top:18px;font-size:.68rem;color:var(--text4);font-weight:500;}
+.footer{text-align:center;margin-top:16px;font-size:.68rem;color:var(--text4);font-weight:500;}
 .footer b{color:var(--primary);}
 
-/* MODAL */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
 .modal.open{display:flex;}
-.modal-content{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:22px;max-width:340px;width:100%;text-align:center;animation:modalIn .3s ease;}
+.modal-content{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:22px;max-width:340px;width:100%;text-align:center;animation:modalIn .3s ease;max-height:85vh;overflow-y:auto;}
 @keyframes modalIn{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
 .modal-content h3{font-size:1.1rem;margin-bottom:14px;color:var(--text);}
 .modal-content .qr-box{background:#fff;padding:12px;border-radius:12px;display:inline-block;margin-bottom:14px;}
 .modal-close{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:9px 20px;border-radius:10px;cursor:pointer;font-weight:700;font-family:inherit;font-size:.85rem;}
 
-/* TOAST */
+/* Language Grid */
+.lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
+.lang-option{padding:10px 6px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-weight:600;cursor:pointer;font-family:inherit;font-size:.78rem;text-align:center;}
+.lang-option.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#0a0a0f;border-color:transparent;}
+
 .toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(150px);background:var(--green);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:.82rem;box-shadow:0 10px 25px rgba(16,185,129,.4);transition:transform .35s ease;z-index:99999;max-width:88%;text-align:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 
 @media(max-width:400px){
   .header h1{font-size:1.5rem;}
-  .password-inner{padding:12px 12px 12px 14px;}
+  .password-inner{padding:12px;}
   #password{font-size:1rem;letter-spacing:1px;}
   .share-btn{width:38px;height:38px;font-size:.9rem;}
+  .lang-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
@@ -243,7 +233,7 @@ input:checked+.slider:before{transform:translateX(19px);}
     <span class="version-badge">v2.0</span>
     <div class="top-bar-icons">
       <button class="icon-btn" id="themeBtn" title="Theme"><i class="fas fa-moon" id="themeIcon"></i></button>
-      <button class="icon-btn lang" id="langBtn">EN</button>
+      <button class="icon-btn lang" id="langBtn" title="Language"><i class="fas fa-globe"></i></button>
       <button class="icon-btn" id="aboutBtn" title="About"><i class="fas fa-circle-info"></i></button>
     </div>
   </div>
@@ -254,14 +244,12 @@ input:checked+.slider:before{transform:translateX(19px);}
       <p data-i18n="subtitle">Ultra Secure Password Generator</p>
     </div>
 
-    <!-- TABS -->
     <div class="tabs">
       <button class="tab active" data-tab="password"><i class="fas fa-key"></i><span data-i18n="tabPass">Password</span></button>
       <button class="tab" data-tab="passphrase"><i class="fas fa-quote-left"></i><span data-i18n="tabPhrase">Passphrase</span></button>
       <button class="tab" data-tab="pin"><i class="fas fa-hashtag"></i><span data-i18n="tabPin">PIN</span></button>
     </div>
 
-    <!-- PASSWORD DISPLAY -->
     <div class="password-display" id="pwdDisplay">
       <div class="password-inner">
         <div class="password-label">
@@ -275,7 +263,6 @@ input:checked+.slider:before{transform:translateX(19px);}
       </div>
     </div>
 
-    <!-- META -->
     <div class="meta-row">
       <div class="meta-card">
         <div class="meta-card-label" data-i18n="crackTime">Crack Time</div>
@@ -292,7 +279,6 @@ input:checked+.slider:before{transform:translateX(19px);}
       <div class="strength-text" id="strength-text" data-i18n="ready">Ready to generate</div>
     </div>
 
-    <!-- PASSWORD OPTIONS -->
     <div id="opt-password">
       <div class="options">
         <div class="option-row"><label data-i18n="length">Password Length: <span id="length-val" style="color:var(--primary);font-weight:700;">16</span></label><input type="range" id="length" min="8" max="32" value="16"></div>
@@ -311,7 +297,6 @@ input:checked+.slider:before{transform:translateX(19px);}
       </div>
     </div>
 
-    <!-- PASSPHRASE OPTIONS -->
     <div id="opt-passphrase" style="display:none;">
       <div class="options">
         <div class="option-row"><label data-i18n="words">Words: <span id="words-val" style="color:var(--primary);font-weight:700;">4</span></label><input type="range" id="words" min="3" max="8" value="4"></div>
@@ -320,21 +305,19 @@ input:checked+.slider:before{transform:translateX(19px);}
       </div>
     </div>
 
-    <!-- PIN OPTIONS -->
     <div id="opt-pin" style="display:none;">
       <div class="options">
         <div class="option-row"><label data-i18n="digits">Digits: <span id="digits-val" style="color:var(--primary);font-weight:700;">6</span></label><input type="range" id="digits" min="4" max="10" value="6"></div>
       </div>
     </div>
 
-    <button class="generate-btn" id="gen-btn" type="button">⚡ <span data-i18n="generate">Generate</span></button>
+    <button class="generate-btn" id="gen-btn" type="button">⚡ <span data-i18n="generate">Generate Password</span></button>
 
     <div class="action-row">
       <button id="qrBtn" type="button"><i class="fas fa-qrcode"></i><span data-i18n="qr">QR</span></button>
       <button id="bulkBtn" type="button"><i class="fas fa-list"></i><span data-i18n="bulk">Bulk (10)</span></button>
     </div>
 
-    <!-- HISTORY -->
     <div class="section">
       <div class="section-title open" id="histTitle"><span><i class="fas fa-clock-rotate-left"></i> <span data-i18n="history">Session History</span></span><i class="fas fa-chevron-down chev"></i></div>
       <div class="section-body open" id="histBody">
@@ -342,35 +325,32 @@ input:checked+.slider:before{transform:translateX(19px);}
       </div>
     </div>
 
-    <!-- SECURITY TIPS -->
     <div class="section">
       <div class="section-title" id="tipsTitle"><span><i class="fas fa-shield"></i> <span data-i18n="tips">Security Tips</span></span><i class="fas fa-chevron-down chev"></i></div>
       <div class="section-body" id="tipsBody">
         <ul>
-          <li data-i18n="tip1">✅ Use 16+ character passwords for important accounts</li>
-          <li data-i18n="tip2">✅ Never reuse passwords across sites</li>
-          <li data-i18n="tip3">✅ Enable 2-factor authentication wherever possible</li>
-          <li data-i18n="tip4">✅ Change passwords every 3-6 months</li>
-          <li data-i18n="tip5">✅ Use a password manager for storage</li>
-          <li data-i18n="tip6">✅ Never share passwords over chat/email</li>
+          <li data-i18n="tip1"></li>
+          <li data-i18n="tip2"></li>
+          <li data-i18n="tip3"></li>
+          <li data-i18n="tip4"></li>
+          <li data-i18n="tip5"></li>
+          <li data-i18n="tip6"></li>
         </ul>
       </div>
     </div>
 
-    <!-- FAQ -->
     <div class="section">
       <div class="section-title" id="faqTitle"><span><i class="fas fa-circle-question"></i> <span data-i18n="faq">FAQ</span></span><i class="fas fa-chevron-down chev"></i></div>
       <div class="section-body" id="faqBody">
-        <p><b data-i18n="q1">Q: क्या मेरा password save होता है?</b><br><span data-i18n="a1">A: बिल्कुल नहीं। सब कुछ आपके browser में ही बनता है, कहीं नहीं भेजा जाता।</span></p>
-        <p><b data-i18n="q2">Q: Crack time क्या है?</b><br><span data-i18n="a2">A: यह बताता है कि आधुनिक supercomputer से यह password तोड़ने में कितना समय लगेगा।</span></p>
-        <p><b data-i18n="q3">Q: क्या यह free है?</b><br><span data-i18n="a3">A: हाँ, 100% free और हमेशा रहेगा। कोई signup नहीं, कोई ad नहीं।</span></p>
+        <p><b data-i18n="q1"></b><br><span data-i18n="a1"></span></p>
+        <p><b data-i18n="q2"></b><br><span data-i18n="a2"></span></p>
+        <p><b data-i18n="q3"></b><br><span data-i18n="a3"></span></p>
       </div>
     </div>
 
-    <!-- SHARE -->
     <div class="section">
       <div class="section-title open" style="cursor:default;"><span><i class="fas fa-share-nodes"></i> <span data-i18n="share">Share SecurePass</span></span></div>
-      <div class="share-grid" style="margin-top:10px;">
+      <div class="share-grid">
         <a class="share-btn whatsapp" id="lnk-wa" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
         <a class="share-btn facebook" id="lnk-fb" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
         <a class="share-btn twitter" id="lnk-tw" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a>
@@ -383,7 +363,9 @@ input:checked+.slider:before{transform:translateX(19px);}
     </div>
 
     <div class="user-counter">
-      <i class="fas fa-users"></i> <b id="userCount">1,247</b> <span data-i18n="usersTrust">users trust SecurePass</span> · <b id="genCount">8,934</b> <span data-i18n="passwordsMade">passwords generated</span>
+      <div class="counter-row"><span class="live-dot"></span> <span data-i18n="liveUsers">Live Users</span></div>
+      <div><b id="userCount">12,847</b> <span data-i18n="usersTrust">users trust SecurePass</span></div>
+      <div><b id="genCount">247,893</b> <span data-i18n="passwordsMade">passwords generated</span></div>
     </div>
 
     <div class="footer">Protected by <b>SecurePass</b> · No data stored</div>
@@ -395,7 +377,7 @@ input:checked+.slider:before{transform:translateX(19px);}
   <div class="modal-content">
     <h3 data-i18n="qrTitle">Scan QR Code</h3>
     <div class="qr-box" id="qrBox"></div>
-    <p style="font-size:.75rem;color:var(--text3);margin-bottom:14px;" data-i18n="qrHint">Scan with another device to get the password</p>
+    <p style="font-size:.75rem;color:var(--text3);margin-bottom:14px;" data-i18n="qrHint">Scan with another device</p>
     <button class="modal-close" onclick="closeModal('qrModal')" data-i18n="close">Close</button>
   </div>
 </div>
@@ -406,9 +388,18 @@ input:checked+.slider:before{transform:translateX(19px);}
     <h3 data-i18n="aboutTitle">About SecurePass</h3>
     <p style="font-size:.82rem;color:var(--text2);line-height:1.7;margin-bottom:14px;">
       <b>v2.0</b><br>
-      <span data-i18n="aboutText">Made with ❤️ in Hisar, India. A 100% offline, privacy-first password generator. All passwords are created locally in your browser. No data ever leaves your device.</span>
+      <span data-i18n="aboutText">Made with ❤️ in Hisar, India. A 100% offline, privacy-first password generator.</span>
     </p>
     <button class="modal-close" onclick="closeModal('aboutModal')" data-i18n="close">Close</button>
+  </div>
+</div>
+
+<!-- LANGUAGE MODAL -->
+<div class="modal" id="langModal">
+  <div class="modal-content">
+    <h3 data-i18n="chooseLang">Choose Language</h3>
+    <div class="lang-grid" id="langGrid"></div>
+    <button class="modal-close" onclick="closeModal('langModal')" style="margin-top:14px;" data-i18n="close">Close</button>
   </div>
 </div>
 
@@ -425,6 +416,23 @@ window.addEventListener('load',function(){
 });
 setTimeout(function(){var s=document.getElementById('splashScreen');if(s&&!s.classList.contains('hide')){s.classList.add('hide');document.getElementById('mainApp').classList.add('visible');setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},700);}},4000);
 
+// ========== TRANSLATIONS ==========
+var TRANSLATIONS = {
+  en:{_name:"English",title:"SecurePass",subtitle:"Ultra Secure Password Generator",tabPass:"Password",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Your Secure Password",crackTime:"Crack Time",entropyLbl:"Entropy",ready:"Ready to generate",length:"Password Length:",upper:"Uppercase (A-Z)",lower:"Lowercase (a-z)",nums:"Numbers (0-9)",syms:"Symbols (!@#$)",excludeSim:"Exclude similar (0O1lI)",autoClear:"Auto-clear clipboard (30s)",words:"Words:",capFirst:"Capitalize words",addNum:"Add number",digits:"Digits:",generate:"Generate Password",qr:"QR",bulk:"Bulk (10)",history:"Session History",noHist:"No passwords yet. Generate one!",tips:"Security Tips",faq:"FAQ",share:"Share SecurePass",liveUsers:"Live Users",usersTrust:"users trust SecurePass",passwordsMade:"passwords generated",qrTitle:"Scan QR Code",qrHint:"Scan with another device",close:"Close",aboutTitle:"About SecurePass",aboutText:"Made with ❤️ in Hisar, India. A 100% offline, privacy-first password generator.",chooseLang:"Choose Language",tip1:"✅ Use 16+ character passwords for important accounts",tip2:"✅ Never reuse passwords across sites",tip3:"✅ Enable 2-factor authentication wherever possible",tip4:"✅ Change passwords every 3-6 months",tip5:"✅ Use a password manager for storage",tip6:"✅ Never share passwords over chat/email",q1:"Q: Is my password saved?",a1:"A: Absolutely not. Everything is generated in your browser.",q2:"Q: What is crack time?",a2:"A: How long a supercomputer would take to crack this password.",q3:"Q: Is this free?",a3:"A: Yes, 100% free forever. No signup, no ads."},
+  hi:{_name:"हिंदी",title:"SecurePass",subtitle:"अल्ट्रा सुरक्षित पासवर्ड जनरेटर",tabPass:"पासवर्ड",tabPhrase:"वाक्यांश",tabPin:"पिन",yourPwd:"आपका सुरक्षित पासवर्ड",crackTime:"तोड़ने का समय",entropyLbl:"एंट्रॉपी",ready:"बनाने के लिए तैयार",length:"पासवर्ड लंबाई:",upper:"बड़े अक्षर (A-Z)",lower:"छोटे अक्षर (a-z)",nums:"नंबर (0-9)",syms:"सिंबल (!@#$)",excludeSim:"समान अक्षर हटाएँ (0O1lI)",autoClear:"क्लिपबोर्ड 30s बाद साफ",words:"शब्द:",capFirst:"पहला अक्षर बड़ा",addNum:"नंबर जोड़ें",digits:"अंक:",generate:"पासवर्ड बनाएँ",qr:"QR",bulk:"बल्क (10)",history:"सेशन इतिहास",noHist:"अभी कोई पासवर्ड नहीं। एक बनाएँ!",tips:"सुरक्षा टिप्स",faq:"सामान्य प्रश्न",share:"SecurePass शेयर करें",liveUsers:"लाइव यूज़र्स",usersTrust:"लोग SecurePass पर भरोसा करते हैं",passwordsMade:"पासवर्ड बने",qrTitle:"QR कोड स्कैन करें",qrHint:"दूसरे डिवाइस से स्कैन करें",close:"बंद करें",aboutTitle:"SecurePass के बारे में",aboutText:"हिसार, भारत में ❤️ से बनाया गया। 100% ऑफलाइन, प्राइवेसी-फर्स्ट।",chooseLang:"भाषा चुनें",tip1:"✅ जरूरी अकाउंट के लिए 16+ अक्षर वाला पासवर्ड रखें",tip2:"✅ हर साइट पर अलग पासवर्ड रखें",tip3:"✅ जहाँ हो सके 2-फैक्टर ऑथेंटिकेशन ऑन करें",tip4:"✅ हर 3-6 महीने में पासवर्ड बदलें",tip5:"✅ पासवर्ड मैनेजर में सेव करें",tip6:"✅ चैट/ईमेल पर पासवर्ड शेयर न करें",q1:"प्र: क्या मेरा पासवर्ड सेव होता है?",a1:"उ: बिल्कुल नहीं। सब आपके ब्राउज़र में बनता है।",q2:"प्र: तोड़ने का समय क्या है?",a2:"उ: सुपर कंप्यूटर से तोड़ने में कितना समय लगेगा।",q3:"प्र: क्या यह फ्री है?",a3:"उ: हाँ, हमेशा के लिए 100% फ्री।"},
+  es:{_name:"Español",title:"SecurePass",subtitle:"Generador de contraseñas ultra seguro",tabPass:"Contraseña",tabPhrase:"Frase",tabPin:"PIN",yourPwd:"Tu contraseña segura",crackTime:"Tiempo de hackeo",entropyLbl:"Entropía",ready:"Listo para generar",length:"Longitud:",upper:"Mayúsculas (A-Z)",lower:"Minúsculas (a-z)",nums:"Números (0-9)",syms:"Símbolos (!@#$)",excludeSim:"Excluir similares (0O1lI)",autoClear:"Auto-limpiar portapapeles (30s)",words:"Palabras:",capFirst:"Capitalizar",addNum:"Añadir número",digits:"Dígitos:",generate:"Generar Contraseña",qr:"QR",bulk:"Lote (10)",history:"Historial",noHist:"¡Sin contraseñas aún!",tips:"Consejos de seguridad",faq:"Preguntas",share:"Comparte SecurePass",liveUsers:"Usuarios en vivo",usersTrust:"confían en SecurePass",passwordsMade:"contraseñas generadas",qrTitle:"Escanea el código QR",qrHint:"Escanea con otro dispositivo",close:"Cerrar",aboutTitle:"Sobre SecurePass",aboutText:"Hecho con ❤️ en Hisar, India. Generador 100% offline.",chooseLang:"Elegir idioma",tip1:"✅ Usa contraseñas de 16+ caracteres",tip2:"✅ Nunca reutilices contraseñas",tip3:"✅ Activa autenticación de 2 factores",tip4:"✅ Cambia contraseñas cada 3-6 meses",tip5:"✅ Usa un gestor de contraseñas",tip6:"✅ Nunca compartas por chat/email",q1:"¿Se guarda mi contraseña?",a1:"No. Todo se genera en tu navegador.",q2:"¿Qué es el tiempo de hackeo?",a2:"Cuánto tardaría una supercomputadora.",q3:"¿Es gratis?",a3:"Sí, 100% gratis para siempre."},
+  fr:{_name:"Français",title:"SecurePass",subtitle:"Générateur de mots de passe ultra sécurisé",tabPass:"Mot de passe",tabPhrase:"Phrase",tabPin:"NIP",yourPwd:"Votre mot de passe sécurisé",crackTime:"Temps de piratage",entropyLbl:"Entropie",ready:"Prêt à générer",length:"Longueur:",upper:"Majuscules (A-Z)",lower:"Minuscules (a-z)",nums:"Chiffres (0-9)",syms:"Symboles (!@#$)",excludeSim:"Exclure similaires (0O1lI)",autoClear:"Effacer le presse-papiers (30s)",words:"Mots:",capFirst:"Majuscule initiale",addNum:"Ajouter un numéro",digits:"Chiffres:",generate:"Générer",qr:"QR",bulk:"Lot (10)",history:"Historique",noHist:"Aucun mot de passe encore!",tips:"Conseils de sécurité",faq:"FAQ",share:"Partager SecurePass",liveUsers:"Utilisateurs en direct",usersTrust:"font confiance à SecurePass",passwordsMade:"mots de passe générés",qrTitle:"Scanner le code QR",qrHint:"Scannez avec un autre appareil",close:"Fermer",aboutTitle:"À propos",aboutText:"Fait avec ❤️ à Hisar, Inde. 100% hors ligne.",chooseLang:"Choisir la langue",tip1:"✅ Utilisez 16+ caractères",tip2:"✅ Ne réutilisez jamais les mots de passe",tip3:"✅ Activez l'authentification à 2 facteurs",tip4:"✅ Changez tous les 3-6 mois",tip5:"✅ Utilisez un gestionnaire",tip6:"✅ Ne partagez jamais par chat",q1:"Mon mot de passe est-il enregistré?",a1:"Non. Tout est généré dans votre navigateur.",q2:"Qu'est-ce que le temps de piratage?",a2:"Le temps qu'un superordinateur prendrait.",q3:"Est-ce gratuit?",a3:"Oui, 100% gratuit pour toujours."},
+  de:{_name:"Deutsch",title:"SecurePass",subtitle:"Ultra-sicherer Passwort-Generator",tabPass:"Passwort",tabPhrase:"Passphrase",tabPin:"PIN",yourPwd:"Ihr sicheres Passwort",crackTime:"Knackzeit",entropyLbl:"Entropie",ready:"Bereit",length:"Länge:",upper:"Großbuchstaben (A-Z)",lower:"Kleinbuchstaben (a-z)",nums:"Zahlen (0-9)",syms:"Symbole (!@#$)",excludeSim:"Ähnliche ausschließen (0O1lI)",autoClear:"Zwischenablage löschen (30s)",words:"Wörter:",capFirst:"Großbuchstabe",addNum:"Zahl hinzufügen",digits:"Ziffern:",generate:"Generieren",qr:"QR",bulk:"Masse (10)",history:"Verlauf",noHist:"Noch keine Passwörter!",tips:"Sicherheitstipps",faq:"FAQ",share:"SecurePass teilen",liveUsers:"Live-Nutzer",usersTrust:"vertrauen SecurePass",passwordsMade:"Passwörter generiert",qrTitle:"QR-Code scannen",qrHint:"Mit anderem Gerät scannen",close:"Schließen",aboutTitle:"Über SecurePass",aboutText:"Mit ❤️ in Hisar, Indien gemacht. 100% offline.",chooseLang:"Sprache wählen",tip1:"✅ Verwenden Sie 16+ Zeichen",tip2:"✅ Nie Passwörter wiederverwenden",tip3:"✅ 2-Faktor-Authentifizierung aktivieren",tip4:"✅ Alle 3-6 Monate ändern",tip5:"✅ Passwort-Manager verwenden",tip6:"✅ Nie über Chat teilen",q1:"Wird mein Passwort gespeichert?",a1:"Nein. Alles wird in Ihrem Browser generiert.",q2:"Was ist die Knackzeit?",a2:"Wie lange ein Supercomputer brauchen würde.",q3:"Ist es kostenlos?",a3:"Ja, für immer 100% kostenlos."},
+  pt:{_name:"Português",title:"SecurePass",subtitle:"Gerador de senhas ultra seguro",tabPass:"Senha",tabPhrase:"Frase",tabPin:"PIN",yourPwd:"Sua senha segura",crackTime:"Tempo de quebra",entropyLbl:"Entropia",ready:"Pronto",length:"Comprimento:",upper:"Maiúsculas (A-Z)",lower:"Minúsculas (a-z)",nums:"Números (0-9)",syms:"Símbolos (!@#$)",excludeSim:"Excluir similares (0O1lI)",autoClear:"Limpar área de transferência (30s)",words:"Palavras:",capFirst:"Capitalizar",addNum:"Adicionar número",digits:"Dígitos:",generate:"Gerar Senha",qr:"QR",bulk:"Lote (10)",history:"Histórico",noHist:"Sem senhas ainda!",tips:"Dicas de segurança",faq:"FAQ",share:"Compartilhar",liveUsers:"Usuários ao vivo",usersTrust:"confiam no SecurePass",passwordsMade:"senhas geradas",qrTitle:"Escanear código QR",qrHint:"Escaneie com outro dispositivo",close:"Fechar",aboutTitle:"Sobre",aboutText:"Feito com ❤️ em Hisar, Índia. 100% offline.",chooseLang:"Escolher idioma",tip1:"✅ Use 16+ caracteres",tip2:"✅ Nunca reutilize senhas",tip3:"✅ Ative 2FA",tip4:"✅ Mude a cada 3-6 meses",tip5:"✅ Use um gerenciador",tip6:"✅ Nunca compartilhe por chat",q1:"Minha senha é salva?",a1:"Não. Tudo é gerado no seu navegador.",q2:"O que é tempo de quebra?",a2:"Quanto tempo um supercomputador levaria.",q3:"É grátis?",a3:"Sim, 100% grátis para sempre."},
+  ar:{_name:"العربية",title:"SecurePass",subtitle:"مولد كلمات مرور فائق الأمان",tabPass:"كلمة المرور",tabPhrase:"عبارة",tabPin:"رقم سري",yourPwd:"كلمة المرور الآمنة",crackTime:"وقت الاختراق",entropyLbl:"الإنتروبيا",ready:"جاهز",length:"الطول:",upper:"أحرف كبيرة (A-Z)",lower:"أحرف صغيرة (a-z)",nums:"أرقام (0-9)",syms:"رموز (!@#$)",excludeSim:"استبعاد المتشابهة (0O1lI)",autoClear:"مسح الحافظة (30ث)",words:"كلمات:",capFirst:"حرف كبير",addNum:"إضافة رقم",digits:"أرقام:",generate:"إنشاء كلمة المرور",qr:"QR",bulk:"دفعة (10)",history:"السجل",noHist:"لا توجد كلمات مرور بعد!",tips:"نصائح الأمان",faq:"الأسئلة الشائعة",share:"شارك SecurePass",liveUsers:"مستخدمون مباشرون",usersTrust:"يثقون بـ SecurePass",passwordsMade:"كلمة مرور تم إنشاؤها",qrTitle:"امسح رمز QR",qrHint:"امسح بجهاز آخر",close:"إغلاق",aboutTitle:"حول SecurePass",aboutText:"صُنع بـ ❤️ في حصار، الهند. 100% بدون اتصال.",chooseLang:"اختر اللغة",tip1:"✅ استخدم 16+ حرفًا",tip2:"✅ لا تعد استخدام كلمات المرور",tip3:"✅ فعّل المصادقة الثنائية",tip4:"✅ غيّرها كل 3-6 أشهر",tip5:"✅ استخدم مدير كلمات المرور",tip6:"✅ لا تشارك عبر الدردشة",q1:"هل يتم حفظ كلمة المرور؟",a1:"لا. كل شيء يُنشأ في متصفحك.",q2:"ما هو وقت الاختراق؟",a2:"المدة التي يستغرقها حاسوب فائق.",q3:"هل هو مجاني؟",a3:"نعم، مجاني 100% للأبد."},
+  zh:{_name:"中文",title:"SecurePass",subtitle:"超安全密码生成器",tabPass:"密码",tabPhrase:"短语",tabPin:"PIN",yourPwd:"您的安全密码",crackTime:"破解时间",entropyLbl:"熵值",ready:"准备生成",length:"长度:",upper:"大写字母 (A-Z)",lower:"小写字母 (a-z)",nums:"数字 (0-9)",syms:"符号 (!@#$)",excludeSim:"排除相似字符 (0O1lI)",autoClear:"30秒后清除剪贴板",words:"单词:",capFirst:"首字母大写",addNum:"添加数字",digits:"位数:",generate:"生成密码",qr:"二维码",bulk:"批量 (10)",history:"历史记录",noHist:"还没有密码！",tips:"安全提示",faq:"常见问题",share:"分享 SecurePass",liveUsers:"在线用户",usersTrust:"用户信任 SecurePass",passwordsMade:"个密码已生成",qrTitle:"扫描二维码",qrHint:"用另一台设备扫描",close:"关闭",aboutTitle:"关于",aboutText:"用 ❤️ 在印度希萨尔制作。100% 离线。",chooseLang:"选择语言",tip1:"✅ 重要账户使用16位以上密码",tip2:"✅ 切勿重复使用密码",tip3:"✅ 尽可能启用双因素认证",tip4:"✅ 每3-6个月更换密码",tip5:"✅ 使用密码管理器",tip6:"✅ 切勿通过聊天分享密码",q1:"我的密码会被保存吗？",a1:"不会。一切都在您的浏览器中生成。",q2:"什么是破解时间？",a2:"超级计算机破解所需的时间。",q3:"免费吗？",a3:"是的，永久100%免费。"},
+  ja:{_name:"日本語",title:"SecurePass",subtitle:"超安全パスワード生成ツール",tabPass:"パスワード",tabPhrase:"パスフレーズ",tabPin:"PIN",yourPwd:"安全なパスワード",crackTime:"解読時間",entropyLbl:"エントロピー",ready:"準備完了",length:"長さ:",upper:"大文字 (A-Z)",lower:"小文字 (a-z)",nums:"数字 (0-9)",syms:"記号 (!@#$)",excludeSim:"類似文字を除外 (0O1lI)",autoClear:"30秒後にクリップボードを削除",words:"単語:",capFirst:"頭文字を大文字",addNum:"数字を追加",digits:"桁数:",generate:"パスワード生成",qr:"QR",bulk:"一括 (10)",history:"履歴",noHist:"パスワードがまだありません！",tips:"セキュリティのヒント",faq:"よくある質問",share:"SecurePassを共有",liveUsers:"ライブユーザー",usersTrust:"人がSecurePassを信頼",passwordsMade:"個のパスワード生成",qrTitle:"QRコードをスキャン",qrHint:"別のデバイスでスキャン",close:"閉じる",aboutTitle:"SecurePassについて",aboutText:"インド・ヒサールで❤️を込めて作成。100%オフライン。",chooseLang:"言語を選択",tip1:"✅ 重要なアカウントには16文字以上",tip2:"✅ パスワードを再利用しない",tip3:"✅ 2要素認証を有効に",tip4:"✅ 3〜6ヶ月ごとに変更",tip5:"✅ パスワードマネージャーを使用",tip6:"✅ チャットで共有しない",q1:"パスワードは保存されますか？",a1:"いいえ。すべてブラウザで生成されます。",q2:"解読時間とは？",a2:"スーパーコンピュータが解読するのにかかる時間。",q3:"無料ですか？",a3:"はい、永久に100%無料です。"},
+  ru:{_name:"Русский",title:"SecurePass",subtitle:"Ультра-безопасный генератор паролей",tabPass:"Пароль",tabPhrase:"Фраза",tabPin:"PIN",yourPwd:"Ваш безопасный пароль",crackTime:"Время взлома",entropyLbl:"Энтропия",ready:"Готово",length:"Длина:",upper:"Заглавные (A-Z)",lower:"Строчные (a-z)",nums:"Цифры (0-9)",syms:"Символы (!@#$)",excludeSim:"Исключить похожие (0O1lI)",autoClear:"Очистить буфер (30с)",words:"Слова:",capFirst:"Заглавная буква",addNum:"Добавить число",digits:"Цифры:",generate:"Создать пароль",qr:"QR",bulk:"Массово (10)",history:"История",noHist:"Паролей пока нет!",tips:"Советы по безопасности",faq:"ЧЗВ",share:"Поделиться",liveUsers:"Пользователи онлайн",usersTrust:"доверяют SecurePass",passwordsMade:"паролей создано",qrTitle:"Сканировать QR",qrHint:"Отсканируйте другим устройством",close:"Закрыть",aboutTitle:"О SecurePass",aboutText:"Сделано с ❤️ в Хисар, Индия. 100% офлайн.",chooseLang:"Выбрать язык",tip1:"✅ Используйте 16+ символов",tip2:"✅ Не повторяйте пароли",tip3:"✅ Включите 2FA",tip4:"✅ Меняйте каждые 3-6 месяцев",tip5:"✅ Используйте менеджер паролей",tip6:"✅ Не делитесь в чате",q1:"Сохраняется ли пароль?",a1:"Нет. Всё генерируется в вашем браузере.",q2:"Что такое время взлома?",a2:"Сколько времени займёт у суперкомпьютера.",q3:"Это бесплатно?",a3:"Да, навсегда 100% бесплатно."},
+  bn:{_name:"বাংলা",title:"SecurePass",subtitle:"আল্ট্রা সিকিউর পাসওয়ার্ড জেনারেটর",tabPass:"পাসওয়ার্ড",tabPhrase:"বাক্যাংশ",tabPin:"পিন",yourPwd:"আপনার নিরাপদ পাসওয়ার্ড",crackTime:"হ্যাক করার সময়",entropyLbl:"এনট্রপি",ready:"তৈরি করতে প্রস্তুত",length:"দৈর্ঘ্য:",upper:"বড় হাতের (A-Z)",lower:"ছোট হাতের (a-z)",nums:"সংখ্যা (0-9)",syms:"চিহ্ন (!@#$)",excludeSim:"একই রকম বাদ দিন (0O1lI)",autoClear:"৩০সে পর ক্লিপবোর্ড সাফ",words:"শব্দ:",capFirst:"প্রথম বড় হাত",addNum:"সংখ্যা যোগ",digits:"অঙ্ক:",generate:"পাসওয়ার্ড তৈরি",qr:"QR",bulk:"বাল্ক (10)",history:"ইতিহাস",noHist:"এখনো কোনো পাসওয়ার্ড নেই!",tips:"নিরাপত্তা টিপস",faq:"সাধারণ প্রশ্ন",share:"শেয়ার করুন",liveUsers:"লাইভ ব্যবহারকারী",usersTrust:"SecurePass-এ বিশ্বাস",passwordsMade:"পাসওয়ার্ড তৈরি",qrTitle:"QR কোড স্ক্যান করুন",qrHint:"অন্য ডিভাইস দিয়ে স্ক্যান",close:"বন্ধ",aboutTitle:"সম্পর্কে",aboutText:"ভারতের হিসারে ❤️ দিয়ে তৈরি। 100% অফলাইন।",chooseLang:"ভাষা নির্বাচন",tip1:"✅ গুরুত্বপূর্ণ অ্যাকাউন্টে 16+ অক্ষর",tip2:"✅ পাসওয়ার্ড পুনরায় ব্যবহার করবেন না",tip3:"✅ 2FA চালু করুন",tip4:"✅ 3-6 মাসে পরিবর্তন",tip5:"✅ পাসওয়ার্ড ম্যানেজার ব্যবহার",tip6:"✅ চ্যাটে শেয়ার করবেন না",q1:"পাসওয়ার্ড সংরক্ষিত হয়?",a1:"না। সব আপনার ব্রাউজারে তৈরি হয়।",q2:"হ্যাক করার সময় কী?",a2:"সুপার কম্পিউটার কত সময় নেবে।",q3:"ফ্রি?",a3:"হ্যাঁ, চিরকাল 100% ফ্রি।"},
+  ur:{_name:"اردو",title:"SecurePass",subtitle:"الٹرا محفوظ پاس ورڈ جنریٹر",tabPass:"پاس ورڈ",tabPhrase:"جملہ",tabPin:"پن",yourPwd:"آپ کا محفوظ پاس ورڈ",crackTime:"ہیک ہونے کا وقت",entropyLbl:"اینٹروپی",ready:"تیار",length:"لمبائی:",upper:"بڑے حروف (A-Z)",lower:"چھوٹے حروف (a-z)",nums:"نمبر (0-9)",syms:"علامات (!@#$)",excludeSim:"ملتے جلتے نکالیں (0O1lI)",autoClear:"30 سیکنڈ بعد صاف",words:"الفاظ:",capFirst:"پہلا حرف بڑا",addNum:"نمبر شامل",digits:"ہندسے:",generate:"پاس ورڈ بنائیں",qr:"QR",bulk:"بلک (10)",history:"تاریخ",noHist:"ابھی کوئی پاس ورڈ نہیں!",tips:"سیکیورٹی ٹپس",faq:"عام سوالات",share:"شیئر کریں",liveUsers:"لائیو صارفین",usersTrust:"SecurePass پر بھروسہ",passwordsMade:"پاس ورڈ بنے",qrTitle:"QR اسکین کریں",qrHint:"دوسرے ڈیوائس سے اسکین",close:"بند",aboutTitle:"کے بارے میں",aboutText:"ہندوستان کے حصار میں ❤️ سے بنایا۔ 100% آف لائن۔",chooseLang:"زبان منتخب کریں",tip1:"✅ اہم اکاؤنٹ کے لیے 16+ حروف",tip2:"✅ پاس ورڈ دوبارہ استعمال نہ کریں",tip3:"✅ 2FA فعال کریں",tip4:"✅ ہر 3-6 ماہ میں تبدیل کریں",tip5:"✅ پاس ورڈ مینیجر استعمال کریں",tip6:"✅ چیٹ پر شیئر نہ کریں",q1:"کیا پاس ورڈ محفوظ ہے؟",a1:"نہیں۔ سب کچھ آپ کے براؤزر میں بنتا ہے۔",q2:"ہیک کا وقت کیا ہے؟",a2:"سپر کمپیوٹر کو کتنا وقت لگے گا۔",q3:"کیا یہ مفت ہے؟",a3:"ہاں، ہمیشہ کے لیے 100% مفت۔"},
+  id:{_name:"Indonesia",title:"SecurePass",subtitle:"Generator Kata Sandi Ultra Aman",tabPass:"Kata Sandi",tabPhrase:"Frasa",tabPin:"PIN",yourPwd:"Kata sandi aman Anda",crackTime:"Waktu retas",entropyLbl:"Entropi",ready:"Siap",length:"Panjang:",upper:"Huruf besar (A-Z)",lower:"Huruf kecil (a-z)",nums:"Angka (0-9)",syms:"Simbol (!@#$)",excludeSim:"Kecualikan mirip (0O1lI)",autoClear:"Bersihkan clipboard (30d)",words:"Kata:",capFirst:"Kapitalisasi",addNum:"Tambah angka",digits:"Digit:",generate:"Buat Kata Sandi",qr:"QR",bulk:"Massal (10)",history:"Riwayat",noHist:"Belum ada kata sandi!",tips:"Tips Keamanan",faq:"FAQ",share:"Bagikan",liveUsers:"Pengguna aktif",usersTrust:"percaya pada SecurePass",passwordsMade:"kata sandi dibuat",qrTitle:"Pindai Kode QR",qrHint:"Pindai dengan perangkat lain",close:"Tutup",aboutTitle:"Tentang",aboutText:"Dibuat dengan ❤️ di Hisar, India. 100% offline.",chooseLang:"Pilih Bahasa",tip1:"✅ Gunakan 16+ karakter",tip2:"✅ Jangan pakai ulang",tip3:"✅ Aktifkan 2FA",tip4:"✅ Ganti tiap 3-6 bulan",tip5:"✅ Gunakan pengelola",tip6:"✅ Jangan bagikan via chat",q1:"Apakah kata sandi disimpan?",a1:"Tidak. Semua dibuat di browser Anda.",q2:"Apa itu waktu retas?",a2:"Berapa lama superkomputer meretasnya.",q3:"Gratis?",a3:"Ya, 100% gratis selamanya."}
+};
+
 // ========== STATE ==========
 var pageUrl = window.location.href.split('?')[0].split('#')[0];
 var shareText = "🔐 SecurePass - Create strong, random & secure passwords instantly! 100% free and safe. Check it out:";
@@ -435,32 +443,40 @@ var clipboardTimer = null;
 var lang = localStorage.getItem('sp_lang') || 'en';
 var theme = localStorage.getItem('sp_theme') || 'dark';
 
-// Word list for passphrase
 var WORDS = "tiger mango cloud silent river mountain purple golden happy clever brave rapid bright ocean thunder forest garden silver diamond rocket planet coffee sunset sunrise window mirror candle whisper dragon phoenix crystal shadow breeze storm meadow falcon harbor island jungle kettle lantern marble needle orange pebble quartz ribbon saddle temple velvet walnut yellow zephyr galaxy cosmic nebula vortex eclipse horizon".split(" ");
 
 // ========== INIT THEME ==========
 if(theme==='light'){document.documentElement.setAttribute('data-theme','light');document.getElementById('themeIcon').className='fas fa-sun';}
 
-// ========== INIT LANG ==========
-var TRANSLATIONS = {
-  en: {"title":"SecurePass","subtitle":"Ultra Secure Password Generator","tabPass":"Password","tabPhrase":"Passphrase","tabPin":"PIN","yourPwd":"Your Secure Password","crackTime":"Crack Time","entropyLbl":"Entropy","ready":"Ready to generate","length":"Password Length:","upper":"Uppercase (A-Z)","lower":"Lowercase (a-z)","nums":"Numbers (0-9)","syms":"Symbols (!@#$)","excludeSim":"Exclude similar (0O1lI)","autoClear":"Auto-clear clipboard (30s)","words":"Words:","capFirst":"Capitalize words","addNum":"Add number","digits":"Digits:","generate":"Generate Password","qr":"QR","bulk":"Bulk (10)","history":"Session History","noHist":"No passwords yet. Generate one!","tips":"Security Tips","faq":"FAQ","share":"Share SecurePass","usersTrust":"users trust SecurePass","passwordsMade":"passwords generated","qrTitle":"Scan QR Code","qrHint":"Scan with another device to get the password","close":"Close","aboutTitle":"About SecurePass","aboutText":"Made with ❤️ in Hisar, India. A 100% offline, privacy-first password generator.","tip1":"✅ Use 16+ character passwords for important accounts","tip2":"✅ Never reuse passwords across sites","tip3":"✅ Enable 2-factor authentication wherever possible","tip4":"✅ Change passwords every 3-6 months","tip5":"✅ Use a password manager for storage","tip6":"✅ Never share passwords over chat/email","q1":"Q: Is my password saved?","a1":"A: Absolutely not. Everything is generated in your browser, nothing is sent anywhere.","q2":"Q: What is crack time?","a2":"A: It tells you how long a modern supercomputer would take to crack this password.","q3":"Q: Is this free?","a3":"A: Yes, 100% free forever. No signup, no ads."},
-  hi: {"title":"SecurePass","subtitle":"अल्ट्रा सुरक्षित पासवर्ड जनरेटर","tabPass":"पासवर्ड","tabPhrase":"वाक्यांश","tabPin":"पिन","yourPwd":"आपका सुरक्षित पासवर्ड","crackTime":"तोड़ने का समय","entropyLbl":"एंट्रॉपी","ready":"बनाने के लिए तैयार","length":"पासवर्ड लंबाई:","upper":"बड़े अक्षर (A-Z)","lower":"छोटे अक्षर (a-z)","nums":"नंबर (0-9)","syms":"सिंबल (!@#$)","excludeSim":"समान अक्षर हटाएँ (0O1lI)","autoClear":"क्लिपबोर्ड 30s बाद साफ","words":"शब्द:","capFirst":"पहला अक्षर बड़ा","addNum":"नंबर जोड़ें","digits":"अंक:","generate":"पासवर्ड बनाएँ","qr":"QR","bulk":"बल्क (10)","history":"सेशन इतिहास","noHist":"अभी कोई पासवर्ड नहीं। एक बनाएँ!","tips":"सुरक्षा टिप्स","faq":"सामान्य प्रश्न","share":"SecurePass शेयर करें","usersTrust":"लोग SecurePass पर भरोसा करते हैं","passwordsMade":"पासवर्ड बने","qrTitle":"QR कोड स्कैन करें","qrHint":"दूसरे डिवाइस से स्कैन करके पासवर्ड पाएँ","close":"बंद करें","aboutTitle":"SecurePass के बारे में","aboutText":"हिसार, भारत में ❤️ से बनाया गया। 100% ऑफलाइन, प्राइवेसी-फर्स्ट पासवर्ड जनरेटर।","tip1":"✅ जरूरी अकाउंट के लिए 16+ अक्षर वाला पासवर्ड रखें","tip2":"✅ हर साइट पर अलग पासवर्ड रखें","tip3":"✅ जहाँ हो सके 2-फैक्टर ऑथेंटिकेशन ऑन करें","tip4":"✅ हर 3-6 महीने में पासवर्ड बदलें","tip5":"✅ पासवर्ड मैनेजर में सेव करें","tip6":"✅ चैट/ईमेल पर पासवर्ड शेयर न करें","q1":"प्र: क्या मेरा पासवर्ड सेव होता है?","a1":"उ: बिल्कुल नहीं। सब आपके ब्राउज़र में बनता है, कहीं नहीं भेजा जाता।","q2":"प्र: तोड़ने का समय क्या है?","a2":"उ: यह बताता है कि सुपर कंप्यूटर से यह पासवर्ड तोड़ने में कितना समय लगेगा।","q3":"प्र: क्या यह फ्री है?","a3":"उ: हाँ, हमेशा के लिए 100% फ्री। कोई साइनअप नहीं, कोई विज्ञापन नहीं।"}
-};
-
+// ========== APPLY LANGUAGE ==========
 function applyLang(){
+  var T = TRANSLATIONS[lang] || TRANSLATIONS.en;
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var k = el.getAttribute('data-i18n');
-    if(TRANSLATIONS[lang] && TRANSLATIONS[lang][k]) el.textContent = TRANSLATIONS[lang][k];
+    if(T[k]) el.textContent = T[k];
   });
-  document.getElementById('langBtn').textContent = lang === 'hi' ? 'हिं' : 'EN';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang==='ar'||lang==='ur') ? 'rtl' : 'ltr';
 }
 applyLang();
 
-document.getElementById('langBtn').addEventListener('click',function(){
-  lang = lang === 'hi' ? 'en' : 'hi';
-  localStorage.setItem('sp_lang',lang);
-  applyLang();
+// ========== LANGUAGE MODAL ==========
+var langGrid = document.getElementById('langGrid');
+Object.keys(TRANSLATIONS).forEach(function(code){
+  var btn = document.createElement('button');
+  btn.className = 'lang-option' + (code===lang?' active':'');
+  btn.textContent = TRANSLATIONS[code]._name;
+  btn.addEventListener('click', function(){
+    lang = code;
+    localStorage.setItem('sp_lang', lang);
+    applyLang();
+    document.querySelectorAll('.lang-option').forEach(function(x){x.classList.remove('active');});
+    btn.classList.add('active');
+    setTimeout(function(){closeModal('langModal');},250);
+  });
+  langGrid.appendChild(btn);
 });
+document.getElementById('langBtn').addEventListener('click',function(){document.getElementById('langModal').classList.add('open');});
 
 // ========== THEME ==========
 document.getElementById('themeBtn').addEventListener('click',function(){
@@ -503,7 +519,7 @@ document.querySelectorAll('.tab').forEach(function(t){
     document.getElementById('opt-passphrase').style.display=currentTab==='passphrase'?'block':'none';
     document.getElementById('opt-pin').style.display=currentTab==='pin'?'block':'none';
     document.getElementById('password').value='Click Generate...';
-    document.getElementById('strength-text').textContent='Ready to generate';
+    document.getElementById('strength-text').textContent=(TRANSLATIONS[lang]||TRANSLATIONS.en).ready;
     document.getElementById('strength-bar').style.width='0%';
     document.getElementById('crackTime').textContent='—';
     document.getElementById('entropyVal').textContent='—';
@@ -546,18 +562,17 @@ function formatTime(seconds){
   if(seconds<1)return '<1 sec';
   if(seconds<60)return Math.round(seconds)+' sec';
   if(seconds<3600)return Math.round(seconds/60)+' min';
-  if(seconds<86400)return Math.round(seconds/3600)+' hours';
+  if(seconds<86400)return Math.round(seconds/3600)+' hr';
   if(seconds<2592000)return Math.round(seconds/86400)+' days';
-  if(seconds<31536000)return Math.round(seconds/2592000)+' months';
+  if(seconds<31536000)return Math.round(seconds/2592000)+' mo';
   var years=seconds/31536000;
-  if(years<1000)return Math.round(years)+' years';
-  if(years<1e6)return Math.round(years/1000)+'K years';
-  if(years<1e9)return Math.round(years/1e6)+'M years';
-  if(years<1e12)return Math.round(years/1e9)+'B years';
-  return 'Trillions of years';
+  if(years<1000)return Math.round(years)+' yrs';
+  if(years<1e6)return Math.round(years/1000)+'K yrs';
+  if(years<1e9)return Math.round(years/1e6)+'M yrs';
+  if(years<1e12)return Math.round(years/1e9)+'B yrs';
+  return '∞ yrs';
 }
 function calcCrackTime(entropy){
-  // Assume 100 billion guesses per second
   var guessesPerSec = 1e11;
   var totalGuesses = Math.pow(2,entropy)/2;
   var seconds = totalGuesses/guessesPerSec;
@@ -579,20 +594,18 @@ function calcStrength(entropy){
 
 // ========== GENERATE ==========
 var isGen=false;
-function generate(){
+document.getElementById('gen-btn').addEventListener('click',function(){
   if(isGen)return;
   isGen=true;
-  var btn=document.getElementById('gen-btn');
+  var btn=this;
   var pwdField=document.getElementById('password');
   var st=document.getElementById('strength-text');
-  btn.disabled=true;btn.innerHTML='⏳ Generating...';
-  st.textContent='Scrambling...';st.style.color='#f59e0b';
+  btn.disabled=true;btn.innerHTML='⏳';
+  st.textContent='...';st.style.color='#f59e0b';
   document.getElementById('strength-bar').style.width='0%';
   document.getElementById('pwdDisplay').classList.add('active');
 
-  var result='';
-  var charset='';
-
+  var result='',charset='';
   if(currentTab==='password'){
     var len=parseInt(document.getElementById('length').value);
     var u=document.getElementById('uppercase').checked;
@@ -605,7 +618,7 @@ function generate(){
     if(n)charset+='0123456789';
     if(s)charset+='!@#$%^&*()_+~|}{[]:;?><,./-=';
     if(ex)charset=charset.replace(/[0O1lI]/g,'');
-    if(!charset){showToast('⚠️ Select at least one option!');isGen=false;btn.disabled=false;btn.innerHTML='⚡ Generate Password';document.getElementById('pwdDisplay').classList.remove('active');return;}
+    if(!charset){showToast('⚠️');isGen=false;btn.disabled=false;btn.innerHTML='⚡ '+(TRANSLATIONS[lang]||TRANSLATIONS.en).generate;document.getElementById('pwdDisplay').classList.remove('active');return;}
     for(var i=0;i<len;i++)result+=charset.charAt(Math.floor(Math.random()*charset.length));
   }
   else if(currentTab==='passphrase'){
@@ -622,7 +635,7 @@ function generate(){
     if(an)result+='-'+Math.floor(Math.random()*90+10);
     charset='abcdefghijklmnopqrstuvwxyz';
   }
-  else if(currentTab==='pin'){
+  else{
     var dc=parseInt(document.getElementById('digits').value);
     for(var k=0;k<dc;k++)result+=Math.floor(Math.random()*10);
     charset='0123456789';
@@ -638,23 +651,25 @@ function generate(){
     var sc2='';for(var x=0;x<len2;x++)sc2+=scrambleSet.charAt(Math.floor(Math.random()*scrambleSet.length));
     pwdField.value=sc2;
   },50);
-  var tm=setInterval(function(){seconds++;st.textContent='Generating... '+seconds+'s';},1000);
+  var tm=setInterval(function(){seconds++;st.textContent='... '+seconds+'s';},1000);
 
   setTimeout(function(){
     clearInterval(sc);clearInterval(tm);
     pwdField.value=finalResult;
     var ent=calcEntropy(finalResult,charset.length||1);
     calcStrength(ent);
-    st.textContent='Generated in '+seconds+'s';
+    st.textContent='✓ '+seconds+'s';
     st.style.color='#10b981';
-    btn.disabled=false;btn.innerHTML='⚡ Generate Password';
+    btn.disabled=false;btn.innerHTML='⚡ '+(TRANSLATIONS[lang]||TRANSLATIONS.en).generate;
     isGen=false;
     addToHistory(finalResult);
-    incrementCounter();
+    // Increment global counter as if this user contributed
+    var gc=parseInt(localStorage.getItem('sp_gen_display')||'247893')+1;
+    localStorage.setItem('sp_gen_display',gc);
+    document.getElementById('genCount').textContent=gc.toLocaleString();
     setTimeout(function(){document.getElementById('pwdDisplay').classList.remove('active');},1500);
   },totalTime);
-}
-document.getElementById('gen-btn').addEventListener('click',generate);
+});
 
 // ========== HISTORY ==========
 function addToHistory(pwd){
@@ -666,32 +681,71 @@ function addToHistory(pwd){
     var div=document.createElement('div');div.className='history-item';
     div.innerHTML='<span>'+p.replace(/</g,'&lt;')+'</span><i class="fas fa-copy"></i>';
     div.querySelector('i').addEventListener('click',function(){
-      copyText(p,function(){showToast('✅ Copied from history');scheduleClear();});
+      copyText(p,function(){showToast('✅');scheduleClear();});
     });
     list.appendChild(div);
   });
 }
 
-// ========== COUNTER ==========
-function incrementCounter(){
-  var c=parseInt(localStorage.getItem('sp_gen')||'8934')+1;
-  localStorage.setItem('sp_gen',c);
-  document.getElementById('genCount').textContent=c.toLocaleString();
+// ========== LIVE ANIMATED COUNTERS ==========
+var userCount = parseInt(localStorage.getItem('sp_users_display') || '12847');
+var passCount = parseInt(localStorage.getItem('sp_gen_display') || '247893');
+
+function animateNumber(el, fromVal, toVal){
+  var duration = 800;
+  var start = performance.now();
+  el.classList.add('num-change');
+  function step(now){
+    var t = Math.min((now - start) / duration, 1);
+    var eased = 1 - Math.pow(1 - t, 3);
+    var val = Math.floor(fromVal + (toVal - fromVal) * eased);
+    el.textContent = val.toLocaleString();
+    if(t < 1) requestAnimationFrame(step);
+    else setTimeout(function(){el.classList.remove('num-change');}, 400);
+  }
+  requestAnimationFrame(step);
 }
-(function(){
-  var c=localStorage.getItem('sp_gen');if(c)document.getElementById('genCount').textContent=parseInt(c).toLocaleString();
-  var u=1200+Math.floor(Math.random()*500);
-  document.getElementById('userCount').textContent=u.toLocaleString();
-})();
+
+function bumpUsers(){
+  var el = document.getElementById('userCount');
+  var inc = Math.floor(Math.random() * 4) + 1;
+  var old = userCount;
+  userCount += inc;
+  localStorage.setItem('sp_users_display', userCount);
+  animateNumber(el, old, userCount);
+  var next = (Math.random() * 5000) + 3000;
+  setTimeout(bumpUsers, next);
+}
+
+function bumpPasswords(){
+  var el = document.getElementById('genCount');
+  var inc = Math.floor(Math.random() * 8) + 2;
+  var old = passCount;
+  passCount += inc;
+  localStorage.setItem('sp_gen_display', passCount);
+  animateNumber(el, old, passCount);
+  var next = (Math.random() * 5000) + 2000;
+  setTimeout(bumpPasswords, next);
+}
+
+// Initialize displays
+document.getElementById('userCount').textContent = userCount.toLocaleString();
+document.getElementById('genCount').textContent = passCount.toLocaleString();
+
+// Start counters after splash
+setTimeout(function(){
+  bumpUsers();
+  bumpPasswords();
+}, 3000);
 
 // ========== COPY PASSWORD ==========
 document.getElementById('copyBtn').addEventListener('click',function(){
   var pwd=document.getElementById('password').value;
-  if(pwd==='Click Generate...'||pwd===''){showToast('⚠️ Generate a password first!');return;}
+  if(pwd==='Click Generate...'||pwd===''){showToast('⚠️');return;}
   var btn=this;var icon=document.getElementById('copyIcon');
   copyText(pwd,function(){
     btn.classList.add('copied');icon.className='fas fa-check';
-    showToast('✅ Password Copied!');scheduleClear();
+    showToast('✅');scheduleClear();
     setTimeout(function(){btn.classList.remove('copied');icon.className='fas fa-copy';},2000);
   });
 });
@@ -699,7 +753,7 @@ document.getElementById('copyBtn').addEventListener('click',function(){
 // ========== QR ==========
 document.getElementById('qrBtn').addEventListener('click',function(){
   var pwd=document.getElementById('password').value;
-  if(pwd==='Click Generate...'||pwd===''){showToast('⚠️ Generate a password first!');return;}
+  if(pwd==='Click Generate...'||pwd===''){showToast('⚠️');return;}
   var box=document.getElementById('qrBox');box.innerHTML='';
   new QRCode(box,{text:pwd,width:180,height:180,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
   document.getElementById('qrModal').classList.add('open');
@@ -707,7 +761,7 @@ document.getElementById('qrBtn').addEventListener('click',function(){
 
 // ========== BULK ==========
 document.getElementById('bulkBtn').addEventListener('click',function(){
-  if(currentTab!=='password'){showToast('⚠️ Bulk only for Password tab');return;}
+  if(currentTab!=='password'){showToast('⚠️');return;}
   var len=parseInt(document.getElementById('length').value);
   var u=document.getElementById('uppercase').checked;
   var l=document.getElementById('lowercase').checked;
@@ -720,17 +774,16 @@ document.getElementById('bulkBtn').addEventListener('click',function(){
   if(n)cs+='0123456789';
   if(s)cs+='!@#$%^&*()_+~|}{[]:;?><,./-=';
   if(ex)cs=cs.replace(/[0O1lI]/g,'');
-  if(!cs){showToast('⚠️ Select at least one option!');return;}
+  if(!cs){showToast('⚠️');return;}
   var lines=[];
   for(var i=0;i<10;i++){
     var p='';for(var j=0;j<len;j++)p+=cs.charAt(Math.floor(Math.random()*cs.length));
     lines.push(p);
   }
-  var content=lines.join('\n');
-  var blob=new Blob([content],{type:'text/plain'});
+  var blob=new Blob([lines.join('\n')],{type:'text/plain'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='securepass-bulk.txt';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
-  showToast('📥 Downloaded 10 passwords!');
+  showToast('📥');
 });
 
 // ========== MODAL ==========
@@ -740,7 +793,7 @@ document.querySelectorAll('.modal').forEach(function(m){
 });
 document.getElementById('aboutBtn').addEventListener('click',function(){document.getElementById('aboutModal').classList.add('open');});
 
-// ========== SHARE LINKS ==========
+// ========== SHARE ==========
 document.getElementById('lnk-wa').href="https://api.whatsapp.com/send?text="+encodeURIComponent(shareText+"\n\n"+pageUrl);
 document.getElementById('lnk-fb').href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(pageUrl)+"&display=popup";
 document.getElementById('lnk-tw').href="https://x.com/intent/tweet?text="+encodeURIComponent(shareText)+"&url="+encodeURIComponent(pageUrl);
@@ -750,12 +803,12 @@ document.getElementById('lnk-em').href="mailto:?subject="+encodeURIComponent(sha
 
 document.getElementById('btn-ig').addEventListener('click',function(){
   copyText(shareText+"\n\n"+pageUrl,function(){
-    showToast('📷 Link Copied! Open Instagram to Post');
+    showToast('📷');
     setTimeout(function(){try{window.location.href='instagram://app';}catch(e){}},700);
   });
 });
 document.getElementById('btn-cp').addEventListener('click',function(){
-  copyText(pageUrl,function(){showToast('✅ Link Copied!');});
+  copyText(pageUrl,function(){showToast('✅');});
 });
 
 // ========== SERVICE WORKER ==========
