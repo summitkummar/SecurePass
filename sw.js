@@ -1,4 +1,4 @@
-const CACHE_NAME = 'securepass-v10';
+const CACHE_NAME = 'passvaultx-v1';
 const urlsToCache = [
   './manifest.json',
   './icon.svg'
