@@ -1,7 +1,7 @@
 {
-  "name": "SecurePass - Password Generator",
-  "short_name": "SecurePass",
-  "description": "Ultra Secure Password Generator - Create strong, random passwords instantly.",
+  "name": "PassVaultX - Premium Security Suite",
+  "short_name": "PassVaultX",
+  "description": "All-in-one security suite: password generator, 2FA codes, password vault, file encryptor, breach checker.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
